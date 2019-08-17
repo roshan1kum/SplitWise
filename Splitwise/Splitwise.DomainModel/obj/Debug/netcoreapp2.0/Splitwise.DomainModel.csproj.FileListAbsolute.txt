@@ -1,0 +1,8 @@
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.DomainModel\bin\Debug\netcoreapp2.0\Splitwise.DomainModel.deps.json
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.DomainModel\bin\Debug\netcoreapp2.0\Splitwise.DomainModel.dll
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.DomainModel\bin\Debug\netcoreapp2.0\Splitwise.DomainModel.pdb
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.DomainModel\obj\Debug\netcoreapp2.0\Splitwise.DomainModel.csproj.CoreCompileInputs.cache
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.DomainModel\obj\Debug\netcoreapp2.0\Splitwise.DomainModel.AssemblyInfoInputs.cache
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.DomainModel\obj\Debug\netcoreapp2.0\Splitwise.DomainModel.AssemblyInfo.cs
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.DomainModel\obj\Debug\netcoreapp2.0\Splitwise.DomainModel.dll
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.DomainModel\obj\Debug\netcoreapp2.0\Splitwise.DomainModel.pdb
