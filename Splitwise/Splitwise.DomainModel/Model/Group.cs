@@ -11,10 +11,13 @@ namespace Splitwise.DomainModel.Model
         public string GroupName { get; set; }
         public bool debt { get; set; }
         public DateTime createdDate { get; set; }
-        
+
+        public int categoryId { get; set; }
         public int createrId { get; set; }
         [ForeignKey("createrId")]
         public virtual ApplicationUser user { get; set; } 
+        [ForeignKey("categoryId")]
+        public virtual Category category { get; set; }
 
     }
 }

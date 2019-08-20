@@ -58,3 +58,18 @@
 select [dbo].[Expense].Description,[dbo].[Expense].cost
 from [dbo].[Expense]
 where [dbo].[Expense].creater_ID = 1
+
+
+GROUP DASHBOARD
+
+select [dbo].[Expense].Description,[dbo].[Bills].[split],[dbo].[user].Name,u1.Name as payer,u2.Name as CreaterName
+from [dbo].[Expense]
+INNER JOIN [dbo].[user] u1
+ON [dbo].[Expense].paid_by=u1.Id
+INNER JOIN [dbo].[user] u2
+ON [dbo].[Expense].creater_ID=u2.Id
+INNER JOIN [dbo].[Bills]
+ON [dbo].[Expense].Id=[dbo].[Bills].Exp_ID
+INNER JOIN [dbo].[user]
+ON [dbo].[user].Id=[dbo].[Bills].User_ID
+where [dbo].[Expense].Description = 'BOATING' AND [dbo].[Bills].User_ID!=[dbo].[Expense].paid_by
