@@ -8,7 +8,7 @@ namespace Splitwise.DomainModel.Model
     public class SplitwiseContext : DbContext
     {
         #region Properties
-        public DbSet<ApplicationUser> user { get; set; }
+        public DbSet<ApplicationUser> User { get; set; }
         #endregion
 
         #region Constructors 

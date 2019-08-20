@@ -10,50 +10,50 @@ namespace Splitwise.Repository.UnitOfWork
     public class Unitofwork : IUnitofwork
     {
         #region Private Variables
-        private IUserRepository Userrepository;
-        private SplitwiseContext context;
-        private IExpenseRepository ExpenseRepository;
-        private IGroupRepository GroupRepository;
-        private ISettlement SettlementRepository;
+        private IUserRepository userRepository;
+        private SplitwiseContext Context;
+        private IExpenseRepository expenseRepository;
+        private IGroupRepository groupRepository;
+        private ISettlementRepository settlementRepository;
         #endregion
 
         #region Constructors
         public Unitofwork(SplitwiseContext context)
         {
-            this.context = context; 
+            this.Context = context; 
         }
         #endregion
 
         #region Properties
-        public IUserRepository userRepository
+        public IUserRepository UserRepository
         {
             get
             {
-                return Userrepository = new UserRepository(context);
+                return userRepository = new UserRepository(Context);
             }
         }
 
-        public IExpenseRepository expenseRepository
+        public IExpenseRepository ExpenseRepository
         {
             get
             {
-                return ExpenseRepository = new ExpenseRepository(context);
+                return expenseRepository = new ExpenseRepository(Context);
             }
         }
 
-        public IGroupRepository groupRepository
+        public IGroupRepository GroupRepository
         {
             get
             {
-                return GroupRepository = new GroupRepository(context);
+                return groupRepository = new GroupRepository(Context);
             }
         }
 
-        public ISettlement settlementRepository
+        public ISettlementRepository SettlementRepository
         {
             get
             {
-                return SettlementRepository = new Settlement(context);
+                return settlementRepository = new Settlement(Context);
             }
         }
         #endregion

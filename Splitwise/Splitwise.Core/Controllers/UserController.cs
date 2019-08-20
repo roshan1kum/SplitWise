@@ -25,7 +25,7 @@ namespace Splitwise.Core.Controllers
         {
             if (ModelState.IsValid)
             {
-                unitofwork.userRepository.Createuser(user);
+                unitofwork.UserRepository.Createuser(user);
                 await unitofwork.Save();
             }
             return Ok(user);
@@ -38,7 +38,7 @@ namespace Splitwise.Core.Controllers
             {
                 return BadRequest(ModelState);
             }
-            unitofwork.userRepository.EditUSer(user);
+            unitofwork.UserRepository.EditUSer(user);
             try
             {
                 await unitofwork.Save();
@@ -56,7 +56,7 @@ namespace Splitwise.Core.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var user = unitofwork.userRepository.GetUserbyID(id);
+            var user = unitofwork.UserRepository.GetUserbyID(id);
             if (user == null)
             {
                 return NotFound();
@@ -64,21 +64,21 @@ namespace Splitwise.Core.Controllers
             return Ok(user);
         }
         [HttpGet]
-        public IEnumerable<ApplicationUser> getAllUsers()
+        public IEnumerable<ApplicationUser> GetAllUsers()
         {
-            return unitofwork.userRepository.getAllUsers();
+            return unitofwork.UserRepository.getAllUsers();
         }
         [HttpGet("{id}")]
-        public IEnumerable<Friend> showFriend([FromRoute] int id)
+        public IEnumerable<Friend> ShowFriend([FromRoute] int id)
         {
-            return unitofwork.userRepository.ShowFriend(id);
+            return unitofwork.UserRepository.ShowFriend(id);
         }
         [HttpPost("{id}")]
         public async Task<IActionResult> AddFriend([FromRoute] int id,[FromBody] ApplicationUser user)
         {
             if (ModelState.IsValid)
             {
-                unitofwork.userRepository.AddFriend(id, user);
+                unitofwork.UserRepository.AddFriend(id, user);
                 await unitofwork.Save();
             }
             return Ok(user);

@@ -25,7 +25,7 @@ namespace Splitwise.Core.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateGroups([FromBody] Group group)
         {
-            unitofwork.groupRepository.CreateGroup(group);
+            unitofwork.GroupRepository.CreateGroup(group);
             await unitofwork.Save();
             return Ok(group);
         }
@@ -33,13 +33,13 @@ namespace Splitwise.Core.Controllers
         [HttpGet]
         public IEnumerable<Group> GetAllGroup()
         {
-            return unitofwork.groupRepository.getAllGroups();
+            return unitofwork.GroupRepository.GetAllGroups();
         }
 
         [HttpPost]
         public async Task<IActionResult> AddMemebers([FromRoute]int id,[FromBody] ApplicationUser user)
         {
-            unitofwork.groupRepository.AddMembers(id, user);
+            unitofwork.GroupRepository.AddMembers(id, user);
             await unitofwork.Save();
             return Ok(user);
         }
@@ -47,8 +47,8 @@ namespace Splitwise.Core.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteGroup([FromRoute] int id)
         {
-            var groups = unitofwork.groupRepository.getGroupsId(id);
-            unitofwork.groupRepository.deletegroup(id);
+            var groups = unitofwork.GroupRepository.GetGroupsId(id);
+            unitofwork.GroupRepository.Deletegroup(id);
             await unitofwork.Save();
             return Ok(groups);
            

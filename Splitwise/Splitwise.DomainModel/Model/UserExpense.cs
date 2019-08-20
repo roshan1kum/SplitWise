@@ -7,15 +7,15 @@ namespace Splitwise.DomainModel.Model
 {
     public class UserExpense
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public int ExpId { get; set; }
         public int UserId { get; set; }
         public int SplitAmount { get; set; }
 
         [ForeignKey("ExpId")]
-        public virtual Expense expense { get; set; }
+        public virtual Expense Expense { get; set; }
         [ForeignKey("UserId")]
-        public virtual ApplicationUser user { get; set; }
+        public virtual ApplicationUser User { get; set; }
         
     }
 }

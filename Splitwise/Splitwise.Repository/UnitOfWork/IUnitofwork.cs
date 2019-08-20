@@ -8,10 +8,10 @@ namespace Splitwise.Repository.UnitOfWork
 {
     public interface IUnitofwork
     {
-        IUserRepository userRepository { get; }
-        IExpenseRepository expenseRepository { get; }
-        IGroupRepository groupRepository { get; }
-        ISettlement settlementRepository { get; }
+        IUserRepository UserRepository { get; }
+        IExpenseRepository ExpenseRepository { get; }
+        IGroupRepository GroupRepository { get; }
+        ISettlementRepository SettlementRepository { get; }
         Task Save();
     }
 }

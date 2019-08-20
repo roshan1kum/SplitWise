@@ -7,17 +7,17 @@ namespace Splitwise.DomainModel.Model
 {
     public class Group
     {
-        public int grpId { get; set; }
+        public int GrpId { get; set; }
         public string GroupName { get; set; }
-        public bool debt { get; set; }
-        public DateTime createdDate { get; set; }
+        public bool Debt { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-        public int categoryId { get; set; }
-        public int createrId { get; set; }
+        public int CategoryId { get; set; }
+        public int CreaterId { get; set; }
         [ForeignKey("createrId")]
-        public virtual ApplicationUser user { get; set; } 
+        public virtual ApplicationUser User { get; set; } 
         [ForeignKey("categoryId")]
-        public virtual Category category { get; set; }
+        public virtual Category Category { get; set; }
 
     }
 }

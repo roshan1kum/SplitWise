@@ -24,19 +24,18 @@ namespace Splitwise.Repository
         {
             throw new NotImplementedException();
         }
-     
-      
-        public void EditExpense(int id,ExpenseRepository expense)
+
+        public void EditExpense(int id, Expense expense)
         {
             throw new NotImplementedException();
         }
-       
+
         public IEnumerable<ExpenseRepository> GetAllExpenses()
         {
             throw new NotImplementedException();
         }
-        
-        public ExpenseRepository getExpenseID(int id)
+
+        public ExpenseRepository GetExpenseID(int id)
         {
             throw new NotImplementedException();
         }

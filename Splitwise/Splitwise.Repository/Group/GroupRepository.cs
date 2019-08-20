@@ -30,17 +30,17 @@ namespace Splitwise.Repository
             throw new NotImplementedException();
         }
 
-        public void deletegroup(int id)
+        public void Deletegroup(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Group> getAllGroups()
+        public IEnumerable<Group> GetAllGroups()
         {
             throw new NotImplementedException();
         }
 
-        public Group getGroupsId(int id)
+        public Group GetGroupsId(int id)
         {
             throw new NotImplementedException();
         }

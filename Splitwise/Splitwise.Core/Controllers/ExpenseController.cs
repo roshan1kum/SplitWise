@@ -28,7 +28,7 @@ namespace Splitwise.Core.Controllers
         {
             if(ModelState.IsValid)
             {
-                unitofwork.expenseRepository.CreateExpense();
+                unitofwork.ExpenseRepository.CreateExpense();
                 await unitofwork.Save();
             }
             return Ok(expense);
@@ -41,7 +41,7 @@ namespace Splitwise.Core.Controllers
             {
                 return BadRequest(ModelState);
             }
-            unitofwork.expenseRepository.EditExpense(id,expense);
+            unitofwork.ExpenseRepository.EditExpense(id,expense);
             try
             {
                 await unitofwork.Save();
@@ -56,7 +56,7 @@ namespace Splitwise.Core.Controllers
         [HttpGet]
         public IActionResult GetExpenseId([FromRoute] int id)
         {
-            var expense = unitofwork.expenseRepository.getExpenseID(id);
+            var expense = unitofwork.ExpenseRepository.GetExpenseID(id);
             if(expense==null)
             {
                 return NotFound();

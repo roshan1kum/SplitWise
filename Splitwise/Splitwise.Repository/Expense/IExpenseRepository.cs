@@ -11,7 +11,7 @@ namespace Splitwise.Repository
         void CreateExpense();
         IEnumerable<ExpenseRepository> GetAllExpenses();
         void EditExpense(int id,Expense expense);
-        ExpenseRepository getExpenseID(int id);
+        ExpenseRepository GetExpenseID(int id);
      
     }
 }

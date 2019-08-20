@@ -9,10 +9,10 @@ namespace Splitwise.Repository
     public interface IGroupRepository
     {
         void CreateGroup(Group group);
-        IEnumerable<Group> getAllGroups();
+        IEnumerable<Group> GetAllGroups();
         void AddMembers(int grpId,ApplicationUser user);
-        void deletegroup(int id);
-        Group getGroupsId(int id)
+        void Deletegroup(int id);
+        Group GetGroupsId(int id);
         
     }
 }
