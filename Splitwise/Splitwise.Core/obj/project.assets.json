@@ -4746,6 +4746,32 @@
         "runtime": {
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
+      },
+      "Splitwise.DomainModel/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.All": "2.0.8"
+        },
+        "compile": {
+          "bin/placeholder/Splitwise.DomainModel.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Splitwise.DomainModel.dll": {}
+        }
+      },
+      "Splitwise.Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "Splitwise.DomainModel": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Splitwise.Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Splitwise.Repository.dll": {}
+        }
       }
     }
   },
@@ -13006,12 +13032,24 @@
         "windowsazure.storage.8.1.4.nupkg.sha512",
         "windowsazure.storage.nuspec"
       ]
+    },
+    "Splitwise.DomainModel/1.0.0": {
+      "type": "project",
+      "path": "../Splitwise.DomainModel/Splitwise.DomainModel.csproj",
+      "msbuildProject": "../Splitwise.DomainModel/Splitwise.DomainModel.csproj"
+    },
+    "Splitwise.Repository/1.0.0": {
+      "type": "project",
+      "path": "../Splitwise.Repository/Splitwise.Repository.csproj",
+      "msbuildProject": "../Splitwise.Repository/Splitwise.Repository.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.AspNetCore.All >= 2.0.8",
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "Splitwise.DomainModel >= 1.0.0",
+      "Splitwise.Repository >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -13043,7 +13081,14 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\roshan\\Desktop\\splitwise\\Splitwise\\Splitwise.DomainModel\\Splitwise.DomainModel.csproj": {
+              "projectPath": "C:\\Users\\roshan\\Desktop\\splitwise\\Splitwise\\Splitwise.DomainModel\\Splitwise.DomainModel.csproj"
+            },
+            "C:\\Users\\roshan\\Desktop\\splitwise\\Splitwise\\Splitwise.Repository\\Splitwise.Repository.csproj": {
+              "projectPath": "C:\\Users\\roshan\\Desktop\\splitwise\\Splitwise\\Splitwise.Repository\\Splitwise.Repository.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

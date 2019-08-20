@@ -6,3 +6,9 @@ C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Core\obj\Debug\netcoreapp2
 C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Core\obj\Debug\netcoreapp2.0\Splitwise.Core.AssemblyInfo.cs
 C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Core\obj\Debug\netcoreapp2.0\Splitwise.Core.dll
 C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Core\obj\Debug\netcoreapp2.0\Splitwise.Core.pdb
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Core\obj\Debug\netcoreapp2.0\Splitwise.Core.csprojAssemblyReference.cache
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Core\bin\Debug\netcoreapp2.0\Splitwise.DomainModel.dll
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Core\bin\Debug\netcoreapp2.0\Splitwise.Repository.dll
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Core\bin\Debug\netcoreapp2.0\Splitwise.DomainModel.pdb
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Core\bin\Debug\netcoreapp2.0\Splitwise.Repository.pdb
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Core\obj\Debug\netcoreapp2.0\Splitwise.Core.csproj.CopyComplete
