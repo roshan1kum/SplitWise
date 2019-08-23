@@ -8,11 +8,11 @@ namespace Splitwise.Repository
 {
     public interface IGroupRepository
     {
-        void CreateGroup(Group group);
+        Task<Group> CreateGroup(Group group);
         IEnumerable<Group> GetAllGroups();
-        void AddMembers(int grpId,ApplicationUser user);
-        void Deletegroup(int id);
-        Group GetGroupsId(int id);
+        Task<GroupMembers> AddMembers(GroupMembers grp);
+        Task<Group> Deletegroup(int id);
+        Task<Group> GetGroupsId(int id);
         
     }
 }

@@ -66,7 +66,7 @@ namespace Splitwise.Core.Controllers
         [HttpGet]
         public IEnumerable<ApplicationUser> GetAllUsers()
         {
-            return unitofwork.UserRepository.getAllUsers();
+            return unitofwork.UserRepository.GetAllUsers();
         }
         [HttpGet("{id}")]
         public IEnumerable<Friend> ShowFriend([FromRoute] int id)

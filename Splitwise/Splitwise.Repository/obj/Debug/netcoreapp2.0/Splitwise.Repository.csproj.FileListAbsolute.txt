@@ -1,12 +1,12 @@
 C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\bin\Debug\netcoreapp2.0\Splitwise.Repository.deps.json
 C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\bin\Debug\netcoreapp2.0\Splitwise.Repository.dll
 C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\bin\Debug\netcoreapp2.0\Splitwise.Repository.pdb
-C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.csproj.CoreCompileInputs.cache
-C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.AssemblyInfoInputs.cache
-C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.AssemblyInfo.cs
-C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.dll
-C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.pdb
 C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\bin\Debug\netcoreapp2.0\Splitwise.DomainModel.dll
 C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\bin\Debug\netcoreapp2.0\Splitwise.DomainModel.pdb
 C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.csprojAssemblyReference.cache
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.csproj.CoreCompileInputs.cache
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.AssemblyInfoInputs.cache
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.AssemblyInfo.cs
 C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.csproj.CopyComplete
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.dll
+C:\Users\roshan\Desktop\splitwise\Splitwise\Splitwise.Repository\obj\Debug\netcoreapp2.0\Splitwise.Repository.pdb

@@ -8,10 +8,10 @@ namespace Splitwise.Repository
 {
     public interface IExpenseRepository
     {
-        void CreateExpense();
-        IEnumerable<ExpenseRepository> GetAllExpenses();
+        Task<Expense> CreateExpense(Expense expense);
+        IEnumerable<Expense> GetAllExpenses();
         void EditExpense(int id,Expense expense);
-        ExpenseRepository GetExpenseID(int id);
-     
+        Task<Expense> GetExpenseID(int id);
+        Task<UserExpense> AddUser(UserInExpense exp);
     }
 }

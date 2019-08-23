@@ -1,4 +1,5 @@
-﻿using Splitwise.DomainModel.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using Splitwise.DomainModel.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,13 +11,13 @@ namespace Splitwise.Repository.User
     {
 
         #region Private Variables
-        private readonly SplitwiseContext context;
+        private readonly SplitwiseContext Context;
         #endregion
 
         #region Constructors                
-        public UserRepository(SplitwiseContext context)
+        public UserRepository(SplitwiseContext Context)
         {
-            this.context = context;
+            this.Context = Context;
         }
         #endregion
 
@@ -24,31 +25,32 @@ namespace Splitwise.Repository.User
         public void AddFriend(int id,ApplicationUser user)
         {
             throw new NotImplementedException();
+
         }
 
         public void Createuser(ApplicationUser user)
         {
-            throw new NotImplementedException();
+            Context.Add(user);
         }
   
         public void EditUSer(ApplicationUser user)
         {
-            throw new NotImplementedException();
+            Context.Entry(user).State = EntityState.Modified;
         }
 
-        public IEnumerable<ApplicationUser> getAllUsers()
+        public IEnumerable<ApplicationUser> GetAllUsers()
         {
             throw new NotImplementedException();
         }
      
-        public ApplicationUser GetUserbyID(int id)
+        public async Task<ApplicationUser> GetUserbyID(int id)
         {
-            throw new NotImplementedException();
+            return await Context.ApplicationUser.FindAsync(id);
         }
        
         public async Task Save()
         {
-            await context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
 
               
@@ -57,10 +59,7 @@ namespace Splitwise.Repository.User
             throw new NotImplementedException();
         }
     
-        public IEnumerable<GroupRepository> ShowGroup(int userId)
-        {
-            throw new NotImplementedException();
-        }
+       
         #endregion
     }
 }

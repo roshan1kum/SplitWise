@@ -7,19 +7,21 @@ namespace Splitwise.DomainModel.Model
 {
     public class Expense
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public int CreaterId { get; set; }
         public string Description { get; set; }
-        public int cost { get; set; }
-        public int grpId { get; set; }
-        public int paidbyId { get; set; }
+        public int Cost { get; set; }
+        public int GrpId { get; set; }
+        public int? PaidbyId { get; set; }
         public DateTime Date { get; set; }
+        public string Split { get; set; }
+        public List<ApplicationUser> UserExpense { get; set; }
 
         [ForeignKey("CreaterId")]
-        public virtual ApplicationUser user { get; set; }
-        [ForeignKey("grpId")]
-        public virtual Group group { get; set; }
-        [ForeignKey("paidbyId")]
-        public virtual ApplicationUser paiduser { get; set; }
+        public virtual ApplicationUser CreaterExpense { get; set; }
+        [ForeignKey("GrpId")]
+        public virtual Group Group { get; set; }
+        [ForeignKey("PaidbyId")]
+        public virtual ApplicationUser Paiduser { get; set; }
     }
 }

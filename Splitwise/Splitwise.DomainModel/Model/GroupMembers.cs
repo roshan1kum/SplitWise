@@ -7,14 +7,12 @@ namespace Splitwise.DomainModel.Model
 {
     public class GroupMembers
     {
-        public int id { get; set; }
-        public int grpId{ get ;set ;}
-        public int userID { get; set; }
+        public int Id { get; set; }
+        public int GrpId{ get ;set ;}
+        public int? UserID { get; set; }
 
-        [ForeignKey("grpId")]
-        public virtual Group group { get; set; }
-
-        [ForeignKey("userId")]
-        public virtual ApplicationUser user { get; set; }
+        [ForeignKey("GrpId")]
+        public virtual Group Group { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

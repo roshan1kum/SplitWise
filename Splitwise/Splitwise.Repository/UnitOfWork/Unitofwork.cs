@@ -10,8 +10,8 @@ namespace Splitwise.Repository.UnitOfWork
     public class Unitofwork : IUnitofwork
     {
         #region Private Variables
-        private IUserRepository userRepository;
         private SplitwiseContext Context;
+        private IUserRepository userRepository;
         private IExpenseRepository expenseRepository;
         private IGroupRepository groupRepository;
         private ISettlementRepository settlementRepository;
@@ -53,15 +53,15 @@ namespace Splitwise.Repository.UnitOfWork
         {
             get
             {
-                return settlementRepository = new Settlement(Context);
+                return settlementRepository = new SettlementRepository(Context);
             }
         }
         #endregion
 
         #region Public method
-        public Task Save()
+        public async Task Save()
         {
-            throw new NotImplementedException();
+            await Context.SaveChangesAsync();
         }
         #endregion
     }

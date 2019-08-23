@@ -10,14 +10,11 @@ namespace Splitwise.Repository.User
     {
         void Createuser(ApplicationUser user);
         void EditUSer(ApplicationUser user);
-        ApplicationUser GetUserbyID(int id);
-        IEnumerable<ApplicationUser> getAllUsers();
+        Task<ApplicationUser> GetUserbyID(int id);
+        IEnumerable<ApplicationUser> GetAllUsers();
         IEnumerable<Friend> ShowFriend(int userId);
-        //IEnumerable<Group> ShowGroup(int userId);
         void AddFriend(int id,ApplicationUser user);
-       // void AddGroup(ApplicationUser user);
        
 
-       
     }
 }

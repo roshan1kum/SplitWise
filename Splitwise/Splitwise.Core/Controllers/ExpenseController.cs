@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace Splitwise.Core.Controllers
 {
-   public class ExpenseController:Controller
+    [Produces("application/json")]
+    [Route("api/Expense")]
+    public class ExpenseController:Controller
     {
         #region Private variables
         private readonly IUnitofwork unitofwork;
@@ -28,7 +30,7 @@ namespace Splitwise.Core.Controllers
         {
             if(ModelState.IsValid)
             {
-                unitofwork.ExpenseRepository.CreateExpense();
+                await unitofwork.ExpenseRepository.CreateExpense(expense);
                 await unitofwork.Save();
             }
             return Ok(expense);
@@ -53,7 +55,7 @@ namespace Splitwise.Core.Controllers
             return NoContent();
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetExpenseId([FromRoute] int id)
         {
             var expense = unitofwork.ExpenseRepository.GetExpenseID(id);
@@ -63,6 +65,13 @@ namespace Splitwise.Core.Controllers
             }
             return Ok(expense);
         }
+
+        [HttpGet]
+        public IEnumerable<Expense> GetAllExpense()
+        {
+            return unitofwork.ExpenseRepository.GetAllExpenses();
+        }
+
         #endregion
 
 

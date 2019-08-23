@@ -7,14 +7,14 @@ namespace Splitwise.DomainModel.Model
 {
     public class Friend
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public int FriendId{ get; set; }
         public int YourId { get; set; }
 
         [ForeignKey("FreindId")]
-        public virtual ApplicationUser user { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         [ForeignKey("YourId")]
-        public virtual ApplicationUser youruser { get; set; }
+        public virtual ApplicationUser Youruser { get; set; }
     }
 }

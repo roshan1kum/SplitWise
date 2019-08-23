@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace Splitwise.Core.Controllers
 {
-    public class GroupController:Controller
+    [Produces("application/json")]
+    [Route("api/Groups")]
+    public class GroupController : Controller
     {
         #region Private Variable
-        private readonly SplitwiseContext context;
         private readonly IUnitofwork unitofwork;
         #endregion
 
@@ -22,12 +23,18 @@ namespace Splitwise.Core.Controllers
         }
         #endregion
 
+        #region Public method
         [HttpPost]
         public async Task<IActionResult> CreateGroups([FromBody] Group group)
         {
-            unitofwork.GroupRepository.CreateGroup(group);
+            await unitofwork.GroupRepository.CreateGroup(group);
             await unitofwork.Save();
-            return Ok(group);
+            GroupMembers g = new GroupMembers();
+            g.GrpId = group.Id;
+            g.UserID = group.CreatorId;
+            await unitofwork.GroupRepository.AddMembers(g);
+            await unitofwork.Save();
+            return CreatedAtAction("GetAllGroup", new { id = group.Id }, group);
         }
 
         [HttpGet]
@@ -36,23 +43,31 @@ namespace Splitwise.Core.Controllers
             return unitofwork.GroupRepository.GetAllGroups();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddMemebers([FromRoute]int id,[FromBody] ApplicationUser user)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> AddMemebers([FromRoute]int id, [FromBody] GroupMembers grp)
         {
-            unitofwork.GroupRepository.AddMembers(id, user);
+            await unitofwork.GroupRepository.AddMembers(grp);
             await unitofwork.Save();
-            return Ok(user);
+            return Ok(grp);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGroup([FromRoute] int id)
         {
-            var groups = unitofwork.GroupRepository.GetGroupsId(id);
-            unitofwork.GroupRepository.Deletegroup(id);
+            var groups = await unitofwork.GroupRepository.GetGroupsId(id);
+            await unitofwork.GroupRepository.Deletegroup(id);
             await unitofwork.Save();
             return Ok(groups);
            
         }
+
+        [HttpGet("{id}")]
+        public async Task<Group> GetGroupId([FromRoute]  int id)
+        {
+            var grp = await unitofwork.GroupRepository.GetGroupsId(id);
+            return grp;
+        }
+        #endregion
 
     }
 }
