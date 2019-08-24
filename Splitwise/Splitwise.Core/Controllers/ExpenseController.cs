@@ -26,14 +26,22 @@ namespace Splitwise.Core.Controllers
 
         #region Public method
         [HttpPost]
-        public async Task<IActionResult> CreateExpense([FromBody] Expense expense)
+        public async Task<IActionResult> CreateExpense([FromBody] UserInExpense userInExpense)
         {
             if(ModelState.IsValid)
             {
-                await unitofwork.ExpenseRepository.CreateExpense(expense);
+                await unitofwork.ExpenseRepository.CreateExpense(userInExpense);
                 await unitofwork.Save();
+
+
+              
+                await unitofwork.ExpenseRepository.AddUser(userInExpense);
+                await unitofwork.Save();
+               
+
+
             }
-            return Ok(expense);
+            return Ok(userInExpense);
         }
 
         [HttpPut("{id}")]

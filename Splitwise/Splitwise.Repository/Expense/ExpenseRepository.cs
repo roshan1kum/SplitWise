@@ -20,17 +20,45 @@ namespace Splitwise.Repository
             this.context = context;
         }
 
-        public Task<UserExpense> AddUser(UserInExpense user)
+        public async Task<UserInExpense> AddUser(UserInExpense userInExpense)
         {
-            throw new NotImplementedException();
+
+            int expId = GetExpenseId(userInExpense.Date);
+            List<UserExpense> list = new List<UserExpense>();
+            foreach (var i in userInExpense.GroupUsersExpenses)
+            {
+                UserExpense userExpense = new UserExpense();
+                userExpense.ExpId = expId;
+                userExpense.UsersId = i.UserId;
+                userExpense.SplitAmount = i.Price;
+                list.Add(userExpense);
+            }
+            await context.UserExpenses.AddRangeAsync(list);
+            return userInExpense;
+        }
+
+        private int GetExpenseId(DateTime dateTime)
+        {
+            int id = context.Expense.FirstOrDefault(e => e.Date == dateTime).Id;
+            return id;
         }
         #endregion
 
         #region Public method
-        public async Task<Expense> CreateExpense(Expense expense)
+        public async Task<Expense> CreateExpense(UserInExpense userInExpense)
         {
-            await context.Expense.AddAsync(expense);
-            return expense;
+            Expense exp = new Expense();
+            exp.CreaterId = userInExpense.CreaterId;
+            exp.Cost = userInExpense.Cost;
+            exp.Date = userInExpense.Date;
+            exp.Description = userInExpense.Description;
+            exp.Split = userInExpense.Split;
+            exp.PaidbyId = userInExpense.PaidbyId;
+            exp.GrpId = userInExpense.GrpId;
+            await context.Expense.AddAsync(exp);
+
+            
+            return exp;
         }
 
         public void EditExpense(int id, Expense expense)
@@ -51,9 +79,14 @@ namespace Splitwise.Repository
 
         public async Task<Expense> GetExpenseID(int id)
         {
-            Expense expense=await context.Expense.FirstOrDefaultAsync(e => e.Id == id);
+            Expense expense=await context.Expense.
+                            Include(e=>e.Paiduser).
+                            Include(e=>e.CreaterExpense).
+                            Include(e=>e.Group).
+                            FirstOrDefaultAsync(e => e.Id == id);
             return expense;
         }
+       
         #endregion
 
     }

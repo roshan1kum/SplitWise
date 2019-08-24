@@ -51,18 +51,31 @@ namespace Splitwise.Repository
             //var B = context.Group.FirstOrDefault(); 
             var grp = context.Group.Include(c => c.Category).
                                    Include(c => c.CreaterGroup).
-                                   
                                    ToList();
             return grp;
         }
 
-        public async Task<Group> GetGroupsId(int id)
+        public async Task<IEnumerable<UserExpense>> GetGroupsId(int id)
         {
-            var groups = await context.Group.
-                         Include(c=>c.Category).
-                         Include(c=>c.CreaterGroup).
-                         FirstOrDefaultAsync(x => x.Id == id);
-            return groups;
+            //var groups = await context.group.
+            //             include(c=>c.category).
+            //             include(c=>c.creatergroup).
+            //             firstordefaultasync(x => x.id == id);
+            //var groups = await context.Group.FirstOrDefaultAsync(x => x.Id == id);
+            //int grpId = groups.Id;
+            var exp = await context.Expense.FirstOrDefaultAsync(e=>e.GrpId==id);
+            //var expense = await context.Expense.
+            //              Include(x=>x.Paiduser).
+            //              Include(x => x.CreaterExpense).
+            //              FirstOrDefaultAsync(x => x.GrpId == grpId);
+
+            var userExpense = context.UserExpenses.Where(x => x.ExpId == exp.Id).
+                                Include(x=>x.User).
+                                Include(x => x.Expense).
+                                ThenInclude(x=>x.Group).
+                                ThenInclude(x=>x.Category);
+                                
+            return userExpense;
         }
 
         #endregion

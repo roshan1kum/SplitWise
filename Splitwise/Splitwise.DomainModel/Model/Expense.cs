@@ -15,7 +15,6 @@ namespace Splitwise.DomainModel.Model
         public int? PaidbyId { get; set; }
         public DateTime Date { get; set; }
         public string Split { get; set; }
-        public List<ApplicationUser> UserExpense { get; set; }
 
         [ForeignKey("CreaterId")]
         public virtual ApplicationUser CreaterExpense { get; set; }

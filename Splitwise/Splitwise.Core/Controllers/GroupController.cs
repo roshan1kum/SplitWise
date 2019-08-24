@@ -62,7 +62,7 @@ namespace Splitwise.Core.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Group> GetGroupId([FromRoute]  int id)
+        public async Task<IEnumerable<UserExpense>> GetGroupId([FromRoute]  int id)
         {
             var grp = await unitofwork.GroupRepository.GetGroupsId(id);
             return grp;

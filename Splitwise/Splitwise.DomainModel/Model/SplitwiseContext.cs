@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Splitwise.DomainModel.Model
 {
-    public class SplitwiseContext : DbContext
+    public class SplitwiseContext : IdentityDbContext
     {
         #region Properties
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
