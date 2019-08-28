@@ -4,7 +4,7 @@ namespace Splitwise.DomainModel.Model
 {
     public class GroupUsersExpensesAC
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int Price { get; set; }
 
         [ForeignKey("UserId")]

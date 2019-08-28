@@ -9,36 +9,37 @@ using System.Threading.Tasks;
 
 namespace Splitwise.Core.Controllers
 {
+    [Produces("application/json")]
+    [Route("api/Users")]
     public class UserController : Controller
     {
+        private readonly IUnitofwork unitofwork;
 
-        private readonly Unitofwork unitofwork;
-
-        public UserController(Unitofwork unitofwork)
+        public UserController(IUnitofwork unitofwork)
         {
             this.unitofwork = unitofwork;
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody] ApplicationUser user)
-        {
-            if (ModelState.IsValid)
-            {
-                unitofwork.UserRepository.Createuser(user);
-                await unitofwork.Save();
-            }
-            return Ok(user);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([FromBody] ApplicationUser user)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        unitofwork.UserRepository.Createuser(user);
+        //        await unitofwork.Save();
+        //    }
+        //    return Ok(user);
+        //}
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit([FromRoute] int id, [FromBody] ApplicationUser user)
+        public async Task<IActionResult> Edit([FromRoute] string id, [FromBody] ApplicationUserAc user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            unitofwork.UserRepository.EditUSer(user);
+           unitofwork.UserRepository.EditUSer(id,user);
             try
             {
                 await unitofwork.Save();
@@ -50,7 +51,8 @@ namespace Splitwise.Core.Controllers
             return NoContent();
         }
         [HttpGet("{id}")]
-        public IActionResult GetUserbyId([FromRoute] int id)
+       // [Route("Getuser/{id}")]
+        public IActionResult GetUserbyId([FromRoute] string id)
         {
             if (!ModelState.IsValid)
             {
@@ -64,27 +66,40 @@ namespace Splitwise.Core.Controllers
             return Ok(user);
         }
         [HttpGet]
-        public IEnumerable<ApplicationUser> GetAllUsers()
+        public IEnumerable<ApplicationUserAc> GetAllUsers()
         {
             return unitofwork.UserRepository.GetAllUsers();
         }
-        [HttpGet("{id}")]
-        public IEnumerable<Friend> ShowFriend([FromRoute] int id)
-        {
-            return unitofwork.UserRepository.ShowFriend(id);
-        }
-        [HttpPost("{id}")]
-        public async Task<IActionResult> AddFriend([FromRoute] int id,[FromBody] ApplicationUser user)
+      
+       // [HttpPost("{id}")]
+        [Route("AddFriend/{yourId}/{FriendId}")]
+        public async Task<IActionResult> AddFriend([FromRoute] string yourId,[FromRoute] string FriendId)
         {
             if (ModelState.IsValid)
             {
-                unitofwork.UserRepository.AddFriend(id, user);
+                await unitofwork.UserRepository.AddFriend(FriendId,yourId);
                 await unitofwork.Save();
             }
-            return Ok(user);
+            return Ok();
         }
+        [Route("CreateFriendExpense")]
+        public async Task<IActionResult> CreateFriendExpenses([FromBody]FriendExpensesData data)
+        {
+            if(ModelState.IsValid)
+            {
+                await unitofwork.UserRepository.CreateFriendExpense(data);
+                await unitofwork.Save();
 
-
-
+                await unitofwork.UserRepository.AddFriendBill(data);
+                await unitofwork.Save();
+            }
+            return Ok(data);
+        }
+        // [HttpGet("{id}")]
+        [Route("ShowFriendExpense/{id}")]
+        public IEnumerable<IEnumerable<FriendBill>> ShowFriendExpense([FromRoute] string id)
+        {
+            return unitofwork.UserRepository.ShowFriend(id);
+        }
     }
 }

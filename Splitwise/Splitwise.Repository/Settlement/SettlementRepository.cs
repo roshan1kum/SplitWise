@@ -42,14 +42,62 @@ namespace Splitwise.Repository
             return settlements;
         }
 
-        public async Task<Expense> show(Settlement settlement)
+        public async Task<Settlement> show(Settlement settlement)
         {
-            var expense = await context.Expense.FirstOrDefaultAsync(e => e.GrpId == 3);
-            
-            return expense;
+            if (settlement.GroupId !=null)
+            {
+                updateFriendExpense(settlement);
+
+            }
+            else
+            {
+                UpdateGroupExpenses(settlement);
+            }
+            await context.Settlements.AddAsync(settlement);
+            return settlement;
+            //int id = expense.Id;
+            //var bill = context.FriendBills.FirstOrDefault(b => b.FriendExpId == id && b.FriendId == settlement.YourId);
+            //bill.Bill = bill.Bill - settlement.Amount;
+            //context.Update(bill);
+            //
+
+            //return settlement;
         }
 
+        private void UpdateGroupExpenses(Settlement settlement)
+        {
+            var expense = context.Expense.Where(e => e.GrpId == settlement.GroupId && e.PaidbyId==settlement.ToId);
+            foreach(var i in expense)
+            {
+                int id = i.Id;
+                var bill = context.UserExpenses.FirstOrDefault(b => b.ExpId == id && b.UsersId == settlement.YourId);
+                if(bill!=null)
+                {
+                    bill.SplitAmount = bill.SplitAmount - settlement.Amount;
+                    context.Update(bill);
+                }
+            }
+        }
+
+        private void updateFriendExpense(Settlement settlement)
+        {
+            var expense = context.FriendExpenses.Where(e => e.Paidby == settlement.ToId);
+            foreach (var i in expense)
+            {
+                int id = i.Id;
+                var bill = context.FriendBills.FirstOrDefault(b => b.FriendExpId == id && b.FriendId == settlement.YourId);
+                if (bill != null)
+                {
+                    bill.Bill = bill.Bill - settlement.Amount;
+                    context.Update(bill);
+                    
+                }
+
+            }
+        }
 
         #endregion
     }
-}
+
+        
+    }

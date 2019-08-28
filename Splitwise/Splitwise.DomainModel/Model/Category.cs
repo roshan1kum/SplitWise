@@ -10,7 +10,6 @@ namespace Splitwise.DomainModel.Model
       
         public int CategoryId { get; set; }
         public string Name { get; set; }
-      //  public ICollection<Group> Groups { get; set; }
 
     }
 }

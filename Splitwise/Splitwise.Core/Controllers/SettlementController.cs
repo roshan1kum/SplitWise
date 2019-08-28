@@ -25,12 +25,13 @@ namespace Splitwise.Core.Controllers
 
         #region Public method
         [HttpPost]
-        public async Task<Expense> Create([FromBody] Settlement settlement)
+        public async Task<Settlement> Create([FromBody] Settlement settlement)
         {
             //await unitofwork.SettlementRepository.CreateSettlement(settlement);
             //await unitofwork.Save();
 
             var expense= await unitofwork.SettlementRepository.show(settlement);
+            unitofwork.Save();
             return expense;
         }
 

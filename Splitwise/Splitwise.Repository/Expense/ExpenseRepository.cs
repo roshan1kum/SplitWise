@@ -56,8 +56,6 @@ namespace Splitwise.Repository
             exp.PaidbyId = userInExpense.PaidbyId;
             exp.GrpId = userInExpense.GrpId;
             await context.Expense.AddAsync(exp);
-
-            
             return exp;
         }
 

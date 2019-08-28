@@ -20,22 +20,165 @@ namespace Splitwise.DomainModel.Migrations
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Splitwise.DomainModel.Model.ApplicationUser", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
+                    b.Property<string>("ClaimType");
 
-                    b.Property<int?>("ExpenseId");
+                    b.Property<string>("ClaimValue");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("RoleId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExpenseId");
+                    b.HasIndex("RoleId");
 
-                    b.ToTable("ApplicationUser");
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("ProviderKey");
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Splitwise.DomainModel.Model.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("Splitwise.DomainModel.Model.Category", b =>
@@ -57,7 +200,7 @@ namespace Splitwise.DomainModel.Migrations
 
                     b.Property<int>("Cost");
 
-                    b.Property<int>("CreaterId");
+                    b.Property<string>("CreaterId");
 
                     b.Property<DateTime>("Date");
 
@@ -65,7 +208,7 @@ namespace Splitwise.DomainModel.Migrations
 
                     b.Property<int?>("GrpId");
 
-                    b.Property<int?>("PaidbyId");
+                    b.Property<string>("PaidbyId");
 
                     b.Property<string>("Split");
 
@@ -85,19 +228,59 @@ namespace Splitwise.DomainModel.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("FreindId");
+                    b.Property<string>("FriendId");
 
-                    b.Property<int>("FriendId");
-
-                    b.Property<int>("YourId");
+                    b.Property<string>("YourId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FreindId");
+                    b.HasIndex("FriendId");
 
                     b.HasIndex("YourId");
 
                     b.ToTable("Friend");
+                });
+
+            modelBuilder.Entity("Splitwise.DomainModel.Model.FriendBill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Bill");
+
+                    b.Property<int>("FriendExpId");
+
+                    b.Property<string>("FriendId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FriendExpId");
+
+                    b.HasIndex("FriendId");
+
+                    b.ToTable("FriendBills");
+                });
+
+            modelBuilder.Entity("Splitwise.DomainModel.Model.FriendExpense", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Amount");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Paidby");
+
+                    b.Property<string>("Split");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Paidby");
+
+                    b.ToTable("FriendExpenses");
                 });
 
             modelBuilder.Entity("Splitwise.DomainModel.Model.Group", b =>
@@ -109,7 +292,7 @@ namespace Splitwise.DomainModel.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<int>("CreatorId");
+                    b.Property<string>("CreatorId");
 
                     b.Property<bool>("Debt");
 
@@ -131,7 +314,7 @@ namespace Splitwise.DomainModel.Migrations
 
                     b.Property<int>("GrpId");
 
-                    b.Property<int?>("UserID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("Id");
 
@@ -151,11 +334,11 @@ namespace Splitwise.DomainModel.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("GroupId");
+                    b.Property<int?>("GroupId");
 
-                    b.Property<int?>("ToId");
+                    b.Property<string>("ToId");
 
-                    b.Property<int?>("YourId");
+                    b.Property<string>("YourId");
 
                     b.HasKey("Id");
 
@@ -177,7 +360,7 @@ namespace Splitwise.DomainModel.Migrations
 
                     b.Property<int>("SplitAmount");
 
-                    b.Property<int?>("UsersId");
+                    b.Property<string>("UsersId");
 
                     b.HasKey("Id");
 
@@ -188,19 +371,56 @@ namespace Splitwise.DomainModel.Migrations
                     b.ToTable("UserExpenses");
                 });
 
-            modelBuilder.Entity("Splitwise.DomainModel.Model.ApplicationUser", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Splitwise.DomainModel.Model.Expense")
-                        .WithMany("UserExpense")
-                        .HasForeignKey("ExpenseId");
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Splitwise.DomainModel.Model.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Splitwise.DomainModel.Model.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Splitwise.DomainModel.Model.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Splitwise.DomainModel.Model.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Splitwise.DomainModel.Model.Expense", b =>
                 {
                     b.HasOne("Splitwise.DomainModel.Model.ApplicationUser", "CreaterExpense")
                         .WithMany()
-                        .HasForeignKey("CreaterId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CreaterId");
 
                     b.HasOne("Splitwise.DomainModel.Model.Group", "Group")
                         .WithMany()
@@ -215,12 +435,30 @@ namespace Splitwise.DomainModel.Migrations
                 {
                     b.HasOne("Splitwise.DomainModel.Model.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("FreindId");
+                        .HasForeignKey("FriendId");
 
                     b.HasOne("Splitwise.DomainModel.Model.ApplicationUser", "Youruser")
                         .WithMany()
-                        .HasForeignKey("YourId")
+                        .HasForeignKey("YourId");
+                });
+
+            modelBuilder.Entity("Splitwise.DomainModel.Model.FriendBill", b =>
+                {
+                    b.HasOne("Splitwise.DomainModel.Model.FriendExpense", "FriendExpense")
+                        .WithMany()
+                        .HasForeignKey("FriendExpId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Splitwise.DomainModel.Model.ApplicationUser", "FriendUser")
+                        .WithMany()
+                        .HasForeignKey("FriendId");
+                });
+
+            modelBuilder.Entity("Splitwise.DomainModel.Model.FriendExpense", b =>
+                {
+                    b.HasOne("Splitwise.DomainModel.Model.ApplicationUser", "PaidbyUser")
+                        .WithMany()
+                        .HasForeignKey("Paidby");
                 });
 
             modelBuilder.Entity("Splitwise.DomainModel.Model.Group", b =>
@@ -232,8 +470,7 @@ namespace Splitwise.DomainModel.Migrations
 
                     b.HasOne("Splitwise.DomainModel.Model.ApplicationUser", "CreaterGroup")
                         .WithMany()
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CreatorId");
                 });
 
             modelBuilder.Entity("Splitwise.DomainModel.Model.GroupMembers", b =>
@@ -252,14 +489,13 @@ namespace Splitwise.DomainModel.Migrations
                 {
                     b.HasOne("Splitwise.DomainModel.Model.Group", "GroupsId")
                         .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("GroupId");
 
                     b.HasOne("Splitwise.DomainModel.Model.ApplicationUser", "ToUser")
                         .WithMany()
                         .HasForeignKey("ToId");
 
-                    b.HasOne("Splitwise.DomainModel.Model.ApplicationUser", "Users")
+                    b.HasOne("Splitwise.DomainModel.Model.ApplicationUser", "FromUsers")
                         .WithMany()
                         .HasForeignKey("YourId");
                 });

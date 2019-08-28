@@ -8,13 +8,15 @@ namespace Splitwise.Repository.User
 {
     public interface IUserRepository
     {
-        void Createuser(ApplicationUser user);
-        void EditUSer(ApplicationUser user);
-        Task<ApplicationUser> GetUserbyID(int id);
-        IEnumerable<ApplicationUser> GetAllUsers();
-        IEnumerable<Friend> ShowFriend(int userId);
-        void AddFriend(int id,ApplicationUser user);
-       
+        Task<ApplicationUserAc> EditUSer(string id,ApplicationUserAc user);
+        Task<ApplicationUser> GetUserbyID(string id);
+        IEnumerable<ApplicationUserAc> GetAllUsers();
+        
+        Task<Friend> AddFriend(string id,string yourId);
+        Task<FriendExpense> CreateFriendExpense(FriendExpensesData friendExpensesData);
+        Task<FriendExpensesData> AddFriendBill(FriendExpensesData data);
+        IEnumerable<IEnumerable<FriendBill>> ShowFriend(string userId);
+
 
     }
 }

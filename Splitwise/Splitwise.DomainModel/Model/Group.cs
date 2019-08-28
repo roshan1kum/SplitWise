@@ -18,7 +18,7 @@ namespace Splitwise.DomainModel.Model
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
-        public int CreatorId { get; set; }
+        public string CreatorId { get; set; }
         [ForeignKey("CreatorId")]
         public ApplicationUser CreaterGroup { get; set; }
 

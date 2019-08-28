@@ -29,7 +29,7 @@ namespace Spliwise.Web
             services.AddMvc();
             services.AddDbContext<SplitwiseContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SplitwiseContext")));
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<SplitwiseContext>();
             services.AddScoped<IUnitofwork, Unitofwork>();
         }
@@ -48,8 +48,11 @@ namespace Spliwise.Web
             }
 
             app.UseStaticFiles();
-
-            app.UseMvc();
+            app.UseAuthentication();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Account}/{action=Login}/{id?}");
+            });
         }
     }
 }

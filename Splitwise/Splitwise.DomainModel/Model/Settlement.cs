@@ -10,11 +10,11 @@ namespace Splitwise.DomainModel.Model
     {
         [Key]
         public int Id { get; set; }
-        public int? YourId { get; set; }
-        public int? ToId { get; set; }
+        public string YourId { get; set; }
+        public string ToId { get; set; }
         public int Amount { get; set; }
         public DateTime Date { get; set; }
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; }
 
         [ForeignKey("YourId")]
         public virtual ApplicationUser FromUsers { get; set; }

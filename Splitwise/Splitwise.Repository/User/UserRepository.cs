@@ -2,6 +2,7 @@
 using Splitwise.DomainModel.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,10 +23,49 @@ namespace Splitwise.Repository.User
         #endregion
 
         #region Public method
-        public void AddFriend(int id,ApplicationUser user)
+        public async Task<Friend> AddFriend(string id,string yourId)
         {
-            throw new NotImplementedException();
+            Friend frnd = new Friend();
+            frnd.FriendId = id;
+            frnd.YourId = yourId;
+            await Context.Friend.AddAsync(frnd);
+            return frnd; 
+        }
 
+        public async Task<FriendExpensesData> AddFriendBill(FriendExpensesData data)
+        {
+
+            int expId = GetExpenseId(data.Date);
+            List<FriendBill> list = new List<FriendBill>();
+            foreach(var i in data.FriendUserExpense)
+            {
+                FriendBill bills = new FriendBill();
+                bills.FriendExpId = expId;
+                bills.FriendId = i.UserId;
+                bills.Bill = i.Amount;
+                list.Add(bills);
+            }
+            await Context.FriendBills.AddRangeAsync(list);
+            return data;
+
+        }
+        private int GetExpenseId(DateTime dateTime)
+        {
+            int id = Context.FriendExpenses.FirstOrDefault(e => e.Date == dateTime).Id;
+            return id;
+        }
+
+        public async Task<FriendExpense> CreateFriendExpense(FriendExpensesData friendExpensesData)
+        {
+            FriendExpense exp = new FriendExpense();
+            exp.Date = friendExpensesData.Date;
+            exp.Description = friendExpensesData.Description;
+            exp.Amount = friendExpensesData.Amount;
+            exp.Split = friendExpensesData.Split;
+            exp.Paidby = friendExpensesData.Paidby;
+
+            await Context.FriendExpenses.AddAsync(exp);
+            return exp;
         }
 
         public void Createuser(ApplicationUser user)
@@ -33,19 +73,35 @@ namespace Splitwise.Repository.User
             Context.Add(user);
         }
   
-        public void EditUSer(ApplicationUser user)
+        public async Task<ApplicationUserAc> EditUSer(string id,ApplicationUserAc user)
         {
-            Context.Entry(user).State = EntityState.Modified;
+            var users = await Context.Users.FindAsync(id);
+            users.Name = user.Name;
+            users.Email = user.Email;
+            user.Username = user.Username;
+            return user;
+            
         }
 
-        public IEnumerable<ApplicationUser> GetAllUsers()
+        public IEnumerable<ApplicationUserAc> GetAllUsers()
         {
-            throw new NotImplementedException();
+            var users = Context.Users.ToList();
+            List<ApplicationUserAc> List = new List<ApplicationUserAc>();
+            foreach(var i in users)
+            {
+                ApplicationUserAc user = new ApplicationUserAc();
+                user.Name = i.Name;
+                user.Email = i.Email;
+                user.Username = i.UserName;
+                List.Add(user);
+            }
+            return List;
         }
      
-        public async Task<ApplicationUser> GetUserbyID(int id)
+        public async Task<ApplicationUser> GetUserbyID(string id)
         {
-            return await Context.ApplicationUser.FindAsync(id);
+
+            return await Context.Users.FindAsync(id);
         }
        
         public async Task Save()
@@ -54,9 +110,28 @@ namespace Splitwise.Repository.User
         }
 
               
-        public IEnumerable<Friend> ShowFriend(int userId)
+        public IEnumerable<IEnumerable<FriendBill>> ShowFriend(string userId)
         {
-            throw new NotImplementedException();
+           var exp = Context.FriendExpenses.Where(e => e.Paidby == userId);
+           // int expId = exp.Id;
+           // return Context.FriendBills.Where(b => b.FriendExpId == expId).
+           //                Include(b => b.FriendUser).
+           //                Include(b => b.FriendExpense);
+
+
+            List<List<FriendBill>> list = new List<List<FriendBill>>();
+            foreach (var i in exp)
+            {
+                int expId = i.Id;
+
+               var a=Context.FriendBills.Where(b => b.FriendExpId == expId).
+                           Include(b => b.FriendUser).
+                           Include(b => b.FriendExpense).ToList();
+                list.Add(a);
+            }
+
+            return list.AsEnumerable();
+
         }
     
        

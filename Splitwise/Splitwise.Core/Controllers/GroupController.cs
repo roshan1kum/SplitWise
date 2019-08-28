@@ -43,8 +43,8 @@ namespace Splitwise.Core.Controllers
             return unitofwork.GroupRepository.GetAllGroups();
         }
 
-        [HttpPost("{id}")]
-        public async Task<IActionResult> AddMemebers([FromRoute]int id, [FromBody] GroupMembers grp)
+       [Route("AddMembers")]
+        public async Task<IActionResult> AddMemebers([FromBody] GroupMembers grp)
         {
             await unitofwork.GroupRepository.AddMembers(grp);
             await unitofwork.Save();
