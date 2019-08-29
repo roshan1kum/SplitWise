@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Splitwise.Repository.ApplicationClasses;
+using Splitwise.Repository.AplicationClasses;
 
 namespace Splitwise.Repository.User
 {
@@ -15,7 +17,7 @@ namespace Splitwise.Repository.User
         Task<Friend> AddFriend(string id,string yourId);
         Task<FriendExpense> CreateFriendExpense(FriendExpensesData friendExpensesData);
         Task<FriendExpensesData> AddFriendBill(FriendExpensesData data);
-        IEnumerable<IEnumerable<FriendBill>> ShowFriend(string userId);
+        IEnumerable<FriendBillAC> ShowFriend(string userId);
 
 
     }

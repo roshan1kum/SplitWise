@@ -1,0 +1,15 @@
+﻿using Splitwise.DomainModel.Model;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Splitwise.Repository.ApplicationClasses
+{
+    public class GroupUsersExpensesAC
+    {
+        public string UserId { get; set; }
+        public int Price { get; set; }
+
+        [ForeignKey("UserId")]
+        public ApplicationUser User { get; set; }
+    }
+        
+}

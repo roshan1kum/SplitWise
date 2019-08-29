@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Splitwise.DomainModel.Model;
+using Splitwise.Repository.ApplicationClasses;
 using Splitwise.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;

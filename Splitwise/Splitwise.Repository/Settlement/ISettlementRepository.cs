@@ -10,6 +10,6 @@ namespace Splitwise.Repository
     {
         Task<Settlement> CreateSettlement(Settlement settlement);
         Task<Settlement> GetSettlementId(int id);
-        Task<Settlement> show(Settlement settlement);
+        
     }
 }

@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using Splitwise.DomainModel.Model;
 using Splitwise.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Splitwise.Repository.ApplicationClasses;
+using Splitwise.Repository.AplicationClasses;
 
 namespace Splitwise.Core.Controllers
 {
@@ -97,7 +100,7 @@ namespace Splitwise.Core.Controllers
         }
         // [HttpGet("{id}")]
         [Route("ShowFriendExpense/{id}")]
-        public IEnumerable<IEnumerable<FriendBill>> ShowFriendExpense([FromRoute] string id)
+        public IEnumerable<FriendBillAC> ShowFriendExpense([FromRoute] string id)
         {
             return unitofwork.UserRepository.ShowFriend(id);
         }

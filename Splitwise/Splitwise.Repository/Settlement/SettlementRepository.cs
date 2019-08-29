@@ -22,29 +22,10 @@ namespace Splitwise.Repository
         #endregion
 
         #region Public method
+
         public async Task<Settlement> CreateSettlement(Settlement settlement)
         {
-            await context.Settlements.AddAsync(settlement);
-            //int expId = context.Expense.FirstOrDefaultAsync(e => e.GrpId == settlement.GroupId).Id;
-            
-            return settlement;
-        }
-
-        public async Task<Settlement> GetSettlementId(int id)
-        {
-            Settlement settlements = await context.Settlements.
-                Include(s => s.FromUsers).
-                Include(s => s.ToUser).
-                Include(s => s.GroupsId).
-                FirstOrDefaultAsync(s => s.Id == id);
-            //int expId = context.Expense.FirstOrDefaultAsync(e => e.GrpId == settlements.GroupId).Id;
-
-            return settlements;
-        }
-
-        public async Task<Settlement> show(Settlement settlement)
-        {
-            if (settlement.GroupId !=null)
+            if (settlement.GroupId == null)
             {
                 updateFriendExpense(settlement);
 
@@ -64,6 +45,19 @@ namespace Splitwise.Repository
             //return settlement;
         }
 
+
+        public async Task<Settlement> GetSettlementId(int id)
+        {
+            Settlement settlements = await context.Settlements.
+                Include(s => s.FromUsers).
+                Include(s => s.ToUser).
+                Include(s => s.GroupsId).
+                FirstOrDefaultAsync(s => s.Id == id);
+            //int expId = context.Expense.FirstOrDefaultAsync(e => e.GrpId == settlements.GroupId).Id;
+
+            return settlements;
+        }
+
         private void UpdateGroupExpenses(Settlement settlement)
         {
             var expense = context.Expense.Where(e => e.GrpId == settlement.GroupId && e.PaidbyId==settlement.ToId);
@@ -74,7 +68,13 @@ namespace Splitwise.Repository
                 if(bill!=null)
                 {
                     bill.SplitAmount = bill.SplitAmount - settlement.Amount;
+                    //if(bill.SplitAmount==0)
+                    //{
+                    //    context.UserExpenses.Remove(context.UserExpenses.Find(bill.Id));
+                    //    context.SaveChanges();
+                    //}
                     context.Update(bill);
+                    break;
                 }
             }
         }

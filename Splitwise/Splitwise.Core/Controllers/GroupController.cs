@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Splitwise.DomainModel.Model;
+using Splitwise.Repository.AplicationClasses;
 using Splitwise.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -51,20 +52,20 @@ namespace Splitwise.Core.Controllers
             return Ok(grp);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGroup([FromRoute] int id)
-        {
-            var groups = await unitofwork.GroupRepository.GetGroupsId(id);
-            await unitofwork.GroupRepository.Deletegroup(id);
-            await unitofwork.Save();
-            return Ok(groups);
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteGroup([FromRoute] int id)
+        //{
+        //    var groups = await unitofwork.GroupRepository.GetGroupsId(id);
+        //    await unitofwork.GroupRepository.Deletegroup(id);
+        //    await unitofwork.Save();
+        //    return Ok(groups);
            
-        }
+        //}
 
         [HttpGet("{id}")]
-        public async Task<IEnumerable<UserExpense>> GetGroupId([FromRoute]  int id)
+        public IEnumerable<GroupExpenseAC> GetGroupId([FromRoute]  int id)
         {
-            var grp = await unitofwork.GroupRepository.GetGroupsId(id);
+            var grp = unitofwork.GroupRepository.GetGroupsId(id);
             return grp;
         }
         #endregion

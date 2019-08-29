@@ -1,4 +1,5 @@
 ﻿using Splitwise.DomainModel.Model;
+using Splitwise.Repository.AplicationClasses;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Splitwise.Repository
         IEnumerable<Group> GetAllGroups();
         Task<GroupMembers> AddMembers(GroupMembers grp);
         Task<Group> Deletegroup(int id);
-        Task<IEnumerable<UserExpense>> GetGroupsId(int id);
+       IEnumerable<GroupExpenseAC> GetGroupsId(int id);
         
     }
 }

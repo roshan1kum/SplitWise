@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Splitwise.DomainModel.Model;
+using Splitwise.Repository.AplicationClasses;
+using Splitwise.Repository.ApplicationClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,32 +111,40 @@ namespace Splitwise.Repository.User
             await Context.SaveChangesAsync();
         }
 
-              
-        public IEnumerable<IEnumerable<FriendBill>> ShowFriend(string userId)
+        public IEnumerable<FriendBillAC> ShowFriend(string userId)
         {
            var exp = Context.FriendExpenses.Where(e => e.Paidby == userId);
-           // int expId = exp.Id;
-           // return Context.FriendBills.Where(b => b.FriendExpId == expId).
-           //                Include(b => b.FriendUser).
-           //                Include(b => b.FriendExpense);
-
-
             List<List<FriendBill>> list = new List<List<FriendBill>>();
+            List<FriendBillAC> bill = new List<FriendBillAC>();
             foreach (var i in exp)
             {
                 int expId = i.Id;
 
                var a=Context.FriendBills.Where(b => b.FriendExpId == expId).
                            Include(b => b.FriendUser).
-                           Include(b => b.FriendExpense).ToList();
+                           Include(b => b.FriendExpense).
+                           ThenInclude(b=>b.PaidbyUser).
+                           ToList();
                 list.Add(a);
             }
+            foreach(var i in list)
+            {
+                foreach(var j in i)
+                {
+                    FriendBillAC friendBillAC = new FriendBillAC();
+                    friendBillAC.Amount = j.Bill;
+                    friendBillAC.Date = j.FriendExpense.Date;
+                    friendBillAC.Name = j.FriendUser.Name;
+                    friendBillAC.Email = j.FriendUser.Email;
+                    friendBillAC.PaidbyAmount = j.FriendExpense.Amount;
+                    friendBillAC.PaidbyEmail = j.FriendExpense.PaidbyUser.Email;
+                    friendBillAC.PaidbyUserName = j.FriendExpense.PaidbyUser.Name;
+                    bill.Add(friendBillAC);
+                }
+            }
 
-            return list.AsEnumerable();
-
-        }
-    
-       
+            return bill.AsEnumerable();
+        }    
         #endregion
     }
 }

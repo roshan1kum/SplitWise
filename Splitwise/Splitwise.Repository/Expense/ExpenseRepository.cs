@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Splitwise.DomainModel.Model;
+using Splitwise.Repository.ApplicationClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;

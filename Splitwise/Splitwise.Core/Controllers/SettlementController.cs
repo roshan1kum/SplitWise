@@ -30,8 +30,8 @@ namespace Splitwise.Core.Controllers
             //await unitofwork.SettlementRepository.CreateSettlement(settlement);
             //await unitofwork.Save();
 
-            var expense= await unitofwork.SettlementRepository.show(settlement);
-            unitofwork.Save();
+            var expense= await unitofwork.SettlementRepository.CreateSettlement(settlement);
+            await unitofwork.Save();
             return expense;
         }
 

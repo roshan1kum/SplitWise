@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Splitwise.DomainModel.Model;
+using Splitwise.Repository.AplicationClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,29 +56,38 @@ namespace Splitwise.Repository
             return grp;
         }
 
-        public async Task<IEnumerable<UserExpense>> GetGroupsId(int id)
+        public IEnumerable<GroupExpenseAC> GetGroupsId(int id)
         {
-            //var groups = await context.group.
-            //             include(c=>c.category).
-            //             include(c=>c.creatergroup).
-            //             firstordefaultasync(x => x.id == id);
-            //var groups = await context.Group.FirstOrDefaultAsync(x => x.Id == id);
-            //int grpId = groups.Id;
-            var exp = await context.Expense.FirstOrDefaultAsync(e=>e.GrpId==id);
-            //var expense = await context.Expense.
-            //              Include(x=>x.Paiduser).
-            //              Include(x => x.CreaterExpense).
-            //              FirstOrDefaultAsync(x => x.GrpId == grpId);
+            var exp = context.Expense.Where(e=>e.GrpId==id);
+            List<GroupExpenseAC> list = new List<GroupExpenseAC>();
+            foreach(var i in exp)
+            {
+                var userExpense = context.UserExpenses.Where(x => x.ExpId == i.Id).
+                               Include(x => x.User).
+                               Include(x => x.Expense).
+                               ThenInclude(x => x.Group).
+                               ThenInclude(x => x.Category).
+                               ToList();
+                foreach(var j in userExpense)
+                {
+                    GroupExpenseAC groupExpenseAC = new GroupExpenseAC();
+                    groupExpenseAC.SplitAmount = j.SplitAmount;
+                    groupExpenseAC.description = j.Expense.Description;
+                    groupExpenseAC.CreaterExpense = j.Expense.CreaterExpense.Name;
+                    groupExpenseAC.TotalAmount = j.Expense.Cost;
+                    groupExpenseAC.Date = j.Expense.Date;
+                    groupExpenseAC.GroupName = j.Expense.Group.GroupName;
+                    groupExpenseAC.CategoryName = j.Expense.Group.Category.Name;
+                    groupExpenseAC.CreaterGroupName= j.Expense.Group.CreaterGroup.Name;
+                    groupExpenseAC.ExpensePaidBy = j.Expense.Paiduser.Name;
+                    groupExpenseAC.ExpenseUserName = j.User.Name;
+                    list.Add(groupExpenseAC);
+                }
 
-            var userExpense = context.UserExpenses.Where(x => x.ExpId == exp.Id).
-                                Include(x=>x.User).
-                                Include(x => x.Expense).
-                                ThenInclude(x=>x.Group).
-                                ThenInclude(x=>x.Category);
-                                
-            return userExpense;
+            
+            }
+            return list.AsEnumerable();
         }
-
         #endregion
     }
 }
