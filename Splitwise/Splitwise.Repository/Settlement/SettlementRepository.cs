@@ -68,12 +68,13 @@ namespace Splitwise.Repository
                 if(bill!=null)
                 {
                     bill.SplitAmount = bill.SplitAmount - settlement.Amount;
-                    //if(bill.SplitAmount==0)
-                    //{
-                    //    context.UserExpenses.Remove(context.UserExpenses.Find(bill.Id));
-                    //    context.SaveChanges();
-                    //}
                     context.Update(bill);
+                   // context.SaveChanges();
+                    if (bill.SplitAmount == 0)
+                    {
+                        context.UserExpenses.Remove(bill);
+                        //context.SaveChanges();
+                    }
                     break;
                 }
             }
