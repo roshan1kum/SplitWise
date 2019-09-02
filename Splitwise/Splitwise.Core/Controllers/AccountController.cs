@@ -21,6 +21,17 @@ namespace Splitwise.Core.Controllers
             this.signInManager = signInManager;
         }
 
+        public IActionResult Index()
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
       
         public IActionResult Register()
         {
@@ -28,7 +39,7 @@ namespace Splitwise.Core.Controllers
         }
 
         [HttpPost]
-        public async Task<RegisterUser> Register(RegisterUser registerUser)
+        public async Task<IActionResult> Register(RegisterUser registerUser)
         {
             if (ModelState.IsValid)
             {
@@ -41,7 +52,7 @@ namespace Splitwise.Core.Controllers
                 var result = await userManager.CreateAsync(user, registerUser.Password);
                 if(result.Succeeded)
                 {
-                    return registerUser;
+                    return RedirectToAction("Index");
  
                 }
                 foreach (var error in result.Errors)
@@ -49,7 +60,7 @@ namespace Splitwise.Core.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
             }
-            return registerUser;
+            return Ok(registerUser);
         }
 
         [HttpGet]
@@ -58,7 +69,7 @@ namespace Splitwise.Core.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<LoginViewModel> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -66,12 +77,18 @@ namespace Splitwise.Core.Controllers
                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return model;
+                    return RedirectToAction("index");
                 }
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-
             }
-            return model;
+            return Ok(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
     }
 }

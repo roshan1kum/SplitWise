@@ -34,12 +34,8 @@ namespace Splitwise.Core.Controllers
                 await unitofwork.ExpenseRepository.CreateExpense(userInExpense);
                 await unitofwork.Save();
 
-
-              
                 await unitofwork.ExpenseRepository.AddUser(userInExpense);
                 await unitofwork.Save();
-               
-
 
             }
             return Ok(userInExpense);
