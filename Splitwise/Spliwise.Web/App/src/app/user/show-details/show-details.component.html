@@ -1,1 +1,28 @@
-<p>show-details works!</p>
+<!-- <p>Show details works</p> -->
+<h1>{{user?.name}}</h1>
+<h2>FriendName:</h2>
+<button class="btn btn-success" (click)="AddFriend()">Add Friend</button>
+
+<table class='table'>
+    <tr *ngFor="let f of FriendName">
+        <td>{{f.name}}</td>
+    </tr>
+</table>
+
+<h3>GroupName</h3>
+<button class="btn btn-success" (click)="AddGroup()">Add Group</button>
+
+
+<table class='table'>
+    <tr *ngFor="let g of grpName">
+        <td>{{g}}</td>
+    </tr>
+</table>
+
+<table class='table'>
+    <tr *ngFor="let bill of FriendBill">
+        <td>{{bill.name}} owed {{bill.amount}} on {{bill.date}}</td>
+    </tr>
+</table>
+
+<button class="btn btn-success" (click)="AddFriendExpense()">Add Friend Expense</button>

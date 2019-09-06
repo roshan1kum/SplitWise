@@ -32,6 +32,10 @@ namespace Spliwise.Web
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<SplitwiseContext>();
             services.AddScoped<IUnitofwork, Unitofwork>();
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "App/dist";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,12 +50,30 @@ namespace Spliwise.Web
             {
                 app.UseExceptionHandler("/Error");
             }
-
+            app.UseSpaStaticFiles();
             app.UseStaticFiles();
             app.UseAuthentication();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute("default", "{controller=Account}/{action=Login}/{id?}");
+            //});
+
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(name: "default",
+            //    template: "{controller}/{action}",
+            //    defaults: new { controller = "Account", action = "Login" });
+
+            //});
+
             app.UseMvc(routes =>
             {
-                routes.MapRoute("default", "{controller=Account}/{action=Login}/{id?}");
+                routes.MapRoute(
+                     name: "default",
+                     template: "{controller=Account}/{action=Index}/{id?}");
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Account", action = "Index" });
             });
         }
     }

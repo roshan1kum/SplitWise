@@ -1,1 +1,10 @@
-<p>add-friend works!</p>
+<h1>Add friends</h1>
+    <div class="form-check" *ngFor="let item of user">
+        <div *ngIf="item.name!=currentUser.name">
+            <input  class="form-check-input" type="checkbox" (change)="onChange(item.id, $event.target.checked)">{{item.name}}
+        </div>
+    </div>
+
+    <div>
+        <button class="success" (click)="submit()">Add</button>
+    </div>

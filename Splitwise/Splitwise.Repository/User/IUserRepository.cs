@@ -13,8 +13,13 @@ namespace Splitwise.Repository.User
         Task<ApplicationUserAc> EditUSer(string id,ApplicationUserAc user);
         Task<ApplicationUser> GetUserbyID(string id);
         IEnumerable<ApplicationUserAc> GetAllUsers();
-        
-        Task<Friend> AddFriend(string id,string yourId);
+        ApplicationUserAc GetCurentUser(ApplicationUser user);
+        IEnumerable<ApplicationUserAc> GetFriend(string userId);
+        IEnumerable<string> GetGroups(string userId);
+
+
+
+        IEnumerable<Friend> AddFriend(List<string> id, string yourId);
         Task<FriendExpense> CreateFriendExpense(FriendExpensesData friendExpensesData);
         Task<FriendExpensesData> AddFriendBill(FriendExpensesData data);
         IEnumerable<FriendBillAC> ShowFriend(string userId);

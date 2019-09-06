@@ -68,7 +68,10 @@ namespace Splitwise.Core.Controllers
             var grp = unitofwork.GroupRepository.GetGroupsId(id);
             return grp;
         }
+       
+        
         #endregion
+
 
     }
 }

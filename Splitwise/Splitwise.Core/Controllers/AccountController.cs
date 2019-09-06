@@ -23,7 +23,7 @@ namespace Splitwise.Core.Controllers
 
         public IActionResult Index()
         {
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 return View();
             }
@@ -62,7 +62,6 @@ namespace Splitwise.Core.Controllers
             }
             return Ok(registerUser);
         }
-
         [HttpGet]
         public IActionResult Login()
         {
@@ -73,11 +72,10 @@ namespace Splitwise.Core.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("index");
+                    return RedirectToAction("Index");
                 }
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             }
@@ -90,5 +88,7 @@ namespace Splitwise.Core.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
+
+       
     }
 }

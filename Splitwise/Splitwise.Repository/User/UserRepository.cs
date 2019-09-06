@@ -25,13 +25,25 @@ namespace Splitwise.Repository.User
         #endregion
 
         #region Public method
-        public async Task<Friend> AddFriend(string id,string yourId)
+        public IEnumerable<Friend> AddFriend(List<string> id,string yourId)
         {
-            Friend frnd = new Friend();
-            frnd.FriendId = id;
-            frnd.YourId = yourId;
-            await Context.Friend.AddAsync(frnd);
-            return frnd; 
+            List<Friend> list = new List<Friend>();
+            foreach(var i in id)
+            {
+                Friend frnd = new Friend();
+                frnd.YourId = yourId;
+                frnd.FriendId = i;
+                list.Add(frnd);
+            }
+            foreach (var i in id)
+            {
+                Friend frnd = new Friend();
+                frnd.YourId = i;
+                frnd.FriendId = yourId;
+                list.Add(frnd);
+            }
+            Context.Friend.AddRange(list);
+            return list.AsEnumerable(); 
         }
 
         public async Task<FriendExpensesData> AddFriendBill(FriendExpensesData data)
@@ -95,6 +107,7 @@ namespace Splitwise.Repository.User
                 user.Name = i.Name;
                 user.Email = i.Email;
                 user.Username = i.UserName;
+                user.Id=i.Id;
                 List.Add(user);
             }
             return List;
@@ -144,7 +157,50 @@ namespace Splitwise.Repository.User
             }
 
             return bill.AsEnumerable();
-        }    
+        }
+
+        public ApplicationUserAc GetCurentUser(ApplicationUser user)
+        {
+            ApplicationUserAc applicationUserAc = new ApplicationUserAc();
+            applicationUserAc.Name = user.Name;
+            applicationUserAc.Email = user.Email;
+            applicationUserAc.Username = user.UserName;
+            applicationUserAc.Id = user.Id;
+            return applicationUserAc;
+        }
+
+        public IEnumerable<ApplicationUserAc> GetFriend(string userId)
+        {
+            List<ApplicationUserAc> list = new List<ApplicationUserAc>();
+            var friend=Context.Friend.Where(u => u.YourId == userId).
+                                Include(u=>u.User);
+            foreach(var i in friend)
+            {
+                ApplicationUserAc applicationUserAc = new ApplicationUserAc();
+                applicationUserAc.Id = i.User.Id;
+                applicationUserAc.Name = i.User.Name;
+                applicationUserAc.Email = i.User.Email;
+                applicationUserAc.Username = i.User.UserName;
+                list.Add(applicationUserAc);
+            }
+
+            return list.AsEnumerable();
+        }
+
+        public IEnumerable<string> GetGroups(string userId)
+        {
+            List<string> List = new List<string>();
+            var grp = Context.GroupMembers.Where(x => x.UserID == userId)
+                              .Include(x => x.Group);
+            foreach (var i in grp)
+            {
+                List.Add(i.Group.GroupName);
+            }
+
+            return List.AsEnumerable();
+
+        }
+
         #endregion
     }
 }
