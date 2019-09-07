@@ -1,6 +1,6 @@
 export class ApplicationUserAC{
     name:string;
     Email:string;
-    Username:string;    
+    username:string;    
     id:string;
 }

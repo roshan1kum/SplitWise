@@ -5,6 +5,8 @@ import { ApplicationUserAC } from './Shared/ApplicationUserAC';
 import { FriendBillAC } from './Shared/FriendBillAC';
 import { Friend } from './Shared/Friend';
 import { FriendExpensesData } from './Shared/FriendExpensesData';
+import { Category } from './Shared/Category';
+import { Group } from './Shared/Group';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +41,13 @@ export class UserServiceService {
   }
   CreateFriendExpense(friendExpenseData:FriendExpensesData){
     return this.http.post(this.rootUrl+'/CreateFriendExpense',friendExpenseData);
+  }
+  getCategory():Observable<Category[]>
+  {
+    return this.http.get<Category[]>(this.rootUrl+'/Category');
+  }
+  createGroups(group:Group)
+  {
+    return this.http.post("http://localhost:50534/api/Groups",group);
   }
 }

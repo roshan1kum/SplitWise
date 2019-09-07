@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1>Add friends</h1>\n    <div class=\"form-check\" *ngFor=\"let item of user\">\n        <div *ngIf=\"item.name!=currentUser.name\">\n            <input  class=\"form-check-input\" type=\"checkbox\" (change)=\"onChange(item.id, $event.target.checked)\">{{item.name}}\n        </div>\n    </div>\n\n    <div>\n        <button class=\"success\" (click)=\"submit()\">Add</button>\n    </div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1>Add friends</h1>\n    <!-- <div class=\"form-check\" *ngFor=\"let item of user\">\n        <div *ngIf=\"item.name!=currentUser.name\"> -->\n            <!-- <input  class=\"form-check-input\" type=\"checkbox\" (change)=\"onChange(item.id, $event.target.checked)\">{{item.name}} -->\n\n        <!-- </div> -->\n    <!-- </div> -->\n<div class=\"well\">\n    <div [formGroup]=\"profileForm\" (ngSubmit)=\"onSubmit()\">\n        <div formArrayName=\"Friends\" *ngFor=\"let m of profileForm.get('Friends').controls;let i=index\">\n                <div [formGroupName]=\"i\">\n                        <div class=\"form-group\">\n                                <label>\n                                    UserName:\n                                </label>\n                                <input type=\"text\" formControlName=\"UserName\">\n                            </div>\n                </div>\n            </div>\n        <button type=\"button\" (click)=\"AddFriends()\">Add Friends</button>\n    </div>\n</div>\n    <div>\n        <button class=\"success\" (click)=\"submit()\">Add</button>\n    </div>\n");
 
 /***/ }),
 
@@ -48,7 +48,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!-- <p>Show details works</p> -->\n<h1>{{user?.name}}</h1>\n<h2>FriendName:</h2>\n<button class=\"btn btn-success\" (click)=\"AddFriend()\">Add Friend</button>\n\n<table class='table'>\n    <tr *ngFor=\"let f of FriendName\">\n        <td>{{f.name}}</td>\n    </tr>\n</table>\n\n<h3>GroupName</h3>\n<button class=\"btn btn-success\" (click)=\"AddGroup()\">Add Group</button>\n\n\n<table class='table'>\n    <tr *ngFor=\"let g of grpName\">\n        <td>{{g}}</td>\n    </tr>\n</table>\n\n<table class='table'>\n    <tr *ngFor=\"let bill of FriendBill\">\n        <td>{{bill.name}} owed {{bill.amount}} on {{bill.date}}</td>\n    </tr>\n</table>\n\n<button class=\"btn btn-success\" (click)=\"AddFriendExpense()\">Add Friend Expense</button>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<!-- <p>Show details works</p>  -->\n<h1>{{user?.name}}</h1>\n<h2>FriendName:</h2>\n<button class=\"btn btn-success\" (click)=\"AddFriend()\">Add Friend</button>\n\n<table class='table'>\n    <tr *ngFor=\"let f of FriendName\">\n        <td>{{f.name}}</td>\n    </tr>\n</table>\n\n<h3>GroupName</h3>\n<button class=\"btn btn-success\" (click)=\"AddGroup()\">Add Group</button>\n\n\n<table class='table'>\n    <tr *ngFor=\"let g of grpName\">\n        <td>{{g}}</td>\n    </tr>\n</table>\n\n<!-- <table class='table'>\n    <tr *ngFor=\"let bill of FriendBill\">\n        <td>{{bill.name}} owed {{bill.amount}} on {{bill.date}}</td>\n    </tr>\n</table> -->\n<button class=\"btn btn-success\" (click)=\"FriendDashBoard()\">Friend DashBoard</button>\n\n<button class=\"btn btn-success\" (click)=\"AddFriendExpense()\">Add Friend Expense</button>\n");
 
 /***/ }),
 
@@ -61,7 +61,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<p>show-friend-detail works</p>\n\n<table class=\"table\">\n    <tr>\n        <th>Name</th>\n        <th>Amount</th>\n        <th>Date</th>\n    </tr>\n    <tr tr *ngFor=\"let bill of FriendBill\">\n        <td>{{bill?.name}}</td>\n        <td>{{bill?.amount}}</td>\n        <td>{{bill?.date}}</td>\n    </tr>\n</table>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<p>show-friend-detail works</p>\n\n<table class=\"table\">\n    <tr>\n        <th>Name</th>\n        <th>Amount</th>\n        <th>Email</th>\n    </tr>\n    <tr tr *ngFor=\"let bill of FriendBill\">\n        <td>{{bill?.name}}</td>\n        <td>{{bill?.amount}}</td>\n        <td>{{bill?.email}}</td>\n    </tr>\n</table>\n\n");
 
 /***/ }),
 
@@ -285,6 +285,16 @@ let AddFriendComponent = class AddFriendComponent {
         this.frnd = new _Shared_Friend__WEBPACK_IMPORTED_MODULE_4__["Friend"]();
     }
     ngOnInit() {
+        this.profileForm = this.fb.group({
+            Friends: this.fb.array([
+                this.addFriendsGroup()
+            ])
+        });
+    }
+    addFriendsGroup() {
+        return this.fb.group({
+            UserName: ['']
+        });
     }
     getCurrentUser() {
         this.service.username().subscribe(u => {
@@ -301,16 +311,27 @@ let AddFriendComponent = class AddFriendComponent {
     getFriend(id) {
         this.service.getFriend(id).subscribe(name => this.FriendName = name);
     }
-    onChange(id, isChecked) {
-        if (isChecked) {
-            this.FormArray.push(id);
-        }
-        else {
-            let index = this.FormArray.indexOf(id);
-            this.FormArray.splice(index, 1);
-        }
+    //   onChange(id:string, isChecked: boolean) {
+    //     if(isChecked) {
+    //       this.FormArray.push(id);
+    //     } else {
+    //       let index = this.FormArray.indexOf(id);
+    //       this.FormArray.splice(index,1);
+    //     }
+    // }
+    AddFriends() {
+        this.profileForm.get('Friends').push(this.addFriendsGroup());
     }
     submit() {
+        //console.log(this.profileForm.get('Friends').value);
+        this.profileForm.get('Friends').value.forEach(element => {
+            this.user.forEach(frnd => {
+                if (frnd.username == element.UserName) {
+                    this.FormArray.push(frnd.id);
+                }
+            });
+        });
+        console.log(this.FormArray);
         this.frnd.yourId = this.currentUser.id;
         this.frnd.FriendId = this.FormArray;
         this.service.AddFriend(this.frnd).subscribe(res => {
@@ -416,7 +437,6 @@ let ShowDetailsComponent = class ShowDetailsComponent {
         this.router = router;
         this.getCurrentUser();
     }
-    ;
     ngOnInit() {
     }
     getCurrentUser() {
@@ -440,10 +460,13 @@ let ShowDetailsComponent = class ShowDetailsComponent {
         this.router.navigate(['AddFriend']);
     }
     AddGroup() {
-        alert("Added Groups");
+        this.router.navigate(['Groups']);
     }
     AddFriendExpense() {
         this.router.navigate(['AddFriendExpense']);
+    }
+    FriendDashBoard() {
+        this.router.navigate(['FriendDashboard']);
     }
 };
 ShowDetailsComponent.ctorParameters = () => [
@@ -573,62 +596,6 @@ UserRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
     })
 ], UserRoutingModule);
-
-
-
-/***/ }),
-
-/***/ "./src/app/user/user-service.service.ts":
-/*!**********************************************!*\
-  !*** ./src/app/user/user-service.service.ts ***!
-  \**********************************************/
-/*! exports provided: UserServiceService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserServiceService", function() { return UserServiceService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-
-
-
-let UserServiceService = class UserServiceService {
-    constructor(http) {
-        this.http = http;
-        this.rootUrl = "http://localhost:50534/api/User";
-    }
-    username() {
-        return this.http.get(this.rootUrl + '/CurrentUser');
-    }
-    getFriend(id) {
-        return this.http.get(this.rootUrl + '/GetFriend/' + id);
-    }
-    getGroups(id) {
-        return this.http.get(this.rootUrl + '/GetGroups/' + id);
-    }
-    getFriendExpense(id) {
-        return this.http.get(this.rootUrl + '/ShowFriendExpense/' + id);
-    }
-    getAllUser() {
-        return this.http.get(this.rootUrl);
-    }
-    AddFriend(Id) {
-        return this.http.post("http://localhost:50534/api/User/AddFriend", Id);
-    }
-    CreateFriendExpense(friendExpenseData) {
-        return this.http.post(this.rootUrl + '/CreateFriendExpense', friendExpenseData);
-    }
-};
-UserServiceService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
-];
-UserServiceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    })
-], UserServiceService);
 
 
 

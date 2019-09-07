@@ -201,6 +201,24 @@ namespace Splitwise.Repository.User
 
         }
 
+        public IEnumerable<Category> GetCategory()
+        {
+            //IEnumerable<Category> cat = Context.Category.ToList();
+            //return cat;
+            List<Category> list = new List<Category>();
+            IEnumerable<Category> cat = Context.Category.ToList();
+            foreach (var i in cat)
+            {
+                Category c = new Category();
+                c.CategoryId = i.CategoryId;
+                c.Name = i.Name;
+                list.Add(c);
+            }
+            return list;
+
+
+        }
+
         #endregion
     }
 }

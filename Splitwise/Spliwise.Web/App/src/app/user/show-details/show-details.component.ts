@@ -11,7 +11,7 @@ import { FriendBillAC } from '../Shared/FriendBillAC';
 })
 export class ShowDetailsComponent implements OnInit {
   user:ApplicationUserAC;
-  FriendName:ApplicationUserAC[];;
+  FriendName:ApplicationUserAC[];
   grpName:string[];
   FriendBill:FriendBillAC[];
 
@@ -44,9 +44,13 @@ export class ShowDetailsComponent implements OnInit {
     this.router.navigate(['AddFriend']);
   } 
   AddGroup(){
-    alert("Added Groups");
+    this.router.navigate(['Groups']);
   }
   AddFriendExpense(){
     this.router.navigate(['AddFriendExpense']);
+  }
+  FriendDashBoard()
+  {
+    this.router.navigate(['FriendDashboard'])
   }
 }

@@ -22,9 +22,22 @@ export class AddFriendComponent implements OnInit {
     this.frnd=new Friend();
   
    }
+   profileForm:FormGroup;
 
   ngOnInit() {
+    this.profileForm=this.fb.group({
+      Friends:this.fb.array([
+        this.addFriendsGroup()
+      ])
+    })
   }
+
+    addFriendsGroup():FormGroup
+    {
+      return this.fb.group({
+        UserName:['']
+      });
+    }
 
   getCurrentUser(): void{
     this.service.username().subscribe(u=>
@@ -43,21 +56,35 @@ export class AddFriendComponent implements OnInit {
     getFriend(id):void{
       this.service.getFriend(id).subscribe(name=>this.FriendName=name);
     }
-    onChange(id:string, isChecked: boolean) {
-      if(isChecked) {
-        this.FormArray.push(id);
-      } else {
-        let index = this.FormArray.indexOf(id);
-        this.FormArray.splice(index,1);
-      }
+  //   onChange(id:string, isChecked: boolean) {
+  //     if(isChecked) {
+  //       this.FormArray.push(id);
+  //     } else {
+  //       let index = this.FormArray.indexOf(id);
+  //       this.FormArray.splice(index,1);
+  //     }
+  // }
+
+  AddFriends()
+  {
+    (<FormArray>this.profileForm.get('Friends')).push(this.addFriendsGroup());
   }
   submit()
   {
-   this.frnd.yourId=this.currentUser.id;
-   this.frnd.FriendId=this.FormArray;
+    //console.log(this.profileForm.get('Friends').value);
+    this.profileForm.get('Friends').value.forEach(element => {
+      this.user.forEach(frnd => {
+        if(frnd.username==element.UserName)
+        {
+          this.FormArray.push(frnd.id);
+        }
+      });
+    });
+    console.log(this.FormArray);
+    this.frnd.yourId=this.currentUser.id;
+    this.frnd.FriendId=this.FormArray;
     this.service.AddFriend(this.frnd).subscribe(res=>{
       this.router.navigate(['']);
     });
   } 
-
   }

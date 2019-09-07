@@ -126,5 +126,11 @@ namespace Splitwise.Core.Controllers
         {
             return unitofwork.UserRepository.GetGroups(userId);
         }
+        [HttpGet]
+        [Route("Category")]
+        public IEnumerable<Category> GetCategory()
+        {
+            return unitofwork.UserRepository.GetCategory();
+        }
     }
 }

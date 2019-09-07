@@ -1,4 +1,4 @@
-<!-- <p>Show details works</p> -->
+<!-- <p>Show details works</p>  -->
 <h1>{{user?.name}}</h1>
 <h2>FriendName:</h2>
 <button class="btn btn-success" (click)="AddFriend()">Add Friend</button>
@@ -19,10 +19,11 @@
     </tr>
 </table>
 
-<table class='table'>
+<!-- <table class='table'>
     <tr *ngFor="let bill of FriendBill">
         <td>{{bill.name}} owed {{bill.amount}} on {{bill.date}}</td>
     </tr>
-</table>
+</table> -->
+<button class="btn btn-success" (click)="FriendDashBoard()">Friend DashBoard</button>
 
 <button class="btn btn-success" (click)="AddFriendExpense()">Add Friend Expense</button>

@@ -284,7 +284,11 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: '',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-user-module */ "user-user-module").then(__webpack_require__.bind(null, /*! ./user/user.module */ "./src/app/user/user.module.ts")).then(mod => mod.UserModule)
+        loadChildren: () => Promise.all(/*! import() | user-user-module */[__webpack_require__.e("common"), __webpack_require__.e("user-user-module")]).then(__webpack_require__.bind(null, /*! ./user/user.module */ "./src/app/user/user.module.ts")).then(mod => mod.UserModule)
+    },
+    {
+        path: 'Groups',
+        loadChildren: () => Promise.all(/*! import() | group-group-module */[__webpack_require__.e("common"), __webpack_require__.e("group-group-module")]).then(__webpack_require__.bind(null, /*! ./group/group.module */ "./src/app/group/group.module.ts")).then(mod => mod.GroupModule)
     }
 ];
 let AppRoutingModule = class AppRoutingModule {
