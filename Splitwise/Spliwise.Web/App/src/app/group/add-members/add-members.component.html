@@ -1,1 +1,21 @@
-<p>add-members works!</p>
+<p>add-members works</p>
+
+<div class="well">
+    <div [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div formArrayName="Members" *ngFor="let m of profileForm.get('Members').controls;let i=index">
+                <div [formGroupName]="i">
+                        <div class="form-group">
+                                <label>
+                                    Name:
+                                </label>
+                                <input type="text" formControlName="Name">
+                            </div>
+                </div>
+            </div>
+        <button type="button" (click)="AddFriends()">Add Friends</button>
+    </div>
+</div>
+<div>
+    <button class="success" (click)="submit()">Add</button>
+</div>
+

@@ -122,7 +122,7 @@ namespace Splitwise.Core.Controllers
         }
         [HttpGet]
         [Route("GetGroups/{userId}")]
-        public IEnumerable<string> GetGroups([FromRoute] string userId)
+        public IEnumerable<Group> GetGroups([FromRoute] string userId)
         {
             return unitofwork.UserRepository.GetGroups(userId);
         }

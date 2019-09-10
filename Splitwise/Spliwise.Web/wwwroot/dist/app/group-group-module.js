@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<p>add-group-expense works!</p>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<p>add-group-expense works</p>\n\n<form [formGroup]=\"profileForm\" (ngSubmit)=\"onSubmit()\">\n    <div class=\"panel-body\">\n        <div class=\"form-group\">\n            <label>\n            Cost:\n            <input type=\"number\" formControlName=\"Cost\">\n            </label>\n        </div>\n        <div class=\"form-group\">\n                <label>\n                Description:\n                <input type=\"text\" formControlName=\"Description\">\n                </label>\n        </div>\n        <div class=\"form-group\">\n                <label>\n                Date:\n                <input type=\"date\" formControlName=\"Date\">\n                </label>\n        </div>\n        <div class=\"form-group\">\n            <label>\n                Split:\n            </label>\n            <input type=\"radio\" formControlName=\"Split\" value=\"equally\">Equally\n            <input type=\"radio\" formControlName=\"Split\" value=\"Unequally\">Unequally\n        </div> \n        <div class=\"well\">\n            <div formArrayName=\"MembersExpense\" *ngFor=\"let m of profileForm.get('MembersExpense').controls;let i=index\">\n                <div [formGroupName]=\"i\">\n                    <label>\n                        Name\n                    </label>\n                        <input type =\"text\"  formControlName=\"Name\" >\n                        <label>\n                            Price\n                        </label>            \n                        <input type=\"number\"  formControlName=\"Price\">\n                </div>\n            </div>\n            <button type=\"button\" (click)=\"AddMembers()\">Add Members</button>\n            </div>\n            <div class=\"form-group\">\n            <label>\n              GroupName:\n              <select (change)=\"onChange($event.target.value)\" class = \"form-control\"  formControlName=\"GroupName\">\n                    <option value=\"\">Choose your Group</option>\n                    <option *ngFor = \"let grp of grpName\" [(ngValue)]=\"grp\"  [value]=\"grp.id\">{{grp.groupName}}</option>\n                 </select>\n            </label>\n        </div>  \n            <div class=\"form-group\">\n                <label>\n                    Paid by:\n                </label>\n                <div *ngFor=\"let name of allUser\">\n                    <input type=\"radio\" formControlName=\"Paidby\" [value]=\"name.userId\">{{name.memberName}}\n                </div>\n            </div>\n    </div>\n    <div class=\"form-group\">\n            <button type=\"submit\" [disabled]=\"!profileForm.valid\">Submit</button>\n    </div>\n</form>\n");
 
 /***/ }),
 
@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<p>add-members works!</p>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<p>add-members works</p>\n\n<div class=\"well\">\n    <div [formGroup]=\"profileForm\" (ngSubmit)=\"onSubmit()\">\n        <div formArrayName=\"Members\" *ngFor=\"let m of profileForm.get('Members').controls;let i=index\">\n                <div [formGroupName]=\"i\">\n                        <div class=\"form-group\">\n                                <label>\n                                    Name:\n                                </label>\n                                <input type=\"text\" formControlName=\"Name\">\n                            </div>\n                </div>\n            </div>\n        <button type=\"button\" (click)=\"AddFriends()\">Add Friends</button>\n    </div>\n</div>\n<div>\n    <button class=\"success\" (click)=\"submit()\">Add</button>\n</div>\n\n");
 
 /***/ }),
 
@@ -49,6 +49,60 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<p>group-dashboard works!</p>\n");
+
+/***/ }),
+
+/***/ "./src/app/Shared/Group.ts":
+/*!*********************************!*\
+  !*** ./src/app/Shared/Group.ts ***!
+  \*********************************/
+/*! exports provided: Group */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Group", function() { return Group; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+class Group {
+}
+
+
+/***/ }),
+
+/***/ "./src/app/Shared/GroupExpenseData.ts":
+/*!********************************************!*\
+  !*** ./src/app/Shared/GroupExpenseData.ts ***!
+  \********************************************/
+/*! exports provided: GroupExpenseData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GroupExpenseData", function() { return GroupExpenseData; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+class GroupExpenseData {
+}
+
+
+/***/ }),
+
+/***/ "./src/app/Shared/GroupMembersAC.ts":
+/*!******************************************!*\
+  !*** ./src/app/Shared/GroupMembersAC.ts ***!
+  \******************************************/
+/*! exports provided: GroupMembersAC */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GroupMembersAC", function() { return GroupMembersAC; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+class GroupMembersAC {
+}
+
 
 /***/ }),
 
@@ -77,13 +131,87 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddGroupExpenseComponent", function() { return AddGroupExpenseComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _user_user_service_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../user/user-service.service */ "./src/app/user/user-service.service.ts");
+/* harmony import */ var _Shared_GroupExpenseData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Shared/GroupExpenseData */ "./src/app/Shared/GroupExpenseData.ts");
+
+
+
 
 
 let AddGroupExpenseComponent = class AddGroupExpenseComponent {
-    constructor() { }
+    constructor(service, fb) {
+        this.service = service;
+        this.fb = fb;
+        this.allUser = [];
+        this.getCurrentUser();
+        this.groupExpense = new _Shared_GroupExpenseData__WEBPACK_IMPORTED_MODULE_4__["GroupExpenseData"]();
+    }
     ngOnInit() {
+        this.profileForm = this.fb.group({
+            Cost: [''],
+            Description: [''],
+            Date: [''],
+            Split: [''],
+            GroupName: [''],
+            Paidby: [''],
+            MembersExpense: this.fb.array([
+                this.addMembersFormGroup()
+            ])
+        });
+    }
+    addMembersFormGroup() {
+        return this.fb.group({
+            Name: [''],
+            Price: ['']
+        });
+    }
+    AddMembers() {
+        this.profileForm.get('MembersExpense').push(this.addMembersFormGroup());
+    }
+    deleteMembers(index) {
+        this.profileForm.get('MembersExpense').removeAt(index);
+    }
+    getCurrentUser() {
+        this.service.username().subscribe(u => {
+            this.user = u;
+            this.getGroups(this.user.id);
+        });
+    }
+    getGroups(id) {
+        this.service.getallGroups(id).subscribe(res => {
+            this.grpName = res;
+        });
+    }
+    onSubmit() {
+        // console.log(this.profileForm.value);
+        this.groupExpense.Cost = this.profileForm.get('Cost').value;
+        this.groupExpense.CreaterId = this.user.id;
+        this.groupExpense.Date = this.profileForm.get('Date').value;
+        this.groupExpense.Description = this.profileForm.get('Description').value;
+        this.groupExpense.GrpId = this.ID;
+        this.groupExpense.PaidbyId = this.profileForm.get('Paidby').value;
+        this.groupExpense.Split = this.profileForm.get('Split').value;
+        // // this.profileForm.get('MembersExpense').value.forEach(element => {
+        // //   this.member = new Members();
+        // //   this.member.userId=element.Nam
+        // });
+    }
+    onChange(id) {
+        this.ID = id;
+        this.allUser = new Array();
+        this.service.getallMembers(id).subscribe(res => {
+            res.forEach(element => {
+                this.allUser.push(element);
+            });
+            console.log(this.allUser);
+        });
     }
 };
+AddGroupExpenseComponent.ctorParameters = () => [
+    { type: _user_user_service_service__WEBPACK_IMPORTED_MODULE_3__["UserServiceService"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] }
+];
 AddGroupExpenseComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-add-group-expense',
@@ -123,7 +251,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _user_user_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../user/user-service.service */ "./src/app/user/user-service.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _user_Shared_Group__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../user/Shared/Group */ "./src/app/user/Shared/Group.ts");
+/* harmony import */ var _Shared_Group__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Shared/Group */ "./src/app/Shared/Group.ts");
 
 
 
@@ -134,7 +262,7 @@ let AddGroupComponent = class AddGroupComponent {
         this.service = service;
         this.fb = fb;
         this.getCategory();
-        this.group = new _user_Shared_Group__WEBPACK_IMPORTED_MODULE_4__["Group"]();
+        this.group = new _Shared_Group__WEBPACK_IMPORTED_MODULE_4__["Group"]();
         this.getCurrentUser();
     }
     ngOnInit() {
@@ -153,7 +281,7 @@ let AddGroupComponent = class AddGroupComponent {
         this.service.createGroups(this.group).subscribe(res => {
             console.log(res);
         });
-        console.log(this.profileForm.get('Category').value);
+        //console.log(this.profileForm.get('Category').value);
     }
     getCategory() {
         this.service.getCategory().subscribe(res => {
@@ -207,13 +335,100 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddMembersComponent", function() { return AddMembersComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var src_app_user_user_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/user/user-service.service */ "./src/app/user/user-service.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var src_app_Shared_GroupMembersAC__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/Shared/GroupMembersAC */ "./src/app/Shared/GroupMembersAC.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+
+
+
+
+
 
 
 let AddMembersComponent = class AddMembersComponent {
-    constructor() { }
+    constructor(service, fb, router, route, _location) {
+        this.service = service;
+        this.fb = fb;
+        this.router = router;
+        this.route = route;
+        this._location = _location;
+        this.FormArray = [];
+        this.Grp = [];
+        this.allmembers = [];
+        this.memberID = [];
+        this.getAllUser();
+        this.members = new src_app_Shared_GroupMembersAC__WEBPACK_IMPORTED_MODULE_5__["GroupMembersAC"]();
+        this.id = +this.route.snapshot.paramMap.get('id');
+    }
     ngOnInit() {
+        this.profileForm = this.fb.group({
+            Members: this.fb.array([
+                this.addFriendsGroup()
+            ])
+        });
+    }
+    addFriendsGroup() {
+        return this.fb.group({
+            Name: ['']
+        });
+    }
+    AddFriends() {
+        this.profileForm.get('Members').push(this.addFriendsGroup());
+    }
+    // getCurrentUser(): void{
+    //   this.service.username().subscribe(u=>
+    //     {
+    //       this.currentUser=u;
+    //       this.getAllUser();
+    //       this.getAllMembers(this.id);
+    //     });
+    //   }
+    getAllUser() {
+        this.service.getAllUser().subscribe(u => {
+            this.user = u;
+            this.getAllMembers(this.id);
+        });
+    }
+    getAllMembers(id) {
+        this.service.getallMembers(id).subscribe(res => {
+            res.forEach(element => {
+                this.memberID.push(element.userId);
+            });
+            console.log(this.memberID);
+        });
+    }
+    submit() {
+        // console.log(this.profileForm.get('Members').value);
+        this.profileForm.get('Members').value.forEach(element => {
+            this.user.forEach(u => {
+                if (element.Name == u.name) {
+                    if (!this.FormArray.some(x => x == u.id) && !this.memberID.some(x => x == u.id)) {
+                        this.FormArray.push(u.id);
+                    }
+                }
+            });
+        });
+        // console.log(id);
+        console.log(this.FormArray);
+        this.members.grpid = this.id;
+        this.members.userId = this.FormArray;
+        if (this.members.userId.length == 0) {
+            alert("enter valid details");
+        }
+        else {
+            this.service.addGroupMembersList(this.members).subscribe(res => this._location.back());
+        }
     }
 };
+AddMembersComponent.ctorParameters = () => [
+    { type: src_app_user_user_service_service__WEBPACK_IMPORTED_MODULE_2__["UserServiceService"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
+    { type: _angular_common__WEBPACK_IMPORTED_MODULE_6__["Location"] }
+];
 AddMembersComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-add-members',
@@ -284,6 +499,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _add_group_add_group_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./add-group/add-group.component */ "./src/app/group/add-group/add-group.component.ts");
+/* harmony import */ var _add_members_add_members_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./add-members/add-members.component */ "./src/app/group/add-members/add-members.component.ts");
+/* harmony import */ var _add_group_expense_add_group_expense_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./add-group-expense/add-group-expense.component */ "./src/app/group/add-group-expense/add-group-expense.component.ts");
+
+
 
 
 
@@ -292,6 +511,14 @@ const routes = [
     {
         path: '',
         component: _add_group_add_group_component__WEBPACK_IMPORTED_MODULE_3__["AddGroupComponent"]
+    },
+    {
+        path: 'AddMembers/:id',
+        component: _add_members_add_members_component__WEBPACK_IMPORTED_MODULE_4__["AddMembersComponent"]
+    },
+    {
+        path: 'GroupExpense',
+        component: _add_group_expense_add_group_expense_component__WEBPACK_IMPORTED_MODULE_5__["AddGroupExpenseComponent"]
     }
 ];
 let GroupRoutingModule = class GroupRoutingModule {
@@ -349,24 +576,6 @@ GroupModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     })
 ], GroupModule);
 
-
-
-/***/ }),
-
-/***/ "./src/app/user/Shared/Group.ts":
-/*!**************************************!*\
-  !*** ./src/app/user/Shared/Group.ts ***!
-  \**************************************/
-/*! exports provided: Group */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Group", function() { return Group; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-
-class Group {
-}
 
 
 /***/ })

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
-import { ApplicationUserAC } from '../Shared/ApplicationUserAC';
 import { UserServiceService } from '../user-service.service';
-import { Members } from '../Shared/Members';
-import { FriendExpensesData } from '../Shared/FriendExpensesData';
 import { Router } from '@angular/router';
+import { ApplicationUserAC } from 'src/app/Shared/ApplicationUserAC';
+import { Members } from 'src/app/Shared/Members';
+import { FriendExpensesData } from 'src/app/Shared/FriendExpensesData';
 
 @Component({
   selector: 'app-add-friend-expense',
@@ -79,7 +79,6 @@ m:Members;
     {
       this.router.navigate(['FriendDashboard']);
     });
-
   }
 
   getCurrentUser(): void{

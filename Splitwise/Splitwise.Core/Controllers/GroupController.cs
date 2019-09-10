@@ -38,10 +38,10 @@ namespace Splitwise.Core.Controllers
             return CreatedAtAction("GetAllGroup", new { id = group.Id }, group);
         }
 
-        [HttpGet]
-        public IEnumerable<Group> GetAllGroup()
+        [Route("GetAllGroupsId/{id}")]
+        public IEnumerable<Group> GetAllGroupId([FromRoute] string id)
         {
-            return unitofwork.GroupRepository.GetAllGroups();
+            return unitofwork.GroupRepository.GetAllGroupsId(id);
         }
 
        [Route("AddMembers")]
@@ -50,6 +50,18 @@ namespace Splitwise.Core.Controllers
             await unitofwork.GroupRepository.AddMembers(grp);
             await unitofwork.Save();
             return Ok(grp);
+        }
+        [Route("AddMembersList")]
+        public async Task<IActionResult> AddMembersList([FromBody] GroupMembersAC groupMembersAC)
+        {
+            if (ModelState.IsValid)
+            {
+                List<string> MemberId = groupMembersAC.UserId;
+                int grpId = groupMembersAC.GrpId;
+                await unitofwork.GroupRepository.AddMembersList(grpId, MemberId);
+                await unitofwork.Save();
+            }
+            return Ok(groupMembersAC);
         }
 
         //[HttpDelete("{id}")]
@@ -67,6 +79,12 @@ namespace Splitwise.Core.Controllers
         {
             var grp = unitofwork.GroupRepository.GetGroupsId(id);
             return grp;
+        }
+
+        [Route("GetMembers/{id}")]
+        public IEnumerable<GroupMemberDetailAC> GetMembers([FromRoute] int id)
+        {
+            return unitofwork.GroupRepository.GetAllMembers(id);
         }
        
         

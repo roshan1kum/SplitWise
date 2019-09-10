@@ -187,18 +187,16 @@ namespace Splitwise.Repository.User
             return list.AsEnumerable();
         }
 
-        public IEnumerable<string> GetGroups(string userId)
+        public IEnumerable<Group> GetGroups(string userId)
         {
-            List<string> List = new List<string>();
+            List<Group> List = new List<Group>();
             var grp = Context.GroupMembers.Where(x => x.UserID == userId)
                               .Include(x => x.Group);
             foreach (var i in grp)
             {
-                List.Add(i.Group.GroupName);
+                List.Add(i.Group);
             }
-
             return List.AsEnumerable();
-
         }
 
         public IEnumerable<Category> GetCategory()

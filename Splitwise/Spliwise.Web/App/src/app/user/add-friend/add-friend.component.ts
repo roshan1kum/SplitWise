@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserServiceService } from '../user-service.service';
-import { ApplicationUserAC } from '../Shared/ApplicationUserAC';
+
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
-import { Friend } from '../Shared/Friend';
+
 import { Router } from '@angular/router';
+import { ApplicationUserAC } from 'src/app/Shared/ApplicationUserAC';
+import { Friend } from 'src/app/Shared/Friend';
+
 
 @Component({
   selector: 'app-add-friend',

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserServiceService } from '../user-service.service';
-import { FriendBillAC } from '../Shared/FriendBillAC';
-import { ApplicationUserAC } from '../Shared/ApplicationUserAC';
+import { FriendBillAC } from '../../Shared/FriendBillAC';
+import { ApplicationUserAC } from 'src/app/Shared/ApplicationUserAC';
+
+
 
 @Component({
   selector: 'app-show-friend-detail',
@@ -29,6 +31,4 @@ export class ShowFriendDetailComponent implements OnInit {
   getFriendExpense(id){
     this.service.getFriendExpense(id).subscribe(name=>this.FriendBill=name);
   }
-
-
   }

@@ -48,6 +48,15 @@ let UserServiceService = class UserServiceService {
     createGroups(group) {
         return this.http.post("http://localhost:50534/api/Groups", group);
     }
+    addGroupMembersList(GroupMember) {
+        return this.http.post("http://localhost:50534/api/Groups/AddMembersList", GroupMember);
+    }
+    getallMembers(id) {
+        return this.http.get("http://localhost:50534/api/Groups/GetMembers/" + id);
+    }
+    getallGroups(id) {
+        return this.http.get("http://localhost:50534/api/Groups/GetAllGroupsId/" + id);
+    }
 };
 UserServiceService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }

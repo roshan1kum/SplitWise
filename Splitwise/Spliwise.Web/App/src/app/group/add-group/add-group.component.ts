@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from '../../user/Shared/Category';
 import { UserServiceService } from '../../user/user-service.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Group } from '../../user/Shared/Group';
-import { ApplicationUserAC } from '../../user/Shared/ApplicationUserAC';
+import { Group } from '../../Shared/Group';
+import { ApplicationUserAC } from '../../Shared/ApplicationUserAC';
+import { Category } from '../../Shared/Category';
+
 
 @Component({
   selector: 'app-add-group',
@@ -41,7 +42,7 @@ export class AddGroupComponent implements OnInit {
       console.log(res);
     }
     )
-    console.log(this.profileForm.get('Category').value);
+    //console.log(this.profileForm.get('Category').value);
 
   }
   getCategory():void

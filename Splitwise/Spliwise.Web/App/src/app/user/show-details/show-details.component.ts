@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserServiceService } from '../user-service.service';
 import { Router } from '@angular/router';
-import { ApplicationUserAC } from '../Shared/ApplicationUserAC';
-import { FriendBillAC } from '../Shared/FriendBillAC';
+import { ApplicationUserAC } from 'src/app/Shared/ApplicationUserAC';
+import { FriendBillAC } from 'src/app/Shared/FriendBillAC';
+import { Group } from 'src/app/Shared/Group';
+
 
 @Component({
   selector: 'app-show-details',
@@ -12,7 +14,7 @@ import { FriendBillAC } from '../Shared/FriendBillAC';
 export class ShowDetailsComponent implements OnInit {
   user:ApplicationUserAC;
   FriendName:ApplicationUserAC[];
-  grpName:string[];
+  grpName:Group[];
   FriendBill:FriendBillAC[];
 
   constructor(private service:UserServiceService,private router:Router) {
@@ -52,5 +54,13 @@ export class ShowDetailsComponent implements OnInit {
   FriendDashBoard()
   {
     this.router.navigate(['FriendDashboard'])
+  }
+  AddMembers(id:number)
+  {
+    this.router.navigate(['./Groups/AddMembers',id]);
+  }
+  AddGroupExpense(id:number)
+  {
+    this.router.navigate(['./Groups/GroupExpense']);
   }
 }

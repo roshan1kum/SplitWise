@@ -15,7 +15,7 @@ namespace Splitwise.Repository.User
         IEnumerable<ApplicationUserAc> GetAllUsers();
         ApplicationUserAc GetCurentUser(ApplicationUser user);
         IEnumerable<ApplicationUserAc> GetFriend(string userId);
-        IEnumerable<string> GetGroups(string userId);
+        IEnumerable<Group> GetGroups(string userId);
 
 
 

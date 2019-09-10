@@ -29,6 +29,19 @@ namespace Splitwise.Repository
             return grp;
         }
 
+        public async Task AddMembersList(int grpId, List<string> MemberId)
+        {
+            List<GroupMembers> list = new List<GroupMembers>();
+            foreach(var i in MemberId)
+            {
+                GroupMembers g = new GroupMembers();
+                g.GrpId = grpId;
+                g.UserID = i;
+                list.Add(g);
+            }
+            await context.GroupMembers.AddRangeAsync(list);
+        }
+
         public async Task<Group> CreateGroup(Group group)
         {
             await context.Group.AddAsync(group);
@@ -45,15 +58,36 @@ namespace Splitwise.Repository
             return groups;
         }
 
-        public IEnumerable<Group> GetAllGroups()
+        public IEnumerable<Group> GetAllGroupsId(string id)
         {
             //var aa = context.Group.Include(c => c.Category).ToList();
 
             //var B = context.Group.FirstOrDefault(); 
-            var grp = context.Group.Include(c => c.Category).
-                                   Include(c => c.CreaterGroup).
-                                   ToList();
-            return grp;
+            //var grp = context.Group.Include(c => c.Category).
+            //                       Include(c => c.CreaterGroup).
+            //                       ToList();
+            var grp = context.Group.Where(x => x.CreatorId == id);
+            return grp.AsEnumerable();
+            
+        }
+
+        public IEnumerable<GroupMemberDetailAC> GetAllMembers(int id)
+        {
+            List<GroupMembers> mem = context.GroupMembers.Where(x => x.GrpId == id).
+                                                            Include(x=>x.Group).
+                                                            Include(x=>x.User).ToList();
+            List<GroupMemberDetailAC> List = new List<GroupMemberDetailAC>();
+            foreach(var i in mem)
+            {
+                GroupMemberDetailAC groupMemberDetail = new GroupMemberDetailAC();
+                groupMemberDetail.CreatedDate = i.Group.CreatedDate;
+                groupMemberDetail.CreaterName = i.Group.CreaterGroup.Name;
+                groupMemberDetail.grpId = i.Group.Id;
+                groupMemberDetail.MemberName = i.User.Name;
+                groupMemberDetail.UserId = i.User.Id;
+                List.Add(groupMemberDetail);
+            }
+            return List;
         }
 
         public IEnumerable<GroupExpenseAC> GetGroupsId(int id)
