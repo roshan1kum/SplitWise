@@ -25,6 +25,8 @@ m:Members;
 // friendN:string[];
   constructor(private service:UserServiceService,private fb:FormBuilder,private router:Router) {
     this.getCurrentUser();
+    this.FriendName=new Array<ApplicationUserAC>();
+    
     this.FriendExpense=new FriendExpensesData();
     this.FriendExpense.friendUserExpense=new Array<Members>();
      }
@@ -85,12 +87,17 @@ m:Members;
     this.service.username().subscribe(u=>
       {
         this.user=u;
+        this.FriendName.push(this.user);
         this.getFriend(this.user.id);
       });
     }
     getFriend(id):void{
       this.service.getFriend(id).subscribe(name=>{
-        this.FriendName=name
+        name.forEach(element => {
+          this.FriendName.push(element);
+        });
+        
+        console.log(this.FriendName);
       }); 
     }
 

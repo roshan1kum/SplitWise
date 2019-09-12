@@ -4,6 +4,7 @@ import { AddGroupComponent } from './add-group/add-group.component';
 import { AddMembersComponent } from './add-members/add-members.component';
 import { AddFriendExpenseComponent } from '../user/add-friend-expense/add-friend-expense.component';
 import { AddGroupExpenseComponent } from './add-group-expense/add-group-expense.component';
+import { GroupDashboardComponent } from './group-dashboard/group-dashboard.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path:'GroupExpense',
     component:AddGroupExpenseComponent
+  },
+  {
+    path:'GroupDashboard/:id',
+    component:GroupDashboardComponent
   }
 ];
 

@@ -289,6 +289,10 @@ const routes = [
     {
         path: 'Groups',
         loadChildren: () => Promise.all(/*! import() | group-group-module */[__webpack_require__.e("common"), __webpack_require__.e("group-group-module")]).then(__webpack_require__.bind(null, /*! ./group/group.module */ "./src/app/group/group.module.ts")).then(mod => mod.GroupModule)
+    },
+    {
+        path: 'Settlement',
+        loadChildren: () => Promise.all(/*! import() | settlement-settlement-module */[__webpack_require__.e("common"), __webpack_require__.e("settlement-settlement-module")]).then(__webpack_require__.bind(null, /*! ./settlement/settlement.module */ "./src/app/settlement/settlement.module.ts")).then(mod => mod.SettlementModule)
     }
 ];
 let AppRoutingModule = class AppRoutingModule {

@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path:'Groups',
     loadChildren:()=>import('./group/group.module').then(mod=>mod.GroupModule)
+  },
+  {
+    path:'Settlement',
+    loadChildren:()=>import('./settlement/settlement.module').then(mod=>mod.SettlementModule)
   }
 
 ];

@@ -9,5 +9,5 @@ export class GroupExpenseData{
     PaidbyId:string;
     Date:Date;
     Split:string;
-    GroupUsersExpenses:Array<Members>[];
+    GroupUsersExpenses:Array<Members>;
 }

@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddSettlementComponent } from './add-settlement/add-settlement.component';
 
+import { SettlementRoutingModule } from './settlement-routing.module';
+import { SettlementComponent } from './settlement/settlement.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [AddSettlementComponent],
+  declarations: [SettlementComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    SettlementRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
+
   ]
 })
 export class SettlementModule { }

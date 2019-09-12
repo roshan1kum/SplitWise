@@ -152,6 +152,7 @@ namespace Splitwise.Repository.User
                     friendBillAC.PaidbyAmount = j.FriendExpense.Amount;
                     friendBillAC.PaidbyEmail = j.FriendExpense.PaidbyUser.Email;
                     friendBillAC.PaidbyUserName = j.FriendExpense.PaidbyUser.Name;
+                    friendBillAC.Description = j.FriendExpense.Description;
                     bill.Add(friendBillAC);
                 }
             }

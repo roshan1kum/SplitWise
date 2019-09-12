@@ -6,4 +6,5 @@ export class FriendBillAC{
     PaidbyAmount:number;
     PaidbyUserName:string;
     PaidbyEmail:string;
+    description:string;
 }

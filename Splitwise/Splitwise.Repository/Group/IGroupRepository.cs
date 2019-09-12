@@ -16,5 +16,6 @@ namespace Splitwise.Repository
         Task AddMembersList(int grpId,List<string> MemberId);
         IEnumerable<GroupMemberDetailAC> GetAllMembers(int id);
         IEnumerable<Group> GetAllGroupsId(string id);
+        IEnumerable<Group> GetAllGroupsMembersId(string id);
     }
 }

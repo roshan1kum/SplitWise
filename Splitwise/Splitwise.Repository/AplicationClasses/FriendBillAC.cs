@@ -13,5 +13,6 @@ namespace Splitwise.Repository.AplicationClasses
         public int PaidbyAmount { get; set; }
         public string PaidbyUserName { get; set; }
         public string PaidbyEmail { get; set; }
+        public string Description { get; set; }
     }
 }

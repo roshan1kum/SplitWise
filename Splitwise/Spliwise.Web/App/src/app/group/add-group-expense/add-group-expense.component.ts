@@ -7,6 +7,7 @@ import { GroupMembersAC } from '../../Shared/GroupMembersAC';
 import { GroupMemberDetailsAC } from '../../Shared/GroupMemberDetailsAC';
 import { GroupExpenseData } from '../../Shared/GroupExpenseData';
 import { Members } from '../../Shared/Members';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -21,9 +22,10 @@ export class AddGroupExpenseComponent implements OnInit {
   groupExpense:GroupExpenseData;
   ID:number;
   member:Members;
-  constructor(private service:UserServiceService,private fb:FormBuilder) {
+  constructor(private service:UserServiceService,private fb:FormBuilder,private _location: Location) {
     this.getCurrentUser();
     this.groupExpense = new GroupExpenseData();
+    this.groupExpense.GroupUsersExpenses=new Array<Members>();
    }
   profileForm:FormGroup;
 
@@ -70,6 +72,11 @@ export class AddGroupExpenseComponent implements OnInit {
     onSubmit()
     {
       // console.log(this.profileForm.value);
+      // console.log(this.profileForm.get('MembersExpense').value);
+      // this.profileForm.get('MembersExpense').value.forEach(element => {
+      //   console.log(element.Name)
+        
+      // });
       this.groupExpense.Cost=this.profileForm.get('Cost').value;
       this.groupExpense.CreaterId=this.user.id;
       this.groupExpense.Date=this.profileForm.get('Date').value;
@@ -77,13 +84,22 @@ export class AddGroupExpenseComponent implements OnInit {
       this.groupExpense.GrpId=this.ID;
       this.groupExpense.PaidbyId=this.profileForm.get('Paidby').value;
       this.groupExpense.Split=this.profileForm.get('Split').value;
-      // // this.profileForm.get('MembersExpense').value.forEach(element => {
-      // //   this.member = new Members();
-      // //   this.member.userId=element.Nam
-        
-      // });
-
-    }
+      this.profileForm.get('MembersExpense').value.forEach(element => {
+        this.allUser.forEach(user => {
+          if(user.memberName==element.Name)
+          {
+            this.member=new Members();
+            this.member.Amount=element.Price;
+            this.member.userId=user.userId;
+            this.groupExpense.GroupUsersExpenses.push(this.member);
+          }
+        });
+      });
+      debugger;
+      this.service.createExpense(this.groupExpense).subscribe(res=>{
+        this._location.back()
+      })
+      }
     onChange(id:number) {
       this.ID=id;
       this.allUser=new Array<GroupMemberDetailsAC>();
@@ -94,5 +110,4 @@ export class AddGroupExpenseComponent implements OnInit {
         console.log(this.allUser);
       })
   }
-   
 }

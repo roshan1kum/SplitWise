@@ -10,6 +10,10 @@ import { Category } from '../Shared/Category';
 import { GroupMembersAC } from '../Shared/GroupMembersAC';
 
 import { GroupMemberDetailsAC } from 'src/app/Shared/GroupMemberDetailsAC';
+import { GroupExpenseData } from '../Shared/GroupExpenseData';
+import { GroupExpenseAC } from '../Shared/GroupExpenseAC';
+import { SettlementModule } from '../settlement/settlement.module';
+import { SettlementData } from '../Shared/SettlementData';
 
 
 @Injectable({
@@ -64,6 +68,19 @@ export class UserServiceService {
   }
   getallGroups(id:string):Observable<Group[]>
   {
-    return this.http.get<Group[]>("http://localhost:50534/api/Groups/GetAllGroupsId/"+id);
+    return this.http.get<Group[]>("http://localhost:50534/api/Groups/GetAllGroupsMembersId/"+id);
+  }
+  createExpense(groupExpense:GroupExpenseData)
+  {
+    
+    return this.http.post("http://localhost:50534/api/Expense",groupExpense);
+  }
+  GetGroupId(id:number):Observable<GroupExpenseAC[]>
+  {
+    return this.http.get<GroupExpenseAC[]>("http://localhost:50534/api/Groups/"+id)
+  }
+  Settlement(settlemetData:SettlementData)
+  {
+    return this.http.post("http://localhost:50534/api/Settlement",settlemetData);
   }
 }

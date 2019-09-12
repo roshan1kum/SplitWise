@@ -25,8 +25,9 @@ namespace Splitwise.Repository
 
         public async Task<Settlement> CreateSettlement(Settlement settlement)
         {
-            if (settlement.GroupId == null)
+            if (settlement.GroupId == 0)
             {
+                settlement.GroupId = null;
                 updateFriendExpense(settlement);
 
             }
@@ -91,9 +92,12 @@ namespace Splitwise.Repository
                 {
                     bill.Bill = bill.Bill - settlement.Amount;
                     context.Update(bill);
-                    
+                    if (bill.Bill == 0)
+                    {
+                        context.FriendBills.Remove(bill);    
+                    }
+                    break;
                 }
-
             }
         }
 

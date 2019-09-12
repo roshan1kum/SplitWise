@@ -60,18 +60,27 @@ namespace Splitwise.Repository
 
         public IEnumerable<Group> GetAllGroupsId(string id)
         {
-            //var aa = context.Group.Include(c => c.Category).ToList();
 
-            //var B = context.Group.FirstOrDefault(); 
-            //var grp = context.Group.Include(c => c.Category).
-            //                       Include(c => c.CreaterGroup).
-            //                       ToList();
             var grp = context.Group.Where(x => x.CreatorId == id);
             return grp.AsEnumerable();
-            
+
+        }
+        public IEnumerable<Group> GetAllGroupsMembersId(string id)
+        {
+            var grp = context.GroupMembers.Where(x => x.UserID == id).Include(x => x.Group).Include(x=>x.User);
+            List<Group> List = new List<Group>();
+            foreach(var i in grp)
+            {
+                Group grps = new Group();
+                grps.Id = i.GrpId;
+                grps.GroupName = i.Group.GroupName;
+                grps.CreatedDate = i.Group.CreatedDate;                
+                List.Add(grps);
+            }            
+            return List.AsEnumerable();
         }
 
-        public IEnumerable<GroupMemberDetailAC> GetAllMembers(int id)
+            public IEnumerable<GroupMemberDetailAC> GetAllMembers(int id)
         {
             List<GroupMembers> mem = context.GroupMembers.Where(x => x.GrpId == id).
                                                             Include(x=>x.Group).

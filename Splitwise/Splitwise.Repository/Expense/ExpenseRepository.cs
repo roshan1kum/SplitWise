@@ -31,7 +31,7 @@ namespace Splitwise.Repository
                 UserExpense userExpense = new UserExpense();
                 userExpense.ExpId = expId;
                 userExpense.UsersId = i.UserId;
-                userExpense.SplitAmount = i.Price;
+                userExpense.SplitAmount = i.Amount;
                 list.Add(userExpense);
             }
             await context.UserExpenses.AddRangeAsync(list);

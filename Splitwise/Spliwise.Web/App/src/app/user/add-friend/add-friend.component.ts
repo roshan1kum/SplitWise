@@ -76,7 +76,7 @@ export class AddFriendComponent implements OnInit {
   {
     //console.log(this.profileForm.get('Friends').value);
     this.profileForm.get('Friends').value.forEach(element => {
-      this.user.forEach(frnd => {
+      this.FriendName.forEach(frnd => {
         if(frnd.username==element.UserName)
         {
           this.FormArray.push(frnd.id);

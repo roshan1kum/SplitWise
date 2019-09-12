@@ -6,7 +6,7 @@ namespace Splitwise.Repository.ApplicationClasses
     public class GroupUsersExpensesAC
     {
         public string UserId { get; set; }
-        public int Price { get; set; }
+        public int Amount { get; set; }
 
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }

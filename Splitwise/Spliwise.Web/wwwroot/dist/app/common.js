@@ -1,5 +1,23 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["common"],{
 
+/***/ "./src/app/Shared/Members.ts":
+/*!***********************************!*\
+  !*** ./src/app/Shared/Members.ts ***!
+  \***********************************/
+/*! exports provided: Members */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Members", function() { return Members; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+class Members {
+}
+
+
+/***/ }),
+
 /***/ "./src/app/user/user-service.service.ts":
 /*!**********************************************!*\
   !*** ./src/app/user/user-service.service.ts ***!
@@ -55,7 +73,16 @@ let UserServiceService = class UserServiceService {
         return this.http.get("http://localhost:50534/api/Groups/GetMembers/" + id);
     }
     getallGroups(id) {
-        return this.http.get("http://localhost:50534/api/Groups/GetAllGroupsId/" + id);
+        return this.http.get("http://localhost:50534/api/Groups/GetAllGroupsMembersId/" + id);
+    }
+    createExpense(groupExpense) {
+        return this.http.post("http://localhost:50534/api/Expense", groupExpense);
+    }
+    GetGroupId(id) {
+        return this.http.get("http://localhost:50534/api/Groups/" + id);
+    }
+    Settlement(settlemetData) {
+        return this.http.post("http://localhost:50534/api/Settlement", settlemetData);
     }
 };
 UserServiceService.ctorParameters = () => [

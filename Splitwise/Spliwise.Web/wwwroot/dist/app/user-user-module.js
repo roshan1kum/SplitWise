@@ -48,7 +48,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!-- <p>Show details works</p>  -->\n<h1>{{user?.name}}</h1>\n<h2>FriendName:</h2>\n<button class=\"btn btn-success\" (click)=\"AddFriend()\">Add Friend</button>\n\n<table class='table'>\n    <tr *ngFor=\"let f of FriendName\">\n        <td>{{f.name}}</td>\n    </tr>\n</table>\n\n<h3>GroupName</h3>\n<button class=\"btn btn-success\" (click)=\"AddGroup()\">Add Group</button>\n\n\n<table class='table'>\n    <tr *ngFor=\"let g of grpName\">\n        <td>{{g.groupName}}</td>\n        <td><button class=\"btn btn-success\" (click)=\"AddMembers(g.id)\">Add</button></td>\n    </tr>\n</table>\n\n<!-- <table class='table'>\n    <tr *ngFor=\"let bill of FriendBill\">\n        <td>{{bill.name}} owed {{bill.amount}} on {{bill.date}}</td>\n    </tr>\n</table> -->\n\n<button class=\"btn btn-success\" (click)=\"FriendDashBoard()\">Friend DashBoard</button>\n\n<button class=\"btn btn-success\" (click)=\"AddFriendExpense()\">Add Friend Expense</button>\n\n<button class=\"btn btn-success\" (click)=\"AddGroupExpense()\">Add Group Expense</button>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"panel panel-primary\">\n    <div class=\"panel-heading\">Split wise</div>\n    <div class=\"panel-body\">\n        <h2>{{user?.name}}</h2>\n    </div>         \n</div>\n\n<!-- <div  class=col-md-6 width=50%> -->\n<div class=\"panel panel-primary\">\n        <div class=\"panel-heading\">Friends</div>\n        <div class=\"panel-body\">\n                <button class=\"btn btn-success\" (click)=\"AddFriend()\">Add Friend</button>\n                <button class=\"btn btn-success friend-btn\" (click)=\"FriendDashBoard()\">Friend DashBoard</button>\n                <table class='table'>\n                        <tr *ngFor=\"let f of FriendName\">\n                            <td>{{f.name}}</td>\n                        </tr>\n                    </table>\n        </div>         \n    </div>\n<!-- </div> -->\n<!-- <div class=col-md-6 width=50%> -->\n        <div class=\"panel panel-primary\">\n                <div class=\"panel-heading\">Operation</div>\n                <div class=\"panel-body\">\n                        <div class=\"form-group\">\n                                <button class=\"btn btn-success\" (click)=\"AddFriendExpense()\">Add Friend Expense</button>\n                                </div>\n                                <div class=\"form-group\">\n                                <button class=\"btn btn-success\" (click)=\"AddGroupExpense()\">Add Group Expense</button><br>\n                                </div>\n                                <div class=\"form-group\">\n                                <button class=\"btn btn-success\" (click)=\"Settlement()\">Settle Up</button>\n                                </div> \n                </div>         \n            </div>\n<!-- </div> -->\n\n<div class=\"panel panel-primary\">\n        <div class=\"panel-heading\">Group Name</div>\n        <div class=\"panel-body\">\n                <button class=\"btn btn-success\" (click)=\"AddGroup()\">Add Group</button>\n                <table class='table'>\n                        <tr *ngFor=\"let g of grpName\" (click)=\"NavigateToGroupDashboard(g.id)\">\n                            <td>{{g.groupName}}</td>\n                            <div class=\"form-group\">\n                            <td><button class=\"btn btn-success\" (click)=\"AddMembers(g.id)\">Add</button></td>\n                        </div>\n                        </tr>\n                    </table>                        \n        </div>         \n<!-- </div> -->\n  \n       \n");
 
 /***/ }),
 
@@ -61,7 +61,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<p>show-friend-detail works</p>\n\n<table class=\"table\">\n    <tr>\n        <th>Name</th>\n        <th>Amount</th>\n        <th>Email</th>\n    </tr>\n    <tr tr *ngFor=\"let bill of FriendBill\">\n        <td>{{bill?.name}}</td>\n        <td>{{bill?.amount}}</td>\n        <td>{{bill?.email}}</td>\n    </tr>\n</table>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<p>show-friend-detail works</p>\n\n<table class=\"table table-condensed\">\n    <tr>\n        <th>Name</th>\n        <th>Amount</th>\n        <th>Email</th>\n        <th>Description</th>\n    </tr>\n    <tr tr *ngFor=\"let bill of FriendBill\">\n        <td>{{bill?.name}}</td>\n        <td>{{bill?.amount}}</td>\n        <td>{{bill?.email}}</td>\n        <td>{{bill?.description}}</td>\n    </tr>\n</table>\n\n");
 
 /***/ }),
 
@@ -96,24 +96,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 
 class FriendExpensesData {
-}
-
-
-/***/ }),
-
-/***/ "./src/app/Shared/Members.ts":
-/*!***********************************!*\
-  !*** ./src/app/Shared/Members.ts ***!
-  \***********************************/
-/*! exports provided: Members */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Members", function() { return Members; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-
-class Members {
 }
 
 
@@ -163,6 +145,7 @@ let AddFriendExpenseComponent = class AddFriendExpenseComponent {
         this.fb = fb;
         this.router = router;
         this.getCurrentUser();
+        this.FriendName = new Array();
         this.FriendExpense = new src_app_Shared_FriendExpensesData__WEBPACK_IMPORTED_MODULE_6__["FriendExpensesData"]();
         this.FriendExpense.friendUserExpense = new Array();
     }
@@ -214,12 +197,16 @@ let AddFriendExpenseComponent = class AddFriendExpenseComponent {
     getCurrentUser() {
         this.service.username().subscribe(u => {
             this.user = u;
+            this.FriendName.push(this.user);
             this.getFriend(this.user.id);
         });
     }
     getFriend(id) {
         this.service.getFriend(id).subscribe(name => {
-            this.FriendName = name;
+            name.forEach(element => {
+                this.FriendName.push(element);
+            });
+            console.log(this.FriendName);
         });
     }
 };
@@ -325,7 +312,7 @@ let AddFriendComponent = class AddFriendComponent {
     submit() {
         //console.log(this.profileForm.get('Friends').value);
         this.profileForm.get('Friends').value.forEach(element => {
-            this.user.forEach(frnd => {
+            this.FriendName.forEach(frnd => {
                 if (frnd.username == element.UserName) {
                     this.FormArray.push(frnd.id);
                 }
@@ -409,7 +396,7 @@ EditUserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3VzZXIvc2hvdy1kZXRhaWxzL3Nob3ctZGV0YWlscy5jb21wb25lbnQuY3NzIn0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".left, .right {\r\n    width:50%;\r\n\r\n}\r\n.full{\r\n    width:100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdXNlci9zaG93LWRldGFpbHMvc2hvdy1kZXRhaWxzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxTQUFTOztBQUViO0FBQ0E7SUFDSSxVQUFVO0FBQ2QiLCJmaWxlIjoic3JjL2FwcC91c2VyL3Nob3ctZGV0YWlscy9zaG93LWRldGFpbHMuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5sZWZ0LCAucmlnaHQge1xyXG4gICAgd2lkdGg6NTAlO1xyXG5cclxufVxyXG4uZnVsbHtcclxuICAgIHdpZHRoOjEwMCU7XHJcbn0iXX0= */");
 
 /***/ }),
 
@@ -473,6 +460,12 @@ let ShowDetailsComponent = class ShowDetailsComponent {
     }
     AddGroupExpense(id) {
         this.router.navigate(['./Groups/GroupExpense']);
+    }
+    NavigateToGroupDashboard(id) {
+        this.router.navigate(['./Groups/GroupDashboard', id]);
+    }
+    Settlement() {
+        this.router.navigate(['Settlement']);
     }
 };
 ShowDetailsComponent.ctorParameters = () => [

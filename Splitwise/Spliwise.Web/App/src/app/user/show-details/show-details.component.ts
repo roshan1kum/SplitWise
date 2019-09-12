@@ -63,4 +63,11 @@ export class ShowDetailsComponent implements OnInit {
   {
     this.router.navigate(['./Groups/GroupExpense']);
   }
+  NavigateToGroupDashboard(id:number){
+    this.router.navigate(['./Groups/GroupDashboard',id]);
+  }
+  Settlement(){
+    this.router.navigate(['Settlement']);
+  }
+
 }

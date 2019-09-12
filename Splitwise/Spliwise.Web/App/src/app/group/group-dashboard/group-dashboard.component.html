@@ -1,1 +1,22 @@
 <p>group-dashboard works!</p>
+<p>GroupName:{{group.groupName}}</p>
+<p>Added by:{{group.createrExpense}}</p>
+<p>Category:{{group.categoryName}}</p>
+<p>Total Amount Paid:{{group.totalAmount}}</p>
+<p>Date:{{group.date}}</p>
+<p>Paid by:{{group.expensePaidBy}}</p>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Amount</th>
+    </tr>
+    <tr tr *ngFor="let bill of groupExpense">
+        <td>{{bill?.expenseUserName}}</td>
+        <td>{{bill?.splitAmount}}</td>
+    </tr>
+</table>
+
+
+
+

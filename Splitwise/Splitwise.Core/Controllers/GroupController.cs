@@ -43,8 +43,13 @@ namespace Splitwise.Core.Controllers
         {
             return unitofwork.GroupRepository.GetAllGroupsId(id);
         }
+        [Route("GetAllGroupsMembersId/{id}")]
+        public IEnumerable<Group> GetAllGroupsMembersId([FromRoute] string id)
+        {
+            return unitofwork.GroupRepository.GetAllGroupsMembersId(id);
+        }
 
-       [Route("AddMembers")]
+        [Route("AddMembers")]
         public async Task<IActionResult> AddMemebers([FromBody] GroupMembers grp)
         {
             await unitofwork.GroupRepository.AddMembers(grp);
