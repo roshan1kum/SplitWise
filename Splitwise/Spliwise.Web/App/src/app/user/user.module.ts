@@ -8,11 +8,12 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { ShowDetailsComponent } from './show-details/show-details.component';
 import { ShowFriendDetailComponent } from './show-friend-detail/show-friend-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivityComponent } from './activity/activity.component';
 
 
 
 @NgModule({
-  declarations: [AddFriendComponent, AddFriendExpenseComponent, EditUserComponent, ShowDetailsComponent, ShowFriendDetailComponent],
+  declarations: [AddFriendComponent, AddFriendExpenseComponent, EditUserComponent, ShowDetailsComponent, ShowFriendDetailComponent, ActivityComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

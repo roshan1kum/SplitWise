@@ -16,7 +16,8 @@ export class ShowDetailsComponent implements OnInit {
   FriendName:ApplicationUserAC[];
   grpName:Group[];
   FriendBill:FriendBillAC[];
-
+  createrID:string;
+  
   constructor(private service:UserServiceService,private router:Router) {
     this.getCurrentUser();
 
@@ -37,7 +38,10 @@ export class ShowDetailsComponent implements OnInit {
     this.service.getFriend(id).subscribe(name=>this.FriendName=name);
   }
   getGroups(id):void{
-    this.service.getGroups(id).subscribe(name=>this.grpName=name);
+    this.service.getGroupsofUser(id).subscribe(name=>{
+      this.grpName=name
+      // this.createrID=this.grpName[0].creatorId;
+    });
   }
   getFriendExpense(id){
     this.service.getFriendExpense(id).subscribe(name=>this.FriendBill=name);
@@ -69,5 +73,13 @@ export class ShowDetailsComponent implements OnInit {
   Settlement(){
     this.router.navigate(['Settlement']);
   }
-
+  Members(id:number)
+  {
+    this.router.navigate(['./Groups/ShowMembers',id])
+  }
+  Activity()
+  {
+    this.router.navigate(['Activity'])
+  }
+  
 }

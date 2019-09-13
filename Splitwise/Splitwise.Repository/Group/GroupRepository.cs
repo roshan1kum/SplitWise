@@ -29,32 +29,66 @@ namespace Splitwise.Repository
             return grp;
         }
 
-        public async Task AddMembersList(int grpId, List<string> MemberId)
+        public async Task AddMembersList(int grpId, List<string> MemberId,string userId)
         {
             List<GroupMembers> list = new List<GroupMembers>();
+            List<Activity> activity = new List<Activity>();
             foreach(var i in MemberId)
             {
                 GroupMembers g = new GroupMembers();
+                Activity acc = new Activity();
                 g.GrpId = grpId;
                 g.UserID = i;
+                var user = context.Users.Find(i);
+                acc.UserId = userId;
+                acc.Description = "Added Members:" + user.Name;
+                activity.Add(acc);
                 list.Add(g);
             }
+            //Activity activity = new Activity();
+            //activity.UserId=
+            await context.Activity.AddRangeAsync(activity);
+
             await context.GroupMembers.AddRangeAsync(list);
         }
 
         public async Task<Group> CreateGroup(Group group)
         {
             await context.Group.AddAsync(group);
+            Activity activity = new Activity();
+            activity.Description = "Added Group :" + group.GroupName;
+            activity.UserId = group.CreatorId;
+            await context.Activity.AddAsync(activity);
             return group;
         }
 
-        public async Task<Group> Deletegroup(int id)
+        public async Task<Group> Deletegroup(int id,string userId)
         {
             var groups = await context.Group.FindAsync(id);
+            IEnumerable<Expense> expense = context.Expense.Where(x => x.GrpId == groups.Id);
+            var groupmembers = context.GroupMembers.Where(x => x.GrpId == groups.Id);           
+            //IEnumerable<UserExpense> bills = context.UserExpenses.Where(x => x.ExpId == expense.Id);            
             if (groups != null)
             {
+                foreach (var i in expense)
+                {
+                    IEnumerable<UserExpense> bill = context.UserExpenses.Where(x => x.ExpId == i.Id);
+                    foreach (var j in bill)
+                    {
+                        context.UserExpenses.Remove(j);
+                    }
+                    context.Expense.Remove(i);
+                }
+                foreach (var i in groupmembers)
+                {
+                    context.GroupMembers.Remove(i);
+                }
                 context.Remove(groups);
             }
+            Activity activity = new Activity();
+            activity.Description = "Deleted Groups:" + groups.GroupName;
+            activity.UserId = userId;
+            await context.Activity.AddAsync(activity);
             return groups;
         }
 
@@ -99,7 +133,7 @@ namespace Splitwise.Repository
             return List;
         }
 
-        public IEnumerable<GroupExpenseAC> GetGroupsId(int id)
+        public IEnumerable<GroupExpenseAC> GetGroupsExpenseId(int id)
         {
             var exp = context.Expense.Where(e=>e.GrpId==id);
             List<GroupExpenseAC> list = new List<GroupExpenseAC>();
@@ -132,7 +166,13 @@ namespace Splitwise.Repository
             return list.AsEnumerable();
         }
 
-       
+        public async Task<Group> GetGroupsId(int id)
+        {
+            var group = await  context.Group.FirstAsync(x => x.Id == id);
+            return group;
+        }
+
+
         #endregion
     }
 }

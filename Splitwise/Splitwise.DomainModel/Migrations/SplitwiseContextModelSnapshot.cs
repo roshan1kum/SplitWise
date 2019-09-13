@@ -128,6 +128,22 @@ namespace Splitwise.DomainModel.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Splitwise.DomainModel.Model.Activity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Activity");
+                });
+
             modelBuilder.Entity("Splitwise.DomainModel.Model.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -414,6 +430,13 @@ namespace Splitwise.DomainModel.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Splitwise.DomainModel.Model.Activity", b =>
+                {
+                    b.HasOne("Splitwise.DomainModel.Model.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Splitwise.DomainModel.Model.Expense", b =>

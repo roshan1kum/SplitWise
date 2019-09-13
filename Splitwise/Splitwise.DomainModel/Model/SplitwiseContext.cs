@@ -20,6 +20,7 @@ namespace Splitwise.DomainModel.Model
         public DbSet<FriendBill> FriendBills { get; set; }
         public DbSet<Friend> Friend { get; set; }
         public DbSet<FriendExpense> FriendExpenses { get; set; }
+        public DbSet<Activity> Activity { get; set; }
         #endregion
 
         #region Constructors 

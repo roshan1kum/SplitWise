@@ -1,0 +1,13 @@
+<p>showmembers works!</p>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Created Date</th>
+    </tr>
+    <tr *ngFor="let m of members">
+        <td>{{m.memberName}}</td>
+        <td>{{m.createdDate}}</td>
+    </tr>
+</table>
+

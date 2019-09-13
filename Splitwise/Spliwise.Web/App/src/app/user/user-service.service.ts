@@ -14,6 +14,7 @@ import { GroupExpenseData } from '../Shared/GroupExpenseData';
 import { GroupExpenseAC } from '../Shared/GroupExpenseAC';
 import { SettlementModule } from '../settlement/settlement.module';
 import { SettlementData } from '../Shared/SettlementData';
+import { Activity } from 'src/app/Shared/Activity';
 
 
 @Injectable({
@@ -32,7 +33,7 @@ export class UserServiceService {
     return this.http.get<ApplicationUserAC[]>(this.rootUrl+'/GetFriend/'+id);
 
   }
-  getGroups(id:string):Observable<Group[]>{
+  getGroupsofUser(id:string):Observable<Group[]>{
     return this.http.get<Group[]>(this.rootUrl+'/GetGroups/'+id);
   }
   getFriendExpense(id:string):Observable<FriendBillAC[]>{
@@ -66,10 +67,10 @@ export class UserServiceService {
   {
     return this.http.get<GroupMemberDetailsAC[]>("http://localhost:50534/api/Groups/GetMembers/"+id);
   }
-  getallGroups(id:string):Observable<Group[]>
-  {
-    return this.http.get<Group[]>("http://localhost:50534/api/Groups/GetAllGroupsMembersId/"+id);
-  }
+  // getallGroups(id:string):Observable<Group[]>
+  // {
+  //   return this.http.get<Group[]>("http://localhost:50534/api/Groups/GetAllGroupsMembersId/"+id);
+  // }
   createExpense(groupExpense:GroupExpenseData)
   {
     
@@ -82,5 +83,13 @@ export class UserServiceService {
   Settlement(settlemetData:SettlementData)
   {
     return this.http.post("http://localhost:50534/api/Settlement",settlemetData);
+  }
+  Delete(id:number)
+  {
+    return this.http.delete<Group>("http://localhost:50534/api/Groups/"+id);
+  }
+  Activity(userId:string):Observable<Activity[]>
+  {
+    return this.http.get<Activity[]>("http://localhost:50534/api/User/Activity/"+userId);
   }
 }

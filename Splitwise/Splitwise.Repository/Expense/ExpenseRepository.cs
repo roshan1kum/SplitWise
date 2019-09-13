@@ -46,7 +46,7 @@ namespace Splitwise.Repository
         #endregion
 
         #region Public method
-        public async Task<Expense> CreateExpense(UserInExpense userInExpense)
+        public async Task<Expense> CreateExpense(UserInExpense userInExpense,string userId)
         {
             Expense exp = new Expense();
             exp.CreaterId = userInExpense.CreaterId;
@@ -56,7 +56,15 @@ namespace Splitwise.Repository
             exp.Split = userInExpense.Split;
             exp.PaidbyId = userInExpense.PaidbyId;
             exp.GrpId = userInExpense.GrpId;
+          
+
+            var grp = context.Group.Find(userInExpense.GrpId);
+            Activity activity = new Activity();
+            activity.UserId = userId;
+            activity.Description = "Created Expense in group :" + grp.GroupName;
+
             await context.Expense.AddAsync(exp);
+            await context.Activity.AddAsync(activity);
             return exp;
         }
 

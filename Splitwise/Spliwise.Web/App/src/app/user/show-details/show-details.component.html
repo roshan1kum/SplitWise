@@ -1,8 +1,9 @@
+<h1>show details</h1>
 <div class="panel panel-primary">
     <div class="panel-heading">Split wise</div>
     <div class="panel-body">
         <h2>{{user?.name}}</h2>
-    </div>         
+        <button class="btn btn-success" (click)="Activity()">Activity</button>         
 </div>
 
 <!-- <div  class=col-md-6 width=50%> -->
@@ -44,7 +45,9 @@
                         <tr *ngFor="let g of grpName" (click)="NavigateToGroupDashboard(g.id)">
                             <td>{{g.groupName}}</td>
                             <div class="form-group">
-                            <td><button class="btn btn-success" (click)="AddMembers(g.id)">Add</button></td>
+                            <td><button class="btn btn-success" (click)="AddMembers(g.id)" >Add</button></td>
+                            <td><button class="btn btn-success friend-btn" (click)="Members(g.id)">Members</button></td>
+
                         </div>
                         </tr>
                     </table>                        

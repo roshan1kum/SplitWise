@@ -45,7 +45,7 @@ let UserServiceService = class UserServiceService {
     getFriend(id) {
         return this.http.get(this.rootUrl + '/GetFriend/' + id);
     }
-    getGroups(id) {
+    getGroupsofUser(id) {
         return this.http.get(this.rootUrl + '/GetGroups/' + id);
     }
     getFriendExpense(id) {
@@ -72,9 +72,10 @@ let UserServiceService = class UserServiceService {
     getallMembers(id) {
         return this.http.get("http://localhost:50534/api/Groups/GetMembers/" + id);
     }
-    getallGroups(id) {
-        return this.http.get("http://localhost:50534/api/Groups/GetAllGroupsMembersId/" + id);
-    }
+    // getallGroups(id:string):Observable<Group[]>
+    // {
+    //   return this.http.get<Group[]>("http://localhost:50534/api/Groups/GetAllGroupsMembersId/"+id);
+    // }
     createExpense(groupExpense) {
         return this.http.post("http://localhost:50534/api/Expense", groupExpense);
     }
@@ -83,6 +84,12 @@ let UserServiceService = class UserServiceService {
     }
     Settlement(settlemetData) {
         return this.http.post("http://localhost:50534/api/Settlement", settlemetData);
+    }
+    Delete(id) {
+        return this.http.delete("http://localhost:50534/api/Groups/" + id);
+    }
+    Activity(userId) {
+        return this.http.get("http://localhost:50534/api/User/Activity/" + userId);
     }
 };
 UserServiceService.ctorParameters = () => [

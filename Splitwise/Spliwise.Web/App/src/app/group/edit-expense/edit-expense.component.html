@@ -1,0 +1,68 @@
+<p>edit-expense works!</p>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="panel-body">
+        <div class="form-group">
+            <label>
+            Cost:
+            <input type="number" formControlName="Cost">
+            </label>
+        </div>
+        <div class="form-group">
+                <label>
+                Description:
+                <input type="text" formControlName="Description">
+                </label>
+        </div>
+        <div class="form-group">
+                <label>
+                Date:
+                <input type="date" formControlName="Date">
+                </label>
+        </div>
+        <div class="form-group">
+            <label>
+                Split:
+            </label>
+            <input type="radio" formControlName="Split" value="equally">Equally
+            <input type="radio" formControlName="Split" value="Unequally">Unequally
+        </div> 
+        <!-- <div class="well">
+            <div formArrayName="MembersExpense" *ngFor="let m of profileForm.get('MembersExpense').controls;let i=index">
+                <div [formGroupName]="i">
+                    <label>
+                        Name
+                    </label>
+                        <input type ="text"  formControlName="Name" >
+                        <label>
+                            Price
+                        </label>            
+                        <input type="number"  formControlName="Price">
+                </div>
+            </div>
+            <button type="button" (click)="AddMembers()">Add Members</button>
+            </div>
+            <div class="form-group">
+            <label>
+              GroupName:
+              <select (change)="onChange($event.target.value)" class = "form-control"  formControlName="GroupName">
+                    <option value="">Choose your Group</option>
+                    <option *ngFor = "let grp of grpName" [(ngValue)]="grp"  [value]="grp.id">{{grp.groupName}}</option>
+                 </select>
+            </label>
+        </div>  
+            <div class="form-group">
+                <label>
+                    Paid by:
+                </label>
+                <div *ngFor="let name of allUser">
+                    <input type="radio" formControlName="Paidby" [value]="name.userId">{{name.memberName}}
+                </div>
+            </div> -->
+    </div>
+    <div class="form-group">
+            <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+    </div>
+</form>
+
+

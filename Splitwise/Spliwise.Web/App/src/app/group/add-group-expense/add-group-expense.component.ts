@@ -64,9 +64,13 @@ export class AddGroupExpenseComponent implements OnInit {
     }
     getGroups(id:string)
     {
-      this.service.getallGroups(id).subscribe(res=>{
-        this.grpName=res;
-      })
+      // this.service.getallGroups(id).subscribe(res=>{
+      //   this.grpName=res;
+      // })
+      this.service.getGroupsofUser(id).subscribe(res=>{
+          this.grpName=res;
+        })
+
     }
    
     onSubmit()
@@ -95,7 +99,6 @@ export class AddGroupExpenseComponent implements OnInit {
           }
         });
       });
-      debugger;
       this.service.createExpense(this.groupExpense).subscribe(res=>{
         this._location.back()
       })

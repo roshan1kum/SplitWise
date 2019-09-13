@@ -17,7 +17,7 @@ export class AddFriendComponent implements OnInit {
   user:ApplicationUserAC[];
   currentUser:ApplicationUserAC;
   FormArray: Array<string> = [];
-  FriendName:ApplicationUserAC[];
+  FriendName:Array<string>=[];
   frnd:Friend;
 
   constructor(private service:UserServiceService,private fb:FormBuilder,private router:Router) {
@@ -57,16 +57,13 @@ export class AddFriendComponent implements OnInit {
     });
     }
     getFriend(id):void{
-      this.service.getFriend(id).subscribe(name=>this.FriendName=name);
+      this.service.getFriend(id).subscribe(res=>{
+        res.forEach(element => {
+          this.FriendName.push(element.id);          
+        });
+        // console.log(this.memberID);
+      })
     }
-  //   onChange(id:string, isChecked: boolean) {
-  //     if(isChecked) {
-  //       this.FormArray.push(id);
-  //     } else {
-  //       let index = this.FormArray.indexOf(id);
-  //       this.FormArray.splice(index,1);
-  //     }
-  // }
 
   AddFriends()
   {
@@ -74,20 +71,39 @@ export class AddFriendComponent implements OnInit {
   }
   submit()
   {
-    //console.log(this.profileForm.get('Friends').value);
     this.profileForm.get('Friends').value.forEach(element => {
-      this.FriendName.forEach(frnd => {
-        if(frnd.username==element.UserName)
-        {
-          this.FormArray.push(frnd.id);
-        }
+      this.user.forEach(u => {
+        if(u.username==element.UserName){
+          if(!this.FormArray.some(x=>x==u.id) && !this.FriendName.some(x=>x==u.id))
+          {
+            this.FormArray.push(u.id);
+          }    
+      }
       });
     });
     console.log(this.FormArray);
     this.frnd.yourId=this.currentUser.id;
     this.frnd.FriendId=this.FormArray;
+    if(this.frnd.FriendId.length==0)
+    {
+      alert("enter valid details");        
+    }
+    else{
     this.service.AddFriend(this.frnd).subscribe(res=>{
       this.router.navigate(['']);
     });
-  } 
   }
+}
+}
+
+
+
+
+    //   onChange(id:string, isChecked: boolean) {
+  //     if(isChecked) {
+  //       this.FormArray.push(id);
+  //     } else {
+  //       let index = this.FormArray.indexOf(id);
+  //       this.FormArray.splice(index,1);
+  //     }
+  // }

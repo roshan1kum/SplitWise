@@ -2,20 +2,32 @@
 <p>GroupName:{{group.groupName}}</p>
 <p>Added by:{{group.createrExpense}}</p>
 <p>Category:{{group.categoryName}}</p>
-<p>Total Amount Paid:{{group.totalAmount}}</p>
+<!-- <p>Total Amount:{{group.totalAmount}}</p> -->
 <p>Date:{{group.date}}</p>
-<p>Paid by:{{group.expensePaidBy}}</p>
+<!-- <p>Paid by:{{group.expensePaidBy}}</p> -->
 
 <table class="table">
     <tr>
         <th>Name</th>
         <th>Amount</th>
+        <th>Description</th>
+        <th>Paid by</th>
     </tr>
     <tr tr *ngFor="let bill of groupExpense">
         <td>{{bill?.expenseUserName}}</td>
         <td>{{bill?.splitAmount}}</td>
+        <td>{{bill.description}}</td>
+        <td>{{bill.expensePaidBy}}</td>
     </tr>
 </table>
+<div class="form-group">
+
+<td><button class="btn btn-success friend-btn" (click)="Delete()">Delete</button></td>
+
+<!-- <td><button class="btn btn-success friend-btn" (click)="Edit()">Edit</button></td> -->
+
+</div>
+
 
 
 

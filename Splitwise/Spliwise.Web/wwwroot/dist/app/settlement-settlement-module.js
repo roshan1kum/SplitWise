@@ -173,7 +173,10 @@ let SettlementComponent = class SettlementComponent {
         });
     }
     getGroups(id) {
-        this.service.getallGroups(id).subscribe(res => {
+        // this.service.getallGroups(id).subscribe(res=>{
+        //   this.grpName=res;
+        // })
+        this.service.getGroupsofUser(id).subscribe(res => {
             this.grpName = res;
         });
     }

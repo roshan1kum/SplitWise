@@ -218,6 +218,12 @@ namespace Splitwise.Repository.User
 
         }
 
+        public IEnumerable<Activity> GetActivity(string id)
+        {
+            return Context.Activity.Where(x => x.UserId == id).Include(x=>x.User);
+            
+        }
+
         #endregion
     }
 }

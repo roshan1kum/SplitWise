@@ -24,6 +24,7 @@ namespace Splitwise.Repository.User
         Task<FriendExpensesData> AddFriendBill(FriendExpensesData data);
         IEnumerable<FriendBillAC> ShowFriend(string userId);
         IEnumerable<Category> GetCategory();
+        IEnumerable<Activity> GetActivity(string id);
 
 
     }

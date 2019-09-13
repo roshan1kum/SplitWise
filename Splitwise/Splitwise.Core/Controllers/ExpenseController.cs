@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Splitwise.DomainModel.Model;
 using Splitwise.Repository.ApplicationClasses;
@@ -12,16 +14,19 @@ namespace Splitwise.Core.Controllers
 {
     [Produces("application/json")]
     [Route("api/Expense")]
+    //[Authorize]
     public class ExpenseController:Controller
     {
         #region Private variables
         private readonly IUnitofwork unitofwork;
+        private readonly UserManager<ApplicationUser> userManager;
         #endregion
 
         #region Constructor
-        public ExpenseController(IUnitofwork unitofwork)
+        public ExpenseController(IUnitofwork unitofwork, UserManager<ApplicationUser> userManager)
         {
             this.unitofwork = unitofwork;
+            this.userManager = userManager;
         }
         #endregion
 
@@ -31,12 +36,13 @@ namespace Splitwise.Core.Controllers
         {
             if(ModelState.IsValid)
             {
-                await unitofwork.ExpenseRepository.CreateExpense(userInExpense);
+                var username = User.Identity.Name;
+                ApplicationUser user = await userManager.FindByNameAsync(username);
+                await unitofwork.ExpenseRepository.CreateExpense(userInExpense,user.Id);
                 await unitofwork.Save();
 
                 await unitofwork.ExpenseRepository.AddUser(userInExpense);
                 await unitofwork.Save();
-
             }
             return Ok(userInExpense);
         }

@@ -132,5 +132,11 @@ namespace Splitwise.Core.Controllers
         {
             return unitofwork.UserRepository.GetCategory();
         }
+        [HttpGet]
+        [Route("Activity/{id}")]
+        public IEnumerable<Activity> GetActivity([FromRoute]string id)
+        {
+            return unitofwork.UserRepository.GetActivity(id);
+        }
     }
 }

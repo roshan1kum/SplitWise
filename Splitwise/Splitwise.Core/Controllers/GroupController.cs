@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Splitwise.DomainModel.Model;
 using Splitwise.Repository.AplicationClasses;
 using Splitwise.Repository.UnitOfWork;
@@ -11,16 +13,19 @@ namespace Splitwise.Core.Controllers
 {
     [Produces("application/json")]
     [Route("api/Groups")]
+
     public class GroupController : Controller
     {
         #region Private Variable
         private readonly IUnitofwork unitofwork;
+        private readonly UserManager<ApplicationUser> userManager;
         #endregion
 
         #region Constructor
-        public GroupController(IUnitofwork unitofwork)
+        public GroupController(IUnitofwork unitofwork,UserManager<ApplicationUser> userManager)
         {
             this.unitofwork = unitofwork;
+            this.userManager = userManager;
         }
         #endregion
 
@@ -59,30 +64,34 @@ namespace Splitwise.Core.Controllers
         [Route("AddMembersList")]
         public async Task<IActionResult> AddMembersList([FromBody] GroupMembersAC groupMembersAC)
         {
+            var username = User.Identity.Name;
+            ApplicationUser user = await userManager.FindByNameAsync(username);
             if (ModelState.IsValid)
             {
                 List<string> MemberId = groupMembersAC.UserId;
                 int grpId = groupMembersAC.GrpId;
-                await unitofwork.GroupRepository.AddMembersList(grpId, MemberId);
+                await unitofwork.GroupRepository.AddMembersList(grpId, MemberId,user.Id);
                 await unitofwork.Save();
             }
             return Ok(groupMembersAC);
         }
 
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteGroup([FromRoute] int id)
-        //{
-        //    var groups = await unitofwork.GroupRepository.GetGroupsId(id);
-        //    await unitofwork.GroupRepository.Deletegroup(id);
-        //    await unitofwork.Save();
-        //    return Ok(groups);
-           
-        //}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteGroup([FromRoute] int id)
+        {
+            var username=User.Identity.Name;
+            ApplicationUser user = await userManager.FindByNameAsync(username);
+
+            var groups = await unitofwork.GroupRepository.GetGroupsId(id);
+            await unitofwork.GroupRepository.Deletegroup(id,user.Id);
+            await unitofwork.Save();
+            return Ok(groups);
+        }
 
         [HttpGet("{id}")]
-        public IEnumerable<GroupExpenseAC> GetGroupId([FromRoute]  int id)
+        public IEnumerable<GroupExpenseAC> GetGroupExpenseId([FromRoute]  int id)
         {
-            var grp = unitofwork.GroupRepository.GetGroupsId(id);
+            var grp = unitofwork.GroupRepository.GetGroupsExpenseId(id);
             return grp;
         }
 
@@ -91,10 +100,8 @@ namespace Splitwise.Core.Controllers
         {
             return unitofwork.GroupRepository.GetAllMembers(id);
         }
-       
-        
+               
         #endregion
-
 
     }
 }

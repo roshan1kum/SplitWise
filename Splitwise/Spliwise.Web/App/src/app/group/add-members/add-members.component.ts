@@ -86,11 +86,10 @@ export class AddMembersComponent implements OnInit {
               if(!this.FormArray.some(x=>x==u.id) && !this.memberID.some(x=>x==u.id))
               {
               this.FormArray.push(u.id);
-            }
+              }
             }
           });
-      });
-     
+      });     
       // console.log(id);
       console.log(this.FormArray);
       this.members.grpid=this.id;

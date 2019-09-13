@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Splitwise.DomainModel.Model;
 using Splitwise.Repository.UnitOfWork;
 using System;
@@ -10,6 +11,7 @@ namespace Splitwise.Core.Controllers
 {
     [Produces("application/json")]
     [Route("api/Settlement")]
+    //[Authorize]
     public class SettlementController:Controller
     {
         #region Private variable
