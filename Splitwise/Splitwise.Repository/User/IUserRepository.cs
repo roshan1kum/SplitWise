@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Splitwise.Repository.ApplicationClasses;
 using Splitwise.Repository.AplicationClasses;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Splitwise.Repository.User
 {
@@ -20,12 +21,11 @@ namespace Splitwise.Repository.User
 
 
         IEnumerable<Friend> AddFriend(List<string> id, string yourId);
-        Task<FriendExpense> CreateFriendExpense(FriendExpensesData friendExpensesData);
-        Task<FriendExpensesData> AddFriendBill(FriendExpensesData data);
+        void CreateFriendExpense(FriendExpensesData friendExpensesData);
+        void AddFriendBill(FriendExpensesData data);
         IEnumerable<FriendBillAC> ShowFriend(string userId);
         IEnumerable<Category> GetCategory();
         IEnumerable<Activity> GetActivity(string id);
-
-
+        void UnFriend(string yourId, string friendId);
     }
 }

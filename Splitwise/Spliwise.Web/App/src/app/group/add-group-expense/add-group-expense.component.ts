@@ -8,6 +8,7 @@ import { GroupMemberDetailsAC } from '../../Shared/GroupMemberDetailsAC';
 import { GroupExpenseData } from '../../Shared/GroupExpenseData';
 import { Members } from '../../Shared/Members';
 import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,14 +23,17 @@ export class AddGroupExpenseComponent implements OnInit {
   groupExpense:GroupExpenseData;
   ID:number;
   member:Members;
-  constructor(private service:UserServiceService,private fb:FormBuilder,private _location: Location) {
-    this.getCurrentUser();
+  length:number;
+  a:any;
+  constructor(private service:UserServiceService,private fb:FormBuilder,private _location: Location,private router:Router) {
+    
     this.groupExpense = new GroupExpenseData();
-    this.groupExpense.GroupUsersExpenses=new Array<Members>();
+    this.groupExpense.groupUsersExpenses=new Array<Members>();
    }
   profileForm:FormGroup;
 
   ngOnInit() {
+    this.getCurrentUser();
     this.profileForm = this.fb.group({
       Cost:[''],
       Description: [''],
@@ -50,11 +54,11 @@ export class AddGroupExpenseComponent implements OnInit {
   }
   AddMembers():void{
     (<FormArray>this.profileForm.get('MembersExpense')).push(this.addMembersFormGroup());
+    // console.log(this.profileForm.get('MembersExpense').value)
   }
   deleteMembers(index) {
     (<FormArray>this.profileForm.get('MembersExpense')).removeAt(index);
   }
-
   getCurrentUser(): void{
     this.service.username().subscribe(u=>
       {
@@ -75,19 +79,14 @@ export class AddGroupExpenseComponent implements OnInit {
    
     onSubmit()
     {
-      // console.log(this.profileForm.value);
-      // console.log(this.profileForm.get('MembersExpense').value);
-      // this.profileForm.get('MembersExpense').value.forEach(element => {
-      //   console.log(element.Name)
-        
-      // });
-      this.groupExpense.Cost=this.profileForm.get('Cost').value;
-      this.groupExpense.CreaterId=this.user.id;
-      this.groupExpense.Date=this.profileForm.get('Date').value;
-      this.groupExpense.Description=this.profileForm.get('Description').value
-      this.groupExpense.GrpId=this.ID;
-      this.groupExpense.PaidbyId=this.profileForm.get('Paidby').value;
-      this.groupExpense.Split=this.profileForm.get('Split').value;
+     
+      this.groupExpense.cost=this.profileForm.get('Cost').value;
+      this.groupExpense.createrId=this.user.id;
+      this.groupExpense.date=this.profileForm.get('Date').value;
+      this.groupExpense.description=this.profileForm.get('Description').value
+      this.groupExpense.grpId=this.ID;
+      this.groupExpense.paidbyId=this.profileForm.get('Paidby').value;
+      this.groupExpense.split=this.profileForm.get('Split').value;
       this.profileForm.get('MembersExpense').value.forEach(element => {
         this.allUser.forEach(user => {
           if(user.memberName==element.Name)
@@ -95,7 +94,7 @@ export class AddGroupExpenseComponent implements OnInit {
             this.member=new Members();
             this.member.Amount=element.Price;
             this.member.userId=user.userId;
-            this.groupExpense.GroupUsersExpenses.push(this.member);
+            this.groupExpense.groupUsersExpenses.push(this.member);
           }
         });
       });
@@ -113,4 +112,53 @@ export class AddGroupExpenseComponent implements OnInit {
         console.log(this.allUser);
       })
   }
+  Split(isChecked:string)
+    {
+      if(isChecked=="equally")
+      {
+
+        let K=0;   
+        this.profileForm.get('MembersExpense').value.forEach(element => {
+          K++;                 
+         });
+     
+         this.profileForm.get('MembersExpense').value.forEach(element => {
+          element.Price=this.profileForm.get('Cost').value/K;                  
+         });
+         this.a=this.profileForm.get('MembersExpense').value
+         this.profileForm.setControl('MembersExpense',this.setExistingPrice(this.a))
+      }
+      else{
+        this.profileForm.get('MembersExpense').value.forEach(element => {
+          element.Price=""                  
+         });
+         this.a=this.profileForm.get('MembersExpense').value
+         this.profileForm.setControl('MembersExpense',this.setExistingPrice(this.a))
+      }
+    }
+    setExistingPrice(priceSet:any):FormArray
+    {
+      const formArray=new FormArray([]);
+      priceSet.forEach(element => {
+        formArray.push(this.fb.group({
+          Name:element.Name,
+          Price:element.Price
+        }));        
+      });
+      return formArray;
+    }
+  Back()
+  {
+    this.router.navigate([''])
+  }
+
+
+  // onSplit(isChecked:boolean)
+  // {
+  //    this.length=this.profileForm.get('MembersExpense').value.length;
+  //    this.profileForm.get('MembersExpense').value.forEach(element => {
+  //      this.profileForm.setValue('MembersExpense')
+  //    });
+  // }
 }
+ 

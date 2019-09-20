@@ -6,6 +6,7 @@ namespace Splitwise.Repository.AplicationClasses
 {
     public class GroupExpenseAC
     {
+        public int ExpId { get; set; }
         public int SplitAmount { get; set; }
         public string description { get; set; }
         public string CreaterExpense { get; set; }

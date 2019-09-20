@@ -71,7 +71,7 @@ namespace Splitwise.Repository
                     bill.SplitAmount = bill.SplitAmount - settlement.Amount;
                     context.Update(bill);
                    // context.SaveChanges();
-                    if (bill.SplitAmount == 0)
+                    if (bill.SplitAmount <= 0)
                     {
                         context.UserExpenses.Remove(bill);
                         //context.SaveChanges();
@@ -92,7 +92,7 @@ namespace Splitwise.Repository
                 {
                     bill.Bill = bill.Bill - settlement.Amount;
                     context.Update(bill);
-                    if (bill.Bill == 0)
+                    if (bill.Bill <= 0)
                     {
                         context.FriendBills.Remove(bill);    
                     }

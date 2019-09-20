@@ -12,7 +12,7 @@ namespace Splitwise.Repository
         Task<Group> CreateGroup(Group group);
         Task<GroupMembers> AddMembers(GroupMembers grp);
         Task<Group> Deletegroup(int id,string userId);
-        IEnumerable<GroupExpenseAC> GetGroupsExpenseId(int id);
+        IDictionary<int, List<GroupExpenseAC>> GetGroupsExpenseId(int id);
         Task AddMembersList(int grpId,List<string> MemberId,string userId);
         IEnumerable<GroupMemberDetailAC> GetAllMembers(int id);
         IEnumerable<Group> GetAllGroupsId(string id);

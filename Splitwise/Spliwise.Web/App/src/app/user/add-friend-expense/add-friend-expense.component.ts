@@ -21,10 +21,10 @@ mem:Array<Members>;
 price:number;
 name:string;
 m:Members;
+a:FormArray;
 
 // friendN:string[];
   constructor(private service:UserServiceService,private fb:FormBuilder,private router:Router) {
-    this.getCurrentUser();
     this.FriendName=new Array<ApplicationUserAC>();
     
     this.FriendExpense=new FriendExpensesData();
@@ -33,6 +33,7 @@ m:Members;
   profileForm:FormGroup;
 
   ngOnInit() {
+    this.getCurrentUser();
     this.profileForm = this.fb.group({
       Cost:[''],
       Description: [''],
@@ -42,6 +43,7 @@ m:Members;
         this.addMembersFormGroup()
       ])
       });
+
   }
 
   addMembersFormGroup():FormGroup{
@@ -97,8 +99,46 @@ m:Members;
           this.FriendName.push(element);
         });
         
-        console.log(this.FriendName);
+        // console.log(this.FriendName);
       }); 
     }
+    Split(isChecked:string)
+    {
+      if(isChecked=="equally")
+      {
 
+        let K=0;   
+        this.profileForm.get('MembersExpense').value.forEach(element => {
+          K++;                 
+         });
+     
+         this.profileForm.get('MembersExpense').value.forEach(element => {
+          element.Price=this.profileForm.get('Cost').value/K;                  
+         });
+         this.a=this.profileForm.get('MembersExpense').value
+         this.profileForm.setControl('MembersExpense',this.setExistingPrice(this.a))
+      }
+      else{
+        this.profileForm.get('MembersExpense').value.forEach(element => {
+          element.Price=""                  
+         });
+         this.a=this.profileForm.get('MembersExpense').value
+         this.profileForm.setControl('MembersExpense',this.setExistingPrice(this.a))
+      }
+    }
+    setExistingPrice(priceSet:any):FormArray
+    {
+      const formArray=new FormArray([]);
+      priceSet.forEach(element => {
+        formArray.push(this.fb.group({
+          Name:element.Name,
+          Price:element.Price
+        }));        
+      });
+      return formArray;
+    }
+    Back()
+    {
+      this.router.navigate([''])
+    }
 }

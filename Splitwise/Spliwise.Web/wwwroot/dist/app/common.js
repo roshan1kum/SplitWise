@@ -91,6 +91,16 @@ let UserServiceService = class UserServiceService {
     Activity(userId) {
         return this.http.get("http://localhost:50534/api/User/Activity/" + userId);
     }
+    Unfriend(yourId, FriendId) {
+        return this.http.delete(this.rootUrl + "/Unfriend/" + yourId + "/" + FriendId);
+    }
+    getGroupsId(id) {
+        debugger;
+        return this.http.get(" " + id);
+    }
+    getExpenseDetailsId(id) {
+        return this.http.get("http://localhost:50534/api/Expense/" + id);
+    }
 };
 UserServiceService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }

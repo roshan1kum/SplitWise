@@ -17,14 +17,14 @@ export class AddGroupComponent implements OnInit {
   profileForm:FormGroup;
   group:Group;
   user:ApplicationUserAC;
-  constructor(private service :UserServiceService,private fb:FormBuilder) {
-    this.getCategory();
+  constructor(private service :UserServiceService,private fb:FormBuilder) {   
     this.group=new Group();
-    this.getCurrentUser();
-
    }
 
   ngOnInit() {
+    this.getCategory();
+    this.getCurrentUser();
+
     this.profileForm=this.fb.group({
       Name:[''],
       Date:[''],

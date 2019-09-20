@@ -17,6 +17,7 @@ import { SettlementData } from '../Shared/SettlementData';
 import { Activity } from 'src/app/Shared/Activity';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -76,9 +77,9 @@ export class UserServiceService {
     
     return this.http.post("http://localhost:50534/api/Expense",groupExpense);
   }
-  GetGroupId(id:number):Observable<GroupExpenseAC[]>
+  GetGroupId(id:number):Observable<Dictionary<GroupExpenseAC[]>>
   {
-    return this.http.get<GroupExpenseAC[]>("http://localhost:50534/api/Groups/"+id)
+    return this.http.get<Dictionary<GroupExpenseAC[]>>("http://localhost:50534/api/Groups/"+id)
   }
   Settlement(settlemetData:SettlementData)
   {
@@ -91,5 +92,17 @@ export class UserServiceService {
   Activity(userId:string):Observable<Activity[]>
   {
     return this.http.get<Activity[]>("http://localhost:50534/api/User/Activity/"+userId);
+  }
+  Unfriend(yourId:string,FriendId:string){
+    return this.http.delete(this.rootUrl+"/Unfriend/"+yourId+"/"+FriendId);
+  }
+  getGroupsId(id:number):Observable<Group>
+  {
+    debugger;
+    return this.http.get<Group>(" "+id);
+  }
+  getExpenseDetailsId(id:number):Observable<GroupExpenseData>
+  {
+    return this.http.get<GroupExpenseData>("http://localhost:50534/api/Expense/"+id);
   }
 }

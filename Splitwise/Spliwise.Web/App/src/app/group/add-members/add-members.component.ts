@@ -25,7 +25,7 @@ export class AddMembersComponent implements OnInit {
   memberID:Array<string>=[];
 
   constructor(private service:UserServiceService,private fb:FormBuilder,private router:Router,private route:ActivatedRoute,private _location: Location) {
-    this.getAllUser();
+ 
     this.members=new GroupMembersAC();
     this.id=+this.route.snapshot.paramMap.get('id');
   
@@ -33,6 +33,7 @@ export class AddMembersComponent implements OnInit {
    profileForm:FormGroup;
 
    ngOnInit() {
+    this.getAllUser();
     this.profileForm=this.fb.group({
       Members:this.fb.array([
         this.addFriendsGroup()

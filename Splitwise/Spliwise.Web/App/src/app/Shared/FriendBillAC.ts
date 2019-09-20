@@ -1,6 +1,6 @@
 export class FriendBillAC{
     Amount:number;
-    Name:string;
+    name:string;
     Email:string;
     Date:Date;
     PaidbyAmount:number;

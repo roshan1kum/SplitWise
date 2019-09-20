@@ -38,10 +38,10 @@ namespace Splitwise.Core.Controllers
             {
                 var username = User.Identity.Name;
                 ApplicationUser user = await userManager.FindByNameAsync(username);
-                await unitofwork.ExpenseRepository.CreateExpense(userInExpense,user.Id);
+                var exp=await unitofwork.ExpenseRepository.CreateExpense(userInExpense,user.Id);
                 await unitofwork.Save();
 
-                await unitofwork.ExpenseRepository.AddUser(userInExpense);
+                await unitofwork.ExpenseRepository.AddUser(userInExpense,exp.Id);
                 await unitofwork.Save();
             }
             return Ok(userInExpense);
@@ -67,14 +67,11 @@ namespace Splitwise.Core.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetExpenseId([FromRoute] int id)
+        public UserInExpense GetExpenseId([FromRoute] int id)
         {
-            var expense = unitofwork.ExpenseRepository.GetExpenseID(id);
-            if(expense==null)
-            {
-                return NotFound();
-            }
-            return Ok(expense);
+            var expense =  unitofwork.ExpenseRepository.GetExpenseID(id);
+            
+            return expense;
         }
 
         [HttpGet]

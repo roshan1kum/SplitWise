@@ -13,11 +13,12 @@ export class ShowmembersComponent implements OnInit {
   id:number;
   members:Array<GroupMemberDetailsAC>=[];
   constructor(private service :UserServiceService,private route:ActivatedRoute) { 
-    this.id=+this.route.snapshot.paramMap.get('id');
-    this.getallMembers(this.id);
+   
   }
 
   ngOnInit() {
+    this.id=+this.route.snapshot.paramMap.get('id');
+    this.getallMembers(this.id);
   }
   getallMembers(id:number){
     this.service.getallMembers(id).subscribe(res=>{

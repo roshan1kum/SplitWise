@@ -21,10 +21,10 @@ namespace Splitwise.Repository
             this.context = context;
         }
 
-        public async Task<UserInExpense> AddUser(UserInExpense userInExpense)
+        public async Task<UserInExpense> AddUser(UserInExpense userInExpense,int expId)
         {
 
-            int expId = GetExpenseId(userInExpense.Date);
+            //int expId = GetExpenseId(userInExpense.Date);
             List<UserExpense> list = new List<UserExpense>();
             foreach (var i in userInExpense.GroupUsersExpenses)
             {
@@ -84,14 +84,32 @@ namespace Splitwise.Repository
             return expense;
         }
 
-        public async Task<Expense> GetExpenseID(int id)
+        public UserInExpense GetExpenseID(int id)
         {
-            Expense expense=await context.Expense.
-                            Include(e=>e.Paiduser).
-                            Include(e=>e.CreaterExpense).
-                            Include(e=>e.Group).
-                            FirstOrDefaultAsync(e => e.Id == id);
-            return expense;
+            var userExpense = context.UserExpenses.Where(x => x.ExpId == id).
+                            Include(x => x.User).
+                            Include(x => x.Expense).
+                            ThenInclude(x => x.Group).
+                            ThenInclude(x => x.Category).
+                            ToList();
+            UserInExpense userInExpense = new UserInExpense();
+            userInExpense.Cost = userExpense[0].Expense.Cost;
+            userInExpense.Description = userExpense[0].Expense.Description;
+            userInExpense.Date = userExpense[0].Expense.Date;
+            userInExpense.CreaterId = userExpense[0].Expense.CreaterId;
+            userInExpense.GrpId = userExpense[0].Expense.Group.Id;
+            userInExpense.PaidbyId = userExpense[0].Expense.Paiduser.Id;
+            userInExpense.Split = userExpense[0].Expense.Split;
+            userInExpense.Id = userExpense[0].Expense.Id;
+            userInExpense.GroupUsersExpenses = new List<GroupUsersExpensesAC>();
+            foreach (var i in userExpense)
+            {
+                GroupUsersExpensesAC groupUsersExpensesAC = new GroupUsersExpensesAC();
+                groupUsersExpensesAC.UserId = i.User.Id;
+                groupUsersExpensesAC.Amount = i.SplitAmount;
+                userInExpense.GroupUsersExpenses.Add(groupUsersExpensesAC);
+            }
+            return userInExpense;
         }
        
         #endregion

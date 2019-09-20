@@ -9,4 +9,5 @@ export class GroupExpenseAC{
     createrGroupName:string;
     expensePaidBy:string
     expenseUserName:string
+    showGroupExpense:boolean=false;
 }

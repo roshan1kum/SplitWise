@@ -21,13 +21,14 @@ export class AddFriendComponent implements OnInit {
   frnd:Friend;
 
   constructor(private service:UserServiceService,private fb:FormBuilder,private router:Router) {
-    this.getCurrentUser();
+    
     this.frnd=new Friend();
   
    }
    profileForm:FormGroup;
 
   ngOnInit() {
+    this.getCurrentUser();
     this.profileForm=this.fb.group({
       Friends:this.fb.array([
         this.addFriendsGroup()

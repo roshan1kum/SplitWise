@@ -24,14 +24,14 @@ export class SettlementComponent implements OnInit {
   settlement:SettlementData;
 
   constructor(private fb:FormBuilder,private service:UserServiceService,private _location: Location) {
-    this.FriendName=new Array<ApplicationUserAC>();
-    this.getCurrentUser();
+    this.FriendName=new Array<ApplicationUserAC>();    
     this.settlement=new SettlementData();
    }
 
   profileForm:FormGroup;
 
   ngOnInit() {
+    this.getCurrentUser();
     this.profileForm = this.fb.group({
       Cost:[''],
       Date:[''],

@@ -85,11 +85,11 @@ namespace Splitwise.Core.Controllers
             var groups = await unitofwork.GroupRepository.GetGroupsId(id);
             await unitofwork.GroupRepository.Deletegroup(id,user.Id);
             await unitofwork.Save();
-            return Ok(groups);
+            return Ok();
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<GroupExpenseAC> GetGroupExpenseId([FromRoute]  int id)
+        public IDictionary<int, List<GroupExpenseAC>> GetGroupExpenseId([FromRoute]  int id)
         {
             var grp = unitofwork.GroupRepository.GetGroupsExpenseId(id);
             return grp;
@@ -99,6 +99,11 @@ namespace Splitwise.Core.Controllers
         public IEnumerable<GroupMemberDetailAC> GetMembers([FromRoute] int id)
         {
             return unitofwork.GroupRepository.GetAllMembers(id);
+        }
+        [Route("GetGroups/{id}")]
+        public async Task<Group> GetGroupsId([FromRoute] int id)
+        {
+            return await unitofwork.GroupRepository.GetGroupsId(id);
         }
                
         #endregion

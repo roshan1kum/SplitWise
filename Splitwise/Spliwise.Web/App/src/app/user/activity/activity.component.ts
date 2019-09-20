@@ -12,10 +12,11 @@ export class ActivityComponent implements OnInit {
   user:ApplicationUserAC;
   Activity:Activity[];
   constructor(private service :UserServiceService) { 
-    this.CurrentUser();
+    
   }
 
   ngOnInit() {
+    this.CurrentUser();
   }
   CurrentUser(){
     this.service.username().subscribe(res=>{

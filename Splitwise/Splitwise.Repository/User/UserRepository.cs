@@ -46,41 +46,169 @@ namespace Splitwise.Repository.User
             return list.AsEnumerable(); 
         }
 
-        public async Task<FriendExpensesData> AddFriendBill(FriendExpensesData data)
+        public void AddFriendBill(FriendExpensesData data)
         {
-
             int expId = GetExpenseId(data.Date);
             List<FriendBill> list = new List<FriendBill>();
-            foreach(var i in data.FriendUserExpense)
-            {
-                FriendBill bills = new FriendBill();
-                bills.FriendExpId = expId;
-                bills.FriendId = i.UserId;
-                bills.Bill = i.Amount;
-                list.Add(bills);
-            }
-            await Context.FriendBills.AddRangeAsync(list);
-            return data;
+            List<FriendBill> a = Context.FriendBills.Where(x => x.FriendExpId == expId).ToList();
+            List<FriendExpense> expense = Context.FriendExpenses.Where(x => x.Paidby == data.Paidby).ToList();
+            int f = 0, k = 0;
 
-        }
+            if (expense.Count != 0)
+            {
+                foreach (var exp in expense)
+                {
+                    k = 0;
+                    foreach (var i in data.FriendUserExpense)
+                    {
+                        var b = Context.FriendBills.FirstOrDefault(x => x.FriendId == i.UserId);
+                        if (b != null)
+                        {
+                            k++;
+                        }
+                    }
+                    if (k == data.FriendUserExpense.Count)
+                    {
+                        f = 0;
+                        foreach (var i in data.FriendUserExpense)
+                        {
+                            var x = Context.FriendBills.FirstOrDefault(b => b.FriendExpId == exp.Id && b.FriendId == i.UserId);
+                            x.Bill += i.Amount;
+                            Context.FriendBills.Update(x);
+                            f++;
+                        }
+                    }
+                    if (f == k)
+                    {
+                        break;
+                    }
+
+                }
+                if (f == 0)
+                {
+                    foreach (var i in data.FriendUserExpense)
+                    {
+                        FriendBill bills = new FriendBill();
+                        bills.FriendExpId = expId;
+                        bills.FriendId = i.UserId;
+                        bills.Bill = i.Amount;
+                        list.Add(bills);
+                    }
+                    Context.FriendBills.AddRange(list);
+                }
+            }
+            else
+            {
+                foreach (var i in data.FriendUserExpense)
+                {
+                    FriendBill bills = new FriendBill();
+                    bills.FriendExpId = expId;
+                    bills.FriendId = i.UserId;
+                    bills.Bill = i.Amount;
+                    list.Add(bills);
+                }
+                Context.FriendBills.AddRange(list);
+            }
+        }                                                       
         private int GetExpenseId(DateTime dateTime)
         {
             int id = Context.FriendExpenses.FirstOrDefault(e => e.Date == dateTime).Id;
             return id;
         }
 
-        public async Task<FriendExpense> CreateFriendExpense(FriendExpensesData friendExpensesData)
+        public void CreateFriendExpense(FriendExpensesData friendExpensesData)
         {
-            FriendExpense exp = new FriendExpense();
-            exp.Date = friendExpensesData.Date;
-            exp.Description = friendExpensesData.Description;
-            exp.Amount = friendExpensesData.Amount;
-            exp.Split = friendExpensesData.Split;
-            exp.Paidby = friendExpensesData.Paidby;
-
-            await Context.FriendExpenses.AddAsync(exp);
-            return exp;
+            int k = 0;
+            int f = 0;
+            List<FriendExpense> expense = Context.FriendExpenses.Where(x => x.Paidby == friendExpensesData.Paidby).ToList();
+            if (expense.Count != 0)
+            {
+                foreach (var exp in expense)
+                {
+                    k = 0;
+                    foreach (var i in friendExpensesData.FriendUserExpense)
+                    {
+                        var b = Context.FriendBills.FirstOrDefault(x => x.FriendId == i.UserId);
+                        if (b != null)
+                        {
+                            k++;
+                        }
+                    }
+                    if (k == friendExpensesData.FriendUserExpense.Count)
+                    {
+                        exp.Amount+= friendExpensesData.Amount;
+                        exp.Date = friendExpensesData.Date;
+                        Context.FriendExpenses.Update(exp);
+                        f = 1;
+                        break;
+                    }
+                }
+                if (f != 1)
+                {
+                    FriendExpense exp = new FriendExpense();
+                    exp.Date = friendExpensesData.Date;
+                    exp.Description = friendExpensesData.Description;
+                    exp.Amount = friendExpensesData.Amount;
+                    exp.Split = friendExpensesData.Split;
+                    exp.Paidby = friendExpensesData.Paidby;
+                    Context.FriendExpenses.Add(exp);
+                }
+            }
+            else
+            {
+                FriendExpense exp = new FriendExpense();
+                exp.Date = friendExpensesData.Date;
+                exp.Description = friendExpensesData.Description;
+                exp.Amount = friendExpensesData.Amount;
+                exp.Split = friendExpensesData.Split;
+                exp.Paidby = friendExpensesData.Paidby;
+                Context.FriendExpenses.Add(exp);
+            }
         }
+            
+            
+            //var a = Context.FriendExpenses.FirstOrDefault(x => x.Paidby == friendExpensesData.Paidby);
+            //int k = 0;
+            //if (a != null)
+            //{
+            //    foreach(var i in friendExpensesData.FriendUserExpense)
+            //    {
+            //        var b = Context.FriendBills.FirstOrDefault(x => x.FriendId==i.UserId);
+            //        if (b != null)
+            //        {
+            //            k++;
+            //            //a.Amount += friendExpensesData.Amount;
+            //            //Context.FriendExpenses.Update(a);
+            //        }
+            //    }
+            //    if(k==friendExpensesData.FriendUserExpense.Count)
+            //    {
+            //        a.Amount += friendExpensesData.Amount;
+            //        Context.FriendExpenses.Update(a);
+            //    }
+            //    else
+            //    {
+            //        FriendExpense exp = new FriendExpense();
+            //        exp.Date = friendExpensesData.Date;
+            //        exp.Description = friendExpensesData.Description;
+            //        exp.Amount = friendExpensesData.Amount;
+            //        exp.Split = friendExpensesData.Split;
+            //        exp.Paidby = friendExpensesData.Paidby;
+            //        Context.FriendExpenses.Add(exp);
+            //    }
+
+            //}
+            //else
+            //{
+            //    FriendExpense exp = new FriendExpense();
+            //    exp.Date = friendExpensesData.Date;
+            //    exp.Description = friendExpensesData.Description;
+            //    exp.Amount = friendExpensesData.Amount;
+            //    exp.Split = friendExpensesData.Split;
+            //    exp.Paidby = friendExpensesData.Paidby;
+            //    Context.FriendExpenses.Add(exp);
+            //}            
+
 
         public void Createuser(ApplicationUser user)
         {
@@ -145,6 +273,7 @@ namespace Splitwise.Repository.User
                 foreach(var j in i)
                 {
                     FriendBillAC friendBillAC = new FriendBillAC();
+                    friendBillAC.Id = j.Id;
                     friendBillAC.Amount = j.Bill;
                     friendBillAC.Date = j.FriendExpense.Date;
                     friendBillAC.Name = j.FriendUser.Name;
@@ -222,6 +351,14 @@ namespace Splitwise.Repository.User
         {
             return Context.Activity.Where(x => x.UserId == id).Include(x=>x.User);
             
+        }
+
+        public void UnFriend(string yourId, string friendId)
+        {
+            var a=Context.Friend.First(x => x.YourId == yourId && x.FriendId == friendId);
+            var b = Context.Friend.First(x => x.YourId == friendId && x.FriendId == yourId);
+            Context.Friend.Remove(a);
+            Context.Friend.Remove(b);
         }
 
         #endregion

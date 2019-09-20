@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<!-- <p>add friend expense work</p> -->\n<form [formGroup]=\"profileForm\" (ngSubmit)=\"onSubmit()\">\n    <div class=\"panel-body\">\n        <div class=\"form-group\">\n            <label>\n            Cost:\n            <input type=\"number\" formControlName=\"Cost\">\n            </label>\n        </div>\n        <div class=\"form-group\">\n                <label>\n                Description:\n                <input type=\"text\" formControlName=\"Description\">\n                </label>\n        </div>\n        <div class=\"form-group\">\n                <label>\n                Date:\n                <input type=\"date\" formControlName=\"Date\">\n                </label>\n        </div>\n        <div class=\"form-group\">\n            <label>\n                Split:\n            </label>\n            <input type=\"radio\" formControlName=\"Split\" value=\"equally\">Equally\n            <input type=\"radio\" formControlName=\"Split\" value=\"Unequally\">Unequally\n        </div>  \n    </div>\n    <div class=\"well\">\n    <div formArrayName=\"MembersExpense\" *ngFor=\"let m of profileForm.get('MembersExpense').controls;let i=index\">\n        <div [formGroupName]=\"i\">\n            <label>\n                Name\n            </label>\n                <input type =\"text\"  formControlName=\"Name\" >\n                <label>\n                    Price\n                </label>            \n                <input type=\"number\"  formControlName=\"Price\">\n        </div>\n        <button type=\"button\" (click)=\"deleteMembers(i)\">Delete</button>\n    </div>\n    <button type=\"button\" (click)=\"AddMembers()\">Add Members</button>\n    </div>\n        <div class=\"form-group\">\n            <button type=\"submit\" [disabled]=\"!profileForm.valid\">Submit</button>\n        </div>\n        \n</form>\n\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<!-- <p>add friend expense work</p> -->\n<form class=\"form-horizontal\">\n<div class=\"panel panel-primary\">\n        <div class=\"panel-heading\">Add Friend Expense</div>\n        <div class=\"panel-body\">\n                <form [formGroup]=\"profileForm\" (ngSubmit)=\"onSubmit()\">\n                        <div class=\"panel-body\">\n                            <div class=\"form-group\">\n                                <label class=\"col-sm-2\">\n                                Cost:\n                                <input type=\"number\" formControlName=\"Cost\">\n                                </label>\n                            </div>\n                            <div class=\"form-group\">\n                                    <label class=\"col-sm-2\">\n                                    Description:\n                                    <input type=\"text\" formControlName=\"Description\">\n                                    </label>\n                            </div>\n                            <div class=\"form-group\">\n                                    <label class=\"col-sm-2\">\n                                    Date:                                    \n                                    <input type=\"date\" formControlName=\"Date\">\n                                    </label>\n                            </div>\n                          \n                        </div>\n                        <div class=\"well\">\n                        <div formArrayName=\"MembersExpense\" *ngFor=\"let m of profileForm.get('MembersExpense').controls;let i=index\">\n                            <div [formGroupName]=\"i\">\n                                <label>\n                                    Name\n                                </label>\n                                    <input type =\"text\"  formControlName=\"Name\" >\n                                    <label>\n                                        Price\n                                    </label>            \n                                    <input type=\"text\"  formControlName=\"Price\">\n                            </div>\n                            <button type=\"button\" (click)=\"deleteMembers(i)\">Delete</button>\n                        </div>\n                        <button type=\"button\" (click)=\"AddMembers()\">Add Members</button>\n                        </div>\n                        <div class=\"panel-body\">\n                        <div class=\"form-group\">\n                                <label>\n                                    Split:\n                                </label>\n                                <input type=\"radio\" formControlName=\"Split\" value=\"equally\" (click)=\"Split($event.target.value)\">Equally\n                                <input type=\"radio\" formControlName=\"Split\" value=\"Unequally\" (click)=\"Split($event.target.value)\">Unequally\n                            </div>  \n                            <div class=\"form-group\">\n                                <button type=\"submit\" [disabled]=\"!profileForm.valid\">Submit</button>\n                            </div>\n                            </div>\n                            \n                    </form>\n                    \n                    \n                    \n    </div>\n    </div>\n    </form>\n    <button class=\"btn btn-success\" (click)=\"Back()\">Back</button>\n    \n");
 
 /***/ }),
 
@@ -61,7 +61,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1>show details</h1>\n<div class=\"panel panel-primary\">\n    <div class=\"panel-heading\">Split wise</div>\n    <div class=\"panel-body\">\n        <h2>{{user?.name}}</h2>\n        <button class=\"btn btn-success\" (click)=\"Activity()\">Activity</button>         \n</div>\n\n<!-- <div  class=col-md-6 width=50%> -->\n<div class=\"panel panel-primary\">\n        <div class=\"panel-heading\">Friends</div>\n        <div class=\"panel-body\">\n                <button class=\"btn btn-success\" (click)=\"AddFriend()\">Add Friend</button>\n                <button class=\"btn btn-success friend-btn\" (click)=\"FriendDashBoard()\">Friend DashBoard</button>\n                <table class='table'>\n                        <tr *ngFor=\"let f of FriendName\">\n                            <td>{{f.name}}</td>\n                        </tr>\n                    </table>\n        </div>         \n    </div>\n<!-- </div> -->\n<!-- <div class=col-md-6 width=50%> -->\n        <div class=\"panel panel-primary\">\n                <div class=\"panel-heading\">Operation</div>\n                <div class=\"panel-body\">\n                        <div class=\"form-group\">\n                                <button class=\"btn btn-success\" (click)=\"AddFriendExpense()\">Add Friend Expense</button>\n                                </div>\n                                <div class=\"form-group\">\n                                <button class=\"btn btn-success\" (click)=\"AddGroupExpense()\">Add Group Expense</button><br>\n                                </div>\n                                <div class=\"form-group\">\n                                <button class=\"btn btn-success\" (click)=\"Settlement()\">Settle Up</button>\n                                </div> \n                </div>         \n            </div>\n<!-- </div> -->\n\n<div class=\"panel panel-primary\">\n        <div class=\"panel-heading\">Group Name</div>\n        <div class=\"panel-body\">\n                <button class=\"btn btn-success\" (click)=\"AddGroup()\">Add Group</button>\n                <table class='table'>\n                        <tr *ngFor=\"let g of grpName\" (click)=\"NavigateToGroupDashboard(g.id)\">\n                            <td>{{g.groupName}}</td>\n                            <div class=\"form-group\">\n                            <td><button class=\"btn btn-success\" (click)=\"AddMembers(g.id)\" >Add</button></td>\n                            <td><button class=\"btn btn-success friend-btn\" (click)=\"Members(g.id)\">Members</button></td>\n\n                        </div>\n                        </tr>\n                    </table>                        \n        </div>         \n<!-- </div> -->\n  \n       \n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1>show details</h1>\n<div class=\"panel panel-primary\">\n    <div class=\"panel-heading\">Split wise</div>\n    <div class=\"panel-body\">\n        <h2>{{user?.name}}</h2>\n        <button class=\"btn btn-success\" (click)=\"Activity()\">Activity</button>         \n</div>\n</div>\n\n<div class=\"row\">\n        <div  class=col-md-6>\n                <div class=\"panel panel-primary\">\n                        <div class=\"panel-heading\">Friends</div>\n                        <div class=\"panel-body\">\n                                <button class=\"btn btn-success\" (click)=\"AddFriend()\">Add Friend</button>\n                                <button class=\"btn btn-success friend-btn\" (click)=\"FriendDashBoard()\">Friend DashBoard</button><br><br>                \n                                <table class='table'>\n                                        <tr *ngFor=\"let f of FriendName\">\n                                            <td>{{f.name}}</td>\n                                            <td><button class=\"btn btn-success\" (click)=\"UnFriend(f.id)\">Unfriend</button> </td>\n                                        </tr>\n                                    </table>\n                        </div>         \n                    </div>\n                </div>\n                <div class=col-md-6 width=50%>\n                        <div class=\"panel panel-primary\">\n                                <div class=\"panel-heading\">Operation</div>\n                                <div class=\"panel-body\">\n                                        <div class=\"form-group\">\n                                                <button class=\"btn btn-success\" (click)=\"AddFriendExpense()\">Add Friend Expense</button>\n                                                </div>\n                                                <div class=\"form-group\">\n                                                <button class=\"btn btn-success\" (click)=\"AddGroupExpense()\">Add Group Expense</button><br>\n                                                </div>\n                                                <div class=\"form-group\">\n                                                <button class=\"btn btn-success\" (click)=\"Settlement()\">Settle Up</button>\n                                                </div> \n                                </div>         \n                        </div>\n                </div>\n</div>\n\n\n<div class=\"panel panel-primary\">\n        <div class=\"panel-heading\">Group Name</div>\n        <div class=\"panel-body\">\n                <button class=\"btn btn-success\" (click)=\"AddGroup()\">Add Group</button>\n                <table class='table'>\n                        <tr *ngFor=\"let g of grpName\" (click)=\"NavigateToGroupDashboard(g.id)\">\n                            <td>{{g.groupName}}</td>\n                            <div class=\"form-group\">\n                            <td><button class=\"btn btn-success\" (click)=\"AddMembers(g.id)\" >Add</button></td>\n                            <td><button class=\"btn btn-success friend-btn\" (click)=\"Members(g.id)\">Members</button></td>\n\n                        </div>\n                        </tr>\n                    </table>                        \n        </div>         \n</div>\n  \n       \n");
 
 /***/ }),
 
@@ -74,7 +74,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<p>show-friend-detail works</p>\n\n<table class=\"table table-condensed\">\n    <tr>\n        <th>Name</th>\n        <th>Amount</th>\n        <th>Email</th>\n        <th>Description</th>\n    </tr>\n    <tr *ngFor=\"let bill of FriendBill\">\n        <td>{{bill?.name}}</td>\n        <td>{{bill?.amount}}</td>\n        <td>{{bill?.email}}</td>\n        <td>{{bill?.description}}</td>\n    </tr>\n</table>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<p>show-friend-detail works!</p>\n\n<!-- <table class=\"table table-condensed\">\n    <tr>\n        <th>Name</th>\n        <th>Amount</th>\n        <th>Email</th>\n        <th>Description</th>\n        <th>Total Paid Amount</th>\n    </tr>\n    <tr *ngFor=\"let bill of FriendBill\">\n        <td>{{bill?.name}}</td>\n        <td>{{bill?.amount}}</td>\n        <td>{{bill?.email}}</td>\n        <td>{{bill?.description}}</td>\n        <td>{{bill?.paidbyAmount}}</td>\n    </tr>\n</table> -->\n<div class=\"row\" *ngFor=\"let bill of FriendBill\">\n<div class=\"panel panel-primary\">\n        <div class=\"panel-heading\">{{bill?.name}} Email:{{bill?.email}}</div>\n        <div class=\"panel-body\">\n            <p>Debt:{{bill?.amount}}</p>\n            <p>Person to Pay:{{user.name}}</p>\n            <p>Description:{{bill?.description}}</p>    \n        </div>\n</div>\n</div>\n<button class=\"btn btn-success\" (click)=\"Back()\">Back</button>\n\n");
 
 /***/ }),
 
@@ -146,9 +146,9 @@ __webpack_require__.r(__webpack_exports__);
 let ActivityComponent = class ActivityComponent {
     constructor(service) {
         this.service = service;
-        this.CurrentUser();
     }
     ngOnInit() {
+        this.CurrentUser();
     }
     CurrentUser() {
         this.service.username().subscribe(res => {
@@ -220,12 +220,12 @@ let AddFriendExpenseComponent = class AddFriendExpenseComponent {
         this.service = service;
         this.fb = fb;
         this.router = router;
-        this.getCurrentUser();
         this.FriendName = new Array();
         this.FriendExpense = new src_app_Shared_FriendExpensesData__WEBPACK_IMPORTED_MODULE_6__["FriendExpensesData"]();
         this.FriendExpense.friendUserExpense = new Array();
     }
     ngOnInit() {
+        this.getCurrentUser();
         this.profileForm = this.fb.group({
             Cost: [''],
             Description: [''],
@@ -282,8 +282,41 @@ let AddFriendExpenseComponent = class AddFriendExpenseComponent {
             name.forEach(element => {
                 this.FriendName.push(element);
             });
-            console.log(this.FriendName);
+            // console.log(this.FriendName);
         });
+    }
+    Split(isChecked) {
+        if (isChecked == "equally") {
+            let K = 0;
+            this.profileForm.get('MembersExpense').value.forEach(element => {
+                K++;
+            });
+            this.profileForm.get('MembersExpense').value.forEach(element => {
+                element.Price = this.profileForm.get('Cost').value / K;
+            });
+            this.a = this.profileForm.get('MembersExpense').value;
+            this.profileForm.setControl('MembersExpense', this.setExistingPrice(this.a));
+        }
+        else {
+            this.profileForm.get('MembersExpense').value.forEach(element => {
+                element.Price = "";
+            });
+            this.a = this.profileForm.get('MembersExpense').value;
+            this.profileForm.setControl('MembersExpense', this.setExistingPrice(this.a));
+        }
+    }
+    setExistingPrice(priceSet) {
+        const formArray = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormArray"]([]);
+        priceSet.forEach(element => {
+            formArray.push(this.fb.group({
+                Name: element.Name,
+                Price: element.Price
+            }));
+        });
+        return formArray;
+    }
+    Back() {
+        this.router.navigate(['']);
     }
 };
 AddFriendExpenseComponent.ctorParameters = () => [
@@ -345,10 +378,10 @@ let AddFriendComponent = class AddFriendComponent {
         this.router = router;
         this.FormArray = [];
         this.FriendName = [];
-        this.getCurrentUser();
         this.frnd = new src_app_Shared_Friend__WEBPACK_IMPORTED_MODULE_5__["Friend"]();
     }
     ngOnInit() {
+        this.getCurrentUser();
         this.profileForm = this.fb.group({
             Friends: this.fb.array([
                 this.addFriendsGroup()
@@ -510,9 +543,9 @@ let ShowDetailsComponent = class ShowDetailsComponent {
     constructor(service, router) {
         this.service = service;
         this.router = router;
-        this.getCurrentUser();
     }
     ngOnInit() {
+        this.getCurrentUser();
     }
     getCurrentUser() {
         this.service.username().subscribe(u => {
@@ -564,6 +597,18 @@ let ShowDetailsComponent = class ShowDetailsComponent {
     Activity() {
         this.router.navigate(['Activity']);
     }
+    UnFriend(id) {
+        // alert(id);
+        // debugger;
+        this.service.Unfriend(this.user.id, id).subscribe((data) => {
+            console.log(data);
+            this.FriendName.splice;
+            this.ngOnInit();
+        }),
+            err => {
+                console.log("Error");
+            };
+    }
 };
 ShowDetailsComponent.ctorParameters = () => [
     { type: _user_service_service__WEBPACK_IMPORTED_MODULE_2__["UserServiceService"] },
@@ -607,15 +652,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _user_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../user-service.service */ "./src/app/user/user-service.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+
 
 
 
 let ShowFriendDetailComponent = class ShowFriendDetailComponent {
-    constructor(service) {
+    constructor(service, router) {
         this.service = service;
-        this.getCurrentUser();
+        this.router = router;
+        this.FriendBill = [];
     }
     ngOnInit() {
+        this.getCurrentUser();
     }
     getCurrentUser() {
         this.service.username().subscribe(u => {
@@ -624,11 +673,21 @@ let ShowFriendDetailComponent = class ShowFriendDetailComponent {
         });
     }
     getFriendExpense(id) {
-        this.service.getFriendExpense(id).subscribe(name => this.FriendBill = name);
+        this.service.getFriendExpense(id).subscribe(name => {
+            name.forEach(element => {
+                if (!(element.name == (this.user.name))) {
+                    this.FriendBill.push(element);
+                }
+            });
+        });
+    }
+    Back() {
+        this.router.navigate(['']);
     }
 };
 ShowFriendDetailComponent.ctorParameters = () => [
-    { type: _user_service_service__WEBPACK_IMPORTED_MODULE_2__["UserServiceService"] }
+    { type: _user_service_service__WEBPACK_IMPORTED_MODULE_2__["UserServiceService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
 ];
 ShowFriendDetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

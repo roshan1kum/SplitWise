@@ -6,6 +6,7 @@ namespace Splitwise.Repository.AplicationClasses
 {
     public class FriendBillAC
     {
+        public int Id { get; set; }
         public int Amount { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }

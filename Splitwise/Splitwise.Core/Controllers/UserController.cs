@@ -88,10 +88,10 @@ namespace Splitwise.Core.Controllers
         {
             if(ModelState.IsValid)
             {
-                await unitofwork.UserRepository.CreateFriendExpense(data);
+                unitofwork.UserRepository.CreateFriendExpense(data);
                 await unitofwork.Save();
 
-                await unitofwork.UserRepository.AddFriendBill(data);
+                unitofwork.UserRepository.AddFriendBill(data);
                 await unitofwork.Save();
             }
             return Ok(data);
@@ -137,6 +137,14 @@ namespace Splitwise.Core.Controllers
         public IEnumerable<Activity> GetActivity([FromRoute]string id)
         {
             return unitofwork.UserRepository.GetActivity(id);
+        }
+        [HttpDelete]
+        [Route("Unfriend/{id}/{FriendId}")]
+        public IActionResult UnFriend([FromRoute]string id,[FromRoute]string FriendId)
+        {
+            unitofwork.UserRepository.UnFriend(id,FriendId);
+            unitofwork.Save();
+            return Ok();
         }
     }
 }

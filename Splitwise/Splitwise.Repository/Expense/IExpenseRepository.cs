@@ -12,7 +12,7 @@ namespace Splitwise.Repository
         Task<Expense> CreateExpense(UserInExpense userInExpense,string userId);
         IEnumerable<Expense> GetAllExpenses();
         void EditExpense(int id,Expense expense);
-        Task<Expense> GetExpenseID(int id);
-        Task<UserInExpense> AddUser(UserInExpense exp);
+        UserInExpense GetExpenseID(int id);
+        Task<UserInExpense> AddUser(UserInExpense exp,int expId);
     }
 }

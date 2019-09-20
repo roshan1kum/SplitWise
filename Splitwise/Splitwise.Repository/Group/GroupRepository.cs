@@ -3,6 +3,7 @@ using Splitwise.DomainModel.Model;
 using Splitwise.Repository.AplicationClasses;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,14 +66,14 @@ namespace Splitwise.Repository
         public async Task<Group> Deletegroup(int id,string userId)
         {
             var groups = await context.Group.FindAsync(id);
-            IEnumerable<Expense> expense = context.Expense.Where(x => x.GrpId == groups.Id);
+            List<Expense> expense = context.Expense.Where(x => x.GrpId == groups.Id).ToList();
             var groupmembers = context.GroupMembers.Where(x => x.GrpId == groups.Id);           
             //IEnumerable<UserExpense> bills = context.UserExpenses.Where(x => x.ExpId == expense.Id);            
             if (groups != null)
             {
                 foreach (var i in expense)
                 {
-                    IEnumerable<UserExpense> bill = context.UserExpenses.Where(x => x.ExpId == i.Id);
+                    List<UserExpense> bill = context.UserExpenses.Where(x => x.ExpId == i.Id).ToList();
                     foreach (var j in bill)
                     {
                         context.UserExpenses.Remove(j);
@@ -115,7 +116,7 @@ namespace Splitwise.Repository
         }
 
             public IEnumerable<GroupMemberDetailAC> GetAllMembers(int id)
-        {
+            {
             List<GroupMembers> mem = context.GroupMembers.Where(x => x.GrpId == id).
                                                             Include(x=>x.Group).
                                                             Include(x=>x.User).ToList();
@@ -133,17 +134,20 @@ namespace Splitwise.Repository
             return List;
         }
 
-        public IEnumerable<GroupExpenseAC> GetGroupsExpenseId(int id)
+        public IDictionary<int, List<GroupExpenseAC>> GetGroupsExpenseId(int id)
         {
             var exp = context.Expense.Where(e=>e.GrpId==id);
             List<GroupExpenseAC> list = new List<GroupExpenseAC>();
-            foreach(var i in exp)
+            IDictionary<int, List<GroupExpenseAC>> dictionary = new Dictionary<int, List<GroupExpenseAC>>();
+            foreach (var i in exp)
             {
                 var userExpense = context.UserExpenses.Where(x => x.ExpId == i.Id).
                                Include(x => x.User).
                                Include(x => x.Expense).
-                               ThenInclude(x => x.Group).
+                               ThenInclude(x=>x.Paiduser)
+                               .Include(x => x.Expense).ThenInclude(x=>x.Group).                            
                                ThenInclude(x => x.Category).
+                             
                                ToList();
                 foreach(var j in userExpense)
                 {
@@ -158,16 +162,35 @@ namespace Splitwise.Repository
                     groupExpenseAC.CreaterGroupName= j.Expense.Group.CreaterGroup.Name;
                     groupExpenseAC.ExpensePaidBy = j.Expense.Paiduser.Name;
                     groupExpenseAC.ExpenseUserName = j.User.Name;
+                    groupExpenseAC.ExpId = j.Expense.Id;
                     list.Add(groupExpenseAC);
+                }            
+            }
+            
+            //Hashtable hashtable = new Hashtable();
+            foreach (var i in list)
+            {
+                if (dictionary.ContainsKey(i.ExpId))
+                {
+                    List<GroupExpenseAC> a = new List<GroupExpenseAC>();
+                    a = dictionary[i.ExpId];
+                    a.Add(i);
+                    dictionary[i.ExpId] = a;
+                }
+                else
+                {
+                    List<GroupExpenseAC> a = new List<GroupExpenseAC>();
+                    a.Add(i);
+                    dictionary.Add(i.ExpId,a);
                 }
 
-            
             }
-            return list.AsEnumerable();
+            return dictionary;
         }
 
         public async Task<Group> GetGroupsId(int id)
         {
+            //var exp=context.Expense.First(x=>x.GrpId==id)
             var group = await  context.Group.FirstAsync(x => x.Id == id);
             return group;
         }

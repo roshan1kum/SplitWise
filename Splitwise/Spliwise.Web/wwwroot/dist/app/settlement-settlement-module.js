@@ -152,10 +152,10 @@ let SettlementComponent = class SettlementComponent {
         this.default = 'UK';
         this.flag = "Friends";
         this.FriendName = new Array();
-        this.getCurrentUser();
         this.settlement = new _Shared_SettlementData__WEBPACK_IMPORTED_MODULE_4__["SettlementData"]();
     }
     ngOnInit() {
+        this.getCurrentUser();
         this.profileForm = this.fb.group({
             Cost: [''],
             Date: [''],

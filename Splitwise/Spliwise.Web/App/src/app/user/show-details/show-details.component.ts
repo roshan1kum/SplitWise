@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApplicationUserAC } from 'src/app/Shared/ApplicationUserAC';
 import { FriendBillAC } from 'src/app/Shared/FriendBillAC';
 import { Group } from 'src/app/Shared/Group';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -18,12 +19,13 @@ export class ShowDetailsComponent implements OnInit {
   FriendBill:FriendBillAC[];
   createrID:string;
   
-  constructor(private service:UserServiceService,private router:Router) {
-    this.getCurrentUser();
-
+  constructor(private service:UserServiceService,private router:Router,) {   
+    
    }
 
   ngOnInit() {
+    this.getCurrentUser();
+
   }
   getCurrentUser(): void{
     this.service.username().subscribe(u=>
@@ -80,6 +82,22 @@ export class ShowDetailsComponent implements OnInit {
   Activity()
   {
     this.router.navigate(['Activity'])
+  }
+  UnFriend(id:string)
+  {
+    // alert(id);
+    // debugger;
+    this.service.Unfriend(this.user.id,id).subscribe( 
+      (data) =>{
+        console.log(data);
+        this.FriendName.splice
+
+        this.ngOnInit();
+
+      }),
+      err => {
+        console.log("Error");
+      }   
   }
   
 }

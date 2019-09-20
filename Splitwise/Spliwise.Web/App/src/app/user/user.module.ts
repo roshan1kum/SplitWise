@@ -12,6 +12,7 @@ import { ActivityComponent } from './activity/activity.component';
 
 
 
+
 @NgModule({
   declarations: [AddFriendComponent, AddFriendExpenseComponent, EditUserComponent, ShowDetailsComponent, ShowFriendDetailComponent, ActivityComponent],
   imports: [
@@ -19,6 +20,7 @@ import { ActivityComponent } from './activity/activity.component';
     UserRoutingModule,
     FormsModule,
     ReactiveFormsModule
+   
   
   ]
 })

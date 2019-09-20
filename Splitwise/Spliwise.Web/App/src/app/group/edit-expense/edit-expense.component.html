@@ -41,7 +41,7 @@
                 </div>
             </div>
             <button type="button" (click)="AddMembers()">Add Members</button>
-            </div>
+            </div> -->
             <div class="form-group">
             <label>
               GroupName:
@@ -58,7 +58,7 @@
                 <div *ngFor="let name of allUser">
                     <input type="radio" formControlName="Paidby" [value]="name.userId">{{name.memberName}}
                 </div>
-            </div> -->
+            </div>
     </div>
     <div class="form-group">
             <button type="submit" [disabled]="!profileForm.valid">Submit</button>
