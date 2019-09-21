@@ -50,7 +50,7 @@
                         <tr *ngFor="let g of grpName" (click)="NavigateToGroupDashboard(g.id)">
                             <td>{{g.groupName}}</td>
                             <div class="form-group">
-                            <td><button class="btn btn-success" (click)="AddMembers(g.id)" >Add</button></td>
+                            <td><button class="btn btn-success friend-btn" (click)="AddMembers(g.id)" >Add</button></td>
                             <td><button class="btn btn-success friend-btn" (click)="Members(g.id)">Members</button></td>
 
                         </div>

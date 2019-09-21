@@ -105,4 +105,8 @@ export class UserServiceService {
   {
     return this.http.get<GroupExpenseData>("http://localhost:50534/api/Expense/"+id);
   }
+deleteExpense(id:number)
+{
+  return this.http.delete("http://localhost:50534/api/Expense/"+id);
+}
 }

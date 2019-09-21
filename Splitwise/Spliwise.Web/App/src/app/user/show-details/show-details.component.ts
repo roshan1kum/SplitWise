@@ -42,7 +42,7 @@ export class ShowDetailsComponent implements OnInit {
   getGroups(id):void{
     this.service.getGroupsofUser(id).subscribe(name=>{
       this.grpName=name
-      // this.createrID=this.grpName[0].creatorId;
+      // this.createrID=this.grpName[0].creatorid;
     });
   }
   getFriendExpense(id){

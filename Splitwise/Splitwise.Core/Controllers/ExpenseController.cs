@@ -79,6 +79,13 @@ namespace Splitwise.Core.Controllers
         {
             return unitofwork.ExpenseRepository.GetAllExpenses();
         }
+        [HttpDelete("{expId}")]
+        public async Task<IActionResult> DeleteExpense(int expId)
+        {
+            await unitofwork.ExpenseRepository.Delete(expId);
+            await unitofwork.Save();
+            return Ok(); 
+        }
 
         #endregion
 

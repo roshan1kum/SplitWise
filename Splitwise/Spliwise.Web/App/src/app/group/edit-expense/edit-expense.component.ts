@@ -52,16 +52,7 @@ export class EditExpenseComponent implements OnInit {
       Cost:details.cost,
       Description:details.description,
       Date:details.date,
-      Split:details.split,
-      // GroupName:details.
+      Split:details.split     
     });
   }
-
-
-
-
-
-
-
-
 }

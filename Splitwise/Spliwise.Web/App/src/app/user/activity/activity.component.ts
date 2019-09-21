@@ -27,6 +27,8 @@ export class ActivityComponent implements OnInit {
   getActivity(userId:string){
     this.service.Activity(userId).subscribe(res=>{
       this.Activity=res;
+      console.log(this.Activity)
+      
     })
 
   }

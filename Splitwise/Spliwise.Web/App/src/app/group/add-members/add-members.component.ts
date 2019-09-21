@@ -27,8 +27,7 @@ export class AddMembersComponent implements OnInit {
   constructor(private service:UserServiceService,private fb:FormBuilder,private router:Router,private route:ActivatedRoute,private _location: Location) {
  
     this.members=new GroupMembersAC();
-    this.id=+this.route.snapshot.paramMap.get('id');
-  
+    this.id=+this.route.snapshot.paramMap.get('id');  
    }
    profileForm:FormGroup;
 

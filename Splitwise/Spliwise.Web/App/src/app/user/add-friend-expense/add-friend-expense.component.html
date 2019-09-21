@@ -1,65 +1,106 @@
-<!-- <p>add friend expense work</p> -->
+
 <form class="form-horizontal">
 <div class="panel panel-primary">
         <div class="panel-heading">Add Friend Expense</div>
         <div class="panel-body">
                 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                         <div class="panel-body">
-                            <div class="form-group">
-                                <label class="col-sm-2">
+                            <div class="form-group">                                
+                                <label>
                                 Cost:
-                                <input type="number" formControlName="Cost">
-                                </label>
+                                <input type="number" formControlName="Cost" class="form-control">
+                                </label>                      
                             </div>
                             <div class="form-group">
-                                    <label class="col-sm-2">
+                                    <label>
                                     Description:
-                                    <input type="text" formControlName="Description">
+                                    <input type="text" formControlName="Description" class="form-control">
                                     </label>
                             </div>
                             <div class="form-group">
-                                    <label class="col-sm-2">
+                                    <label>
                                     Date:                                    
-                                    <input type="date" formControlName="Date">
+                                    <input type="date" formControlName="Date" class="form-control">
                                     </label>
                             </div>
                           
                         </div>
+                        
                         <div class="well">
                         <div formArrayName="MembersExpense" *ngFor="let m of profileForm.get('MembersExpense').controls;let i=index">
                             <div [formGroupName]="i">
-                                <label>
+                               <div class="row">
+                                   <div class="col-sm-6">
+                                <label >
                                     Name
                                 </label>
-                                    <input type ="text"  formControlName="Name" >
+                                                                   
+                                    <select formControlName="Name" class="form-control" >
+                                        <option value="">Choose User</option>
+                                        <option *ngFor = "let user of FriendName" [(ngValue)]="user"  [value]="user.name">{{user.name}}</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-sm-6">
                                     <label>
                                         Price
-                                    </label>            
-                                    <input type="text"  formControlName="Price">
+                                    </label>                                               
+                                    <input type="text"  formControlName="Price" class="form-control">
+                                </div> 
                             </div>
-                            <button type="button" (click)="deleteMembers(i)">Delete</button>
+                            </div>
+                            <!-- <button type="button" (click)="deleteMembers(i)">Delete</button> -->
                         </div>
-                        <button type="button" (click)="AddMembers()">Add Members</button>
+                        <div class="panel-group"><br>
+                            <button type="button" class="btn btn-primary" (click)="AddMembers()">Add Members</button>
+                        </div>
                         </div>
                         <div class="panel-body">
                         <div class="form-group">
-                                <label>
+                                <label class="radio-inline">
                                     Split:
                                 </label>
+                                <label class="radio-inline">
                                 <input type="radio" formControlName="Split" value="equally" (click)="Split($event.target.value)">Equally
+                                </label>
+                                <label class="radio-inline">
                                 <input type="radio" formControlName="Split" value="Unequally" (click)="Split($event.target.value)">Unequally
-                            </div>  
-                            <div class="form-group">
-                                <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+                                </label>
+                            </div>                              
+                            <div class=" panel-footer form-group">
+                                <button class="btn btn-primary" type="submit" [disabled]="!profileForm.valid">Submit</button>
                             </div>
                             </div>
                             
-                    </form>
-                    
-                    
-                    
+                    </form>                                                            
     </div>
     </div>
     </form>
     <button class="btn btn-success" (click)="Back()">Back</button>
     
+
+
+
+<!-- <form #GroupExpenseForm="ngForm" (ngSubmit)=SaveGroupExpense(GroupExpenseForm)>
+<div class="panel panel-primary">
+        <div class="panel-heading">Create Expense</div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="Cost">Cost</label>
+                    <input type ="text" name="Cost" [(ngModel)]="Cost" class="form-control">                                
+            </div>
+            <div class="form-group">
+                <label for="Friendname">Choose Friend</label>
+                    <select id="Friendname" name="Friendname" [(ngModel)]="Friendname" class="form-control">
+                            <option value="">Choose User</option>
+                        <option *ngFor = "let user of FriendName"  [value]="user.name">{{user.name}}</option>
+                    </select>
+                
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>                        
+        </div>
+    </div>
+</form> -->
+
+

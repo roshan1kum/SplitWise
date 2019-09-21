@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, FormArray, NgForm } from '@angular/forms';
 import { UserServiceService } from '../user-service.service';
 import { Router } from '@angular/router';
 import { ApplicationUserAC } from 'src/app/Shared/ApplicationUserAC';
@@ -33,7 +33,7 @@ a:FormArray;
   profileForm:FormGroup;
 
   ngOnInit() {
-    this.getCurrentUser();
+     this.getCurrentUser();
     this.profileForm = this.fb.group({
       Cost:[''],
       Description: [''],
@@ -99,7 +99,7 @@ a:FormArray;
           this.FriendName.push(element);
         });
         
-        // console.log(this.FriendName);
+        console.log(this.FriendName);
       }); 
     }
     Split(isChecked:string)
@@ -141,4 +141,9 @@ a:FormArray;
     {
       this.router.navigate([''])
     }
+
+    // SaveGroupExpense(grpexpForm:NgForm)
+    // {
+    //     console.log(grpexpForm.value)
+    // }
 }

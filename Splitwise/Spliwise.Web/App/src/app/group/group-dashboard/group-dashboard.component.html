@@ -22,9 +22,12 @@
                 </div>
                 <!-- <ng-container *ngIf="group.showGroupExpense"> -->
                 <div class="panel-body">
-                        <!-- <button class="btn btn-success friend-btn" (click)="Edit(item.key)" id="bt" style="float: right;">
+                        <button class="btn btn-success friend-btn" (click)="Edit(item.key)" id="bt" style="float: right;">
                                 Edit
-                            </button>            -->
+                            </button>
+                            <button class="btn btn-success friend-btn" (click)="DeleteExpense(item.key)" id="bt" style="float: right;">
+                                Delete
+                            </button>           
                     <table class="table">
                         <tr>
                             <th>Name</th>
@@ -37,7 +40,7 @@
                          <td>{{i?.splitAmount}}</td>
                          <td>{{i.description}}</td>
                          <td>{{i.expensePaidBy}}</td>
-                    </tr>                       
+                    </tr>                                       
                     </table>  
                 </div>
             <!-- </ng-container> -->
@@ -52,7 +55,7 @@
     <button class="btn btn-success friend-btn" (click)="Delete()">Delete</button>
     <button class="btn btn-success friend-btn" (click)="Back()">Back</button>
     </div>
-<!-- <td><button class="btn btn-success friend-btn" (click)="Edit()">Edit</button></td> -->
+
 
 
 

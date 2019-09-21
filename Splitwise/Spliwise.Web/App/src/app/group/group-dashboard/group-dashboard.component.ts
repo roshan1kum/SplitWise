@@ -89,9 +89,19 @@ export class GroupDashboardComponent implements OnInit {
   {
     this.router.navigate(['Groups/Edit',id]);
   }
-    Back()
+  Back()
+  {
+    this.router.navigate([''])
+  }
+  DeleteExpense(id:number)
+  {
+    alert(id)
+    this.service.deleteExpense(id).subscribe(res=>
     {
-      this.router.navigate([''])
-    }
+      this.ngOnInit();
+    })
+    
+  }
+    
 
 }

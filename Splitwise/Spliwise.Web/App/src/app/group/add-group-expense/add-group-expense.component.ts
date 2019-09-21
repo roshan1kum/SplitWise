@@ -74,12 +74,9 @@ export class AddGroupExpenseComponent implements OnInit {
       this.service.getGroupsofUser(id).subscribe(res=>{
           this.grpName=res;
         })
-
     }
-   
     onSubmit()
-    {
-     
+    {     
       this.groupExpense.cost=this.profileForm.get('Cost').value;
       this.groupExpense.createrId=this.user.id;
       this.groupExpense.date=this.profileForm.get('Date').value;
@@ -101,6 +98,7 @@ export class AddGroupExpenseComponent implements OnInit {
       this.service.createExpense(this.groupExpense).subscribe(res=>{
         this._location.back()
       })
+      // console.log(this.profileForm.get('MembersExpense').value)
       }
     onChange(id:number) {
       this.ID=id;

@@ -83,6 +83,7 @@ namespace Splitwise.Repository
                             ToList();
             return expense;
         }
+        
 
         public UserInExpense GetExpenseID(int id)
         {
@@ -111,7 +112,19 @@ namespace Splitwise.Repository
             }
             return userInExpense;
         }
-       
+
+        public async Task<Expense> Delete(int expId)
+        {
+            var expense = await context.Expense.FirstOrDefaultAsync(x => x.Id == expId);
+            var userexpense = context.UserExpenses.Where(x => x.ExpId == expId);
+            foreach(var i in userexpense)
+            {
+                context.UserExpenses.Remove(i);
+            }
+            context.Expense.Remove(expense);
+            return expense;
+        }
+
         #endregion
 
     }

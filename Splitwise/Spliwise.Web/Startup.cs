@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using Splitwise.DomainModel;
 using Splitwise.DomainModel.Model;
 using Splitwise.Repository.UnitOfWork;
@@ -27,6 +28,9 @@ namespace Spliwise.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+                    //.AddJsonOptions(opt => opt.SerializerSettings.ContractResolver
+                    // = new DefaultContractResolver()); 
+
             services.AddDbContext<SplitwiseContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SplitwiseContext")));
             services.AddIdentity<ApplicationUser, IdentityRole>()

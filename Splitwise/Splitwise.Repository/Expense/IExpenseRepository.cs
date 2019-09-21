@@ -14,5 +14,6 @@ namespace Splitwise.Repository
         void EditExpense(int id,Expense expense);
         UserInExpense GetExpenseID(int id);
         Task<UserInExpense> AddUser(UserInExpense exp,int expId);
+        Task<Expense> Delete(int expId);
     }
 }
