@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './material/material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
@@ -20,7 +22,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule,
+    BrowserAnimationsModule
     ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/my/app' }],
   bootstrap: [AppComponent]

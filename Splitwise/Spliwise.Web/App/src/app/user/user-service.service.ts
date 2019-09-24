@@ -109,4 +109,8 @@ deleteExpense(id:number)
 {
   return this.http.delete("http://localhost:50534/api/Expense/"+id);
 }
+EditExpense(id:number,Expense:GroupExpenseData)
+{
+  return this.http.put("http://localhost:50534/api/Expense/"+id,Expense);
+}
 }

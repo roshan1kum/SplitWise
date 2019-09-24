@@ -104,6 +104,9 @@ let UserServiceService = class UserServiceService {
     deleteExpense(id) {
         return this.http.delete("http://localhost:50534/api/Expense/" + id);
     }
+    EditExpense(id, Expense) {
+        return this.http.put("http://localhost:50534/api/Expense/" + id, Expense);
+    }
 };
 UserServiceService.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }

@@ -43,7 +43,6 @@ a:FormArray;
         this.addMembersFormGroup()
       ])
       });
-
   }
 
   addMembersFormGroup():FormGroup{

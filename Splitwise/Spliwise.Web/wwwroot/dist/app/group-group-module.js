@@ -48,7 +48,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<p>edit-expense works!</p>\n\n<form [formGroup]=\"profileForm\" (ngSubmit)=\"onSubmit()\">\n    <div class=\"panel-body\">\n        <div class=\"form-group\">\n            <label>\n            Cost:\n            <input type=\"number\" formControlName=\"Cost\">\n            </label>\n        </div>\n        <div class=\"form-group\">\n                <label>\n                Description:\n                <input type=\"text\" formControlName=\"Description\">\n                </label>\n        </div>\n        <div class=\"form-group\">\n                <label>\n                Date:\n                <input type=\"date\" formControlName=\"Date\">\n                </label>\n        </div>\n        <div class=\"form-group\">\n            <label>\n                Split:\n            </label>\n            <input type=\"radio\" formControlName=\"Split\" value=\"equally\">Equally\n            <input type=\"radio\" formControlName=\"Split\" value=\"Unequally\">Unequally\n        </div> \n        <!-- <div class=\"well\">\n            <div formArrayName=\"MembersExpense\" *ngFor=\"let m of profileForm.get('MembersExpense').controls;let i=index\">\n                <div [formGroupName]=\"i\">\n                    <label>\n                        Name\n                    </label>\n                        <input type =\"text\"  formControlName=\"Name\" >\n                        <label>\n                            Price\n                        </label>            \n                        <input type=\"number\"  formControlName=\"Price\">\n                </div>\n            </div>\n            <button type=\"button\" (click)=\"AddMembers()\">Add Members</button>\n            </div> -->\n            <div class=\"form-group\">\n            <label>\n              GroupName:\n              <select (change)=\"onChange($event.target.value)\" class = \"form-control\"  formControlName=\"GroupName\">\n                    <option value=\"\">Choose your Group</option>\n                    <option *ngFor = \"let grp of grpName\" [(ngValue)]=\"grp\"  [value]=\"grp.id\">{{grp.groupName}}</option>\n                 </select>\n            </label>\n        </div>  \n            <div class=\"form-group\">\n                <label>\n                    Paid by:\n                </label>\n                <div *ngFor=\"let name of allUser\">\n                    <input type=\"radio\" formControlName=\"Paidby\" [value]=\"name.userId\">{{name.memberName}}\n                </div>\n            </div>\n    </div>\n    <div class=\"form-group\">\n            <button type=\"submit\" [disabled]=\"!profileForm.valid\">Submit</button>\n    </div>\n</form>\n\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<p>edit-expense works</p>\n\n<form [formGroup]=\"profileForm\" (ngSubmit)=\"onSubmit()\">\n    <div class=\"panel-body\">\n        <div class=\"form-group\">\n            <label>\n            Cost:\n            <input type=\"number\" formControlName=\"Cost\">\n            </label>\n        </div>\n        <div class=\"form-group\">\n                <label>\n                Description:\n                <input type=\"text\" formControlName=\"Description\">\n                </label>\n        </div>\n        <div class=\"form-group\">\n                <label>\n                Date:\n                <input type=\"date\" formControlName=\"Date\">\n                </label>\n        </div>\n        <div class=\"form-group\">\n            <label>\n                Split:\n            </label>\n            <input type=\"radio\" formControlName=\"Split\" value=\"equally\" (click)=\"Split($event.target.value)\">Equally\n            <input type=\"radio\" formControlName=\"Split\" value=\"Unequally\" (click)=\"Split($event.target.value)\">Unequally\n        </div> \n        <!-- <div class=\"well\">\n            <div formArrayName=\"MembersExpense\" *ngFor=\"let m of profileForm.get('MembersExpense').controls;let i=index\">\n                <div [formGroupName]=\"i\">\n                    <label>\n                        Name\n                    </label>\n                        <input type =\"text\"  formControlName=\"Name\" >\n                        <label>\n                            Price\n                        </label>            \n                        <input type=\"number\"  formControlName=\"Price\">\n                </div>\n            </div>\n            <button type=\"button\" (click)=\"AddMembers()\">Add Members</button>\n            </div> -->\n               \n        <div class=\"well\">\n            <div formArrayName=\"MembersExpense\" *ngFor=\"let m of profileForm.get('MembersExpense').controls;let i=index\">\n                <div [formGroupName]=\"i\">\n                    <div class=\"row\">\n                        <div class=\"col-sm-4\">\n                    <label>\n                        Name\n                    </label>\n                    <!-- <input type =\"text\"  formControlName=\"Name\" > -->\n                    <select class=\"form-control\" formControlName=\"Name\">\n                        <option value=\"\">Choose User</option>\n                        <option *ngFor = \"let user of allUser\" [(ngValue)]=\"user\"  [value]=\"user.userId\">{{user.memberName}}</option>\n                    </select>\n                    </div>\n                    <div class=\"col-sm-4\">\n                    <label>\n                        Price\n                    </label>                                \n                        <input class=\"form-control\" type=\"number\"  formControlName=\"Price\">\n                    </div>\n                    <div class=\"col-sm-4\">\n                        <label>\n                           Delete\n                        </label><br>                                \n                           <button class=\"btn btn-primary\" type=\"button\" (click)=\"deleteMembers(i)\">Delete</button>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"panel-group\"><br>\n            <button class=\"btn btn-primary\" type=\"button\" (click)=\"AddMembers()\">Add Members</button>\n            </div>\n        </div>\n            <!-- <div class=\"form-group\">\n            <label>\n              GroupName:\n              <select id=\"GroupName\" (change)=\"onChange($event.target.value)\" class = \"form-control\"  formControlName=\"GroupName\">\n                    <option value=\"\">Choose your Group</option>\n                    <option *ngFor = \"let grp of grpName\" [(ngValue)]=\"grp\"  [value]=\"grp.id\">{{grp.groupName}}</option>\n                 </select>\n            </label>\n        </div>   -->\n            <div class=\"form-group\">\n                <label>\n                    Paid by:\n                </label>\n                <div *ngFor=\"let name of allUser\">\n                    <input type=\"radio\" formControlName=\"Paidby\" [value]=\"name.userId\">{{name.memberName}}\n                </div>\n            </div>\n    </div>\n    <div class=\"form-group\">\n            <button type=\"submit\" [disabled]=\"!profileForm.valid\">Submit</button>\n    </div>\n</form>\n\n\n");
 
 /***/ }),
 
@@ -574,6 +574,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _Shared_GroupExpenseData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Shared/GroupExpenseData */ "./src/app/Shared/GroupExpenseData.ts");
 /* harmony import */ var _user_user_service_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../user/user-service.service */ "./src/app/user/user-service.service.ts");
+/* harmony import */ var _Shared_Members__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Shared/Members */ "./src/app/Shared/Members.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+
+
 
 
 
@@ -581,11 +585,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let EditExpenseComponent = class EditExpenseComponent {
-    constructor(route, fb, service) {
+    constructor(_location, route, fb, service, router) {
+        this._location = _location;
         this.route = route;
         this.fb = fb;
         this.service = service;
+        this.router = router;
         this.details = new _Shared_GroupExpenseData__WEBPACK_IMPORTED_MODULE_4__["GroupExpenseData"]();
+        this.allUser = [];
+        this.NamePrice = [];
+        this.expenseData = new _Shared_GroupExpenseData__WEBPACK_IMPORTED_MODULE_4__["GroupExpenseData"]();
+        this.expenseData.groupUsersExpenses = new Array();
     }
     ngOnInit() {
         this.profileForm = this.fb.group({
@@ -593,20 +603,54 @@ let EditExpenseComponent = class EditExpenseComponent {
             Description: [''],
             Date: [''],
             Split: [''],
-            GroupName: [''],
             Paidby: [''],
+            GroupName: [''],
+            MembersExpense: this.fb.array([
+                this.addMembersFormGroup()
+            ])
         });
+        // this.expenseData.groupUsersExpenses=new Array<Members>();
         this.route.paramMap.subscribe(params => {
-            const ID = +params.get('id');
-            if (ID) {
-                this.getExpenseDetails(ID);
+            this.ID = +params.get('id');
+            if (this.ID) {
+                this.getExpenseDetails(this.ID);
+                //this.getCurrentUser();
             }
         });
+    }
+    addMembersFormGroup() {
+        return this.fb.group({
+            Name: [''],
+            Price: ['']
+        });
+    }
+    AddMembers() {
+        this.profileForm.get('MembersExpense').push(this.addMembersFormGroup());
+        // console.log(this.profileForm.get('MembersExpense').value)
+    }
+    deleteMembers(index) {
+        this.profileForm.get('MembersExpense').removeAt(index);
     }
     getExpenseDetails(ID) {
         this.service.getExpenseDetailsId(ID).subscribe(res => {
             this.data = res;
-            this.edit(res);
+            this.getCurrentUser();
+            console.log(this.data);
+            // this.edit(res);
+        });
+    }
+    getCurrentUser() {
+        this.service.username().subscribe(u => {
+            this.user = u;
+            this.getGroups(this.user.id);
+        });
+    }
+    getGroups(id) {
+        this.service.getGroupsofUser(id).subscribe(res => {
+            this.grpName = res;
+            // this.default=this.grpName.find(x=>x.id==this.data.grpId)
+            this.edit(this.data);
+            // console.log(this.default)
         });
     }
     edit(details) {
@@ -615,14 +659,119 @@ let EditExpenseComponent = class EditExpenseComponent {
             Cost: details.cost,
             Description: details.description,
             Date: details.date,
-            Split: details.split
+            Split: details.split,
+            Paidby: details.paidbyId
+            // GroupName:new FormControl(d.id)
+        });
+        this.profileForm.controls['GroupName'].patchValue(this.data.grpId, { onlySelf: true });
+        this.allUserGroup(this.data.grpId);
+    }
+    // Nameprice(array:any){
+    //   this.NamePrice=new Array<NamePrice>();
+    //   array.forEach(element => {
+    //     this.NP=new NamePrice();        
+    //    this.allUser.forEach(e => {
+    //      if(e.userId==element.userId)
+    //      {
+    //        this.NP.Name=e.memberName;
+    //        this.NP.Price=element.amount;
+    //        this.NamePrice.push(this.NP);      
+    //      }         
+    //    });       
+    //   });
+    //   this.profileForm.setControl('MembersExpense',this.setExistingUser(this.data.groupUsersExpenses))
+    //   console.log(this.NamePrice);
+    // }
+    // setExistingUser(array:any):FormArray
+    // {
+    //   const formArray=new FormArray([]);      
+    //   array.forEach(element => {
+    //     formArray.push(this.fb.group({
+    //       Name:element.Name,
+    //       Price:element.Price
+    //     }));        
+    //   });
+    //   return formArray;
+    // }
+    allUserGroup(id) {
+        this.allUser = new Array();
+        this.service.getallMembers(id).subscribe(res => {
+            res.forEach(element => {
+                this.allUser.push(element);
+            });
+            console.log(this.allUser);
+            this.profileForm.setControl('MembersExpense', this.setExistingUser(this.data.groupUsersExpenses));
+            // this.Nameprice(this.data.groupUsersExpenses);        
+        });
+    }
+    setExistingUser(array) {
+        const formArray = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormArray"]([]);
+        array.forEach(element => {
+            formArray.push(this.fb.group({
+                Name: element.userId,
+                Price: element.amount
+            }));
+        });
+        return formArray;
+    }
+    Split(isChecked) {
+        if (isChecked == "equally") {
+            let K = 0;
+            this.profileForm.get('MembersExpense').value.forEach(element => {
+                K++;
+            });
+            this.profileForm.get('MembersExpense').value.forEach(element => {
+                element.Price = this.profileForm.get('Cost').value / K;
+            });
+            this.a = this.profileForm.get('MembersExpense').value;
+            this.profileForm.setControl('MembersExpense', this.setExistingPrice(this.a));
+        }
+        else {
+            this.profileForm.get('MembersExpense').value.forEach(element => {
+                element.Price = "";
+            });
+            this.a = this.profileForm.get('MembersExpense').value;
+            this.profileForm.setControl('MembersExpense', this.setExistingPrice(this.a));
+        }
+    }
+    setExistingPrice(priceSet) {
+        const formArray = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormArray"]([]);
+        priceSet.forEach(element => {
+            formArray.push(this.fb.group({
+                Name: element.Name,
+                Price: element.Price
+            }));
+        });
+        return formArray;
+    }
+    onSubmit() {
+        console.log(this.profileForm.value);
+        this.expenseData.cost = this.profileForm.get('Cost').value;
+        this.expenseData.description = this.profileForm.get('Description').value;
+        this.expenseData.date = this.profileForm.get('Date').value;
+        this.expenseData.grpId = this.profileForm.get('GroupName').value;
+        this.expenseData.paidbyId = this.profileForm.get('Paidby').value;
+        this.expenseData.split = this.profileForm.get('Split').value;
+        this.expenseData.createrId = this.data.createrId;
+        this.expenseData.id = this.ID;
+        this.profileForm.get('MembersExpense').value.forEach(element => {
+            this.member = new _Shared_Members__WEBPACK_IMPORTED_MODULE_6__["Members"]();
+            this.member.userId = element.Name;
+            this.member.Amount = element.Price;
+            this.expenseData.groupUsersExpenses.push(this.member);
+        });
+        console.log(this.expenseData);
+        this.service.EditExpense(this.ID, this.expenseData).subscribe(res => {
+            this._location.back();
         });
     }
 };
 EditExpenseComponent.ctorParameters = () => [
+    { type: _angular_common__WEBPACK_IMPORTED_MODULE_7__["Location"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
-    { type: _user_user_service_service__WEBPACK_IMPORTED_MODULE_5__["UserServiceService"] }
+    { type: _user_user_service_service__WEBPACK_IMPORTED_MODULE_5__["UserServiceService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
 ];
 EditExpenseComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

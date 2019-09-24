@@ -19,12 +19,13 @@ export class ShowDetailsComponent implements OnInit {
   FriendBill:FriendBillAC[];
   createrID:string;
   
-  constructor(private service:UserServiceService,private router:Router,) {   
+  constructor(private service:UserServiceService,private router:Router,) {
     
    }
 
   ngOnInit() {
     this.getCurrentUser();
+    
 
   }
   getCurrentUser(): void{

@@ -48,8 +48,8 @@ namespace Splitwise.Core.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditExpense([FromRoute] int id,[FromBody]Expense expense)
-        {
+        public async Task<IActionResult> EditExpense([FromRoute] int id,[FromBody]UserInExpense expense)
+            {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

@@ -9,7 +9,8 @@ import { ShowDetailsComponent } from './show-details/show-details.component';
 import { ShowFriendDetailComponent } from './show-friend-detail/show-friend-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivityComponent } from './activity/activity.component';
-// import { MaterialModule } from 'src/app/material/material.module';
+import { MaterialModule } from 'src/app/material/material.module';
+
 
 
 
@@ -20,8 +21,8 @@ import { ActivityComponent } from './activity/activity.component';
     CommonModule,
     UserRoutingModule,
     FormsModule,
-    ReactiveFormsModule
-    // MaterialModule
+    ReactiveFormsModule,
+    MaterialModule
    
   
   ]

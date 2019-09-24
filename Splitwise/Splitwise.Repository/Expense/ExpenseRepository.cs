@@ -68,9 +68,20 @@ namespace Splitwise.Repository
             return exp;
         }
 
-        public void EditExpense(int id, Expense expense)
+        public async Task EditExpense(int id, UserInExpense expense)
         {
-            throw new NotImplementedException();
+            Expense userInExpense = context.Expense.FirstOrDefault(x => x.Id == id);
+            List<UserExpense> Uexp = context.UserExpenses.Where(x => x.ExpId == userInExpense.Id).ToList();
+            context.UserExpenses.RemoveRange(Uexp);
+            userInExpense.Cost = expense.Cost;
+            userInExpense.Description = expense.Description;
+            userInExpense.Date = expense.Date;
+            userInExpense.CreaterId = expense.CreaterId;
+            userInExpense.GrpId = expense.GrpId;
+            userInExpense.PaidbyId = expense.PaidbyId;
+            userInExpense.Split = expense.Split;
+            context.Expense.Update(userInExpense);
+            await AddUser(expense, id);
         }
 
         public IEnumerable<Expense> GetAllExpenses()
@@ -99,7 +110,7 @@ namespace Splitwise.Repository
             userInExpense.Date = userExpense[0].Expense.Date;
             userInExpense.CreaterId = userExpense[0].Expense.CreaterId;
             userInExpense.GrpId = userExpense[0].Expense.Group.Id;
-            userInExpense.PaidbyId = userExpense[0].Expense.Paiduser.Id;
+            userInExpense.PaidbyId = userExpense[0].Expense.PaidbyId;
             userInExpense.Split = userExpense[0].Expense.Split;
             userInExpense.Id = userExpense[0].Expense.Id;
             userInExpense.GroupUsersExpenses = new List<GroupUsersExpensesAC>();
