@@ -9,7 +9,7 @@ namespace Splitwise.DomainModel.Model
     {
         public int Id { get; set; }
         public int ExpId { get; set; }
-        public int? UsersId { get; set; }
+        public string UsersId { get; set; }
         public int SplitAmount { get; set; }
 
         [ForeignKey("ExpId")]

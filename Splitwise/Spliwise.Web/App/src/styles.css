@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.friend-detail-table{
+    border: 1px solid black;
+}
+
+.friend-detail-table tr{
+    border-bottom: 1px solid black;
+}
+
+.friend-detail-table tr th, .friend-detail-table tr td{
+    padding: 3px 5px;
+    border-right: 1px solid black;
+}
+
+.friend-btn{
+    margin-left: 5px;
+}

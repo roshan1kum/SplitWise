@@ -1,0 +1,71 @@
+<p>settlement works!</p>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="panel-body">
+            <div class="form-group">
+                <label>
+                Cost:
+                <input type="number" formControlName="Cost">
+                </label>
+            </div>
+           
+            <div class="form-group">
+                    <label>
+                    Date:
+                    <input type="date" formControlName="Date">
+                    </label>
+            </div>
+            <div class="form-group">
+                    <label>
+                      GroupName:
+                      <select (change)="onChange($event.target.value)"  class = "form-control"  formControlName="Group">
+                            <option value="">No Group</option>
+                            <option *ngFor = "let grp of grpName" [(ngValue)]="grp"  [value]="grp.id">{{grp.groupName}}</option>
+                         </select>
+                    </label>
+            </div>
+            <div class="form-group" *ngIf='flag=="Group"'>
+                    <label>
+                            User1:
+                            <select class = "form-control"  formControlName="User1">
+                                  <option *ngFor = "let user of allUser" [(ngValue)]="user"  [value]="user.userId">{{user.memberName}}</option>
+                               </select>
+                    </label>
+            </div>
+            <div class="form-group" *ngIf='flag=="Friends"'>
+                    <label>
+                            User1:
+                            <select class = "form-control"  formControlName="User1">
+                                  <option *ngFor = "let user of FriendName" [(ngValue)]="user"  [value]="user.id">{{user.name}}</option>
+                               </select>
+                    </label>
+            </div>
+            <label>Paid</label>
+            <div class="form-group" *ngIf='flag=="Group"'>
+                    <label>
+                            User2:
+                            <select class = "form-control"  formControlName="User2">
+                                  <option *ngFor = "let user of allUser" [(ngValue)]="user"  [value]="user.userId">{{user.memberName}}</option>
+                               </select>
+                    </label>
+            </div>
+            <div class="form-group" *ngIf='flag=="Friends"'>
+                    <label>
+                            User2:
+                            <select class = "form-control"  formControlName="User2">
+                                  <option *ngFor = "let user of FriendName" [(ngValue)]="user"  [value]="user.id">{{user.name}}</option>
+                               </select>
+                    </label>
+            </div>
+
+
+         
+            <div class="form-group">
+                    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+            </div>
+                
+    
+                    
+                      
+        </div>
+</form>

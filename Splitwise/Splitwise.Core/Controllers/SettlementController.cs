@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Splitwise.DomainModel.Model;
 using Splitwise.Repository.UnitOfWork;
 using System;
@@ -10,6 +11,7 @@ namespace Splitwise.Core.Controllers
 {
     [Produces("application/json")]
     [Route("api/Settlement")]
+    //[Authorize]
     public class SettlementController:Controller
     {
         #region Private variable
@@ -25,13 +27,14 @@ namespace Splitwise.Core.Controllers
 
         #region Public method
         [HttpPost]
-        public async Task<Expense> Create([FromBody] Settlement settlement)
+        public async Task<Settlement> Create([FromBody] Settlement settlement)
         {
             //await unitofwork.SettlementRepository.CreateSettlement(settlement);
             //await unitofwork.Save();
 
-            var expense= await unitofwork.SettlementRepository.show(settlement);
-            return expense;
+            var settlements= await unitofwork.SettlementRepository.CreateSettlement(settlement);
+            await unitofwork.Save();
+            return settlements;
         }
 
         [HttpGet("{id}")]

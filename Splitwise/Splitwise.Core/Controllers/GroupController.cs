@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Splitwise.DomainModel.Model;
+using Splitwise.Repository.AplicationClasses;
 using Splitwise.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -10,16 +13,19 @@ namespace Splitwise.Core.Controllers
 {
     [Produces("application/json")]
     [Route("api/Groups")]
+
     public class GroupController : Controller
     {
         #region Private Variable
         private readonly IUnitofwork unitofwork;
+        private readonly UserManager<ApplicationUser> userManager;
         #endregion
 
         #region Constructor
-        public GroupController(IUnitofwork unitofwork)
+        public GroupController(IUnitofwork unitofwork,UserManager<ApplicationUser> userManager)
         {
             this.unitofwork = unitofwork;
+            this.userManager = userManager;
         }
         #endregion
 
@@ -37,36 +43,69 @@ namespace Splitwise.Core.Controllers
             return CreatedAtAction("GetAllGroup", new { id = group.Id }, group);
         }
 
-        [HttpGet]
-        public IEnumerable<Group> GetAllGroup()
+        [Route("GetAllGroupsId/{id}")]
+        public IEnumerable<Group> GetAllGroupId([FromRoute] string id)
         {
-            return unitofwork.GroupRepository.GetAllGroups();
+            return unitofwork.GroupRepository.GetAllGroupsId(id);
+        }
+        [Route("GetAllGroupsMembersId/{id}")]
+        public IEnumerable<Group> GetAllGroupsMembersId([FromRoute] string id)
+        {
+            return unitofwork.GroupRepository.GetAllGroupsMembersId(id);
         }
 
-        [HttpPost("{id}")]
-        public async Task<IActionResult> AddMemebers([FromRoute]int id, [FromBody] GroupMembers grp)
+        [Route("AddMembers")]
+        public async Task<IActionResult> AddMemebers([FromBody] GroupMembers grp)
         {
             await unitofwork.GroupRepository.AddMembers(grp);
             await unitofwork.Save();
             return Ok(grp);
         }
+        [Route("AddMembersList")]
+        public async Task<IActionResult> AddMembersList([FromBody] GroupMembersAC groupMembersAC)
+        {
+            var username = User.Identity.Name;
+            ApplicationUser user = await userManager.FindByNameAsync(username);
+            if (ModelState.IsValid)
+            {
+                List<string> MemberId = groupMembersAC.UserId;
+                int grpId = groupMembersAC.GrpId;
+                await unitofwork.GroupRepository.AddMembersList(grpId, MemberId,user.Id);
+                await unitofwork.Save();
+            }
+            return Ok(groupMembersAC);
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGroup([FromRoute] int id)
         {
+            var username=User.Identity.Name;
+            ApplicationUser user = await userManager.FindByNameAsync(username);
+
             var groups = await unitofwork.GroupRepository.GetGroupsId(id);
-            await unitofwork.GroupRepository.Deletegroup(id);
+            await unitofwork.GroupRepository.Deletegroup(id,user.Id);
             await unitofwork.Save();
-            return Ok(groups);
-           
+            return Ok();
         }
 
         [HttpGet("{id}")]
-        public async Task<IEnumerable<UserExpense>> GetGroupId([FromRoute]  int id)
+        public IDictionary<int, List<GroupExpenseAC>> GetGroupExpenseId([FromRoute]  int id)
         {
-            var grp = await unitofwork.GroupRepository.GetGroupsId(id);
+            var grp = unitofwork.GroupRepository.GetGroupsExpenseId(id);
             return grp;
         }
+
+        [Route("GetMembers/{id}")]
+        public IEnumerable<GroupMemberDetailAC> GetMembers([FromRoute] int id)
+        {
+            return unitofwork.GroupRepository.GetAllMembers(id);
+        }
+        [Route("GetGroups/{id}")]
+        public async Task<Group> GetGroupsId([FromRoute] int id)
+        {
+            return await unitofwork.GroupRepository.GetGroupsId(id);
+        }
+               
         #endregion
 
     }

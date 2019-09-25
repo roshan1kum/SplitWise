@@ -1,4 +1,5 @@
 ﻿using Splitwise.DomainModel.Model;
+using Splitwise.Repository.ApplicationClasses;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +9,11 @@ namespace Splitwise.Repository
 {
     public interface IExpenseRepository
     {
-        Task<Expense> CreateExpense(UserInExpense userInExpense);
+        Task<Expense> CreateExpense(UserInExpense userInExpense,string userId);
         IEnumerable<Expense> GetAllExpenses();
-        void EditExpense(int id,Expense expense);
-        Task<Expense> GetExpenseID(int id);
-        Task<UserInExpense> AddUser(UserInExpense exp);
+        Task EditExpense(int id,UserInExpense expense);
+        UserInExpense GetExpenseID(int id);
+        Task<UserInExpense> AddUser(UserInExpense exp,int expId);
+        Task<Expense> Delete(int expId);
     }
 }

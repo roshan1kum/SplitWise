@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using Splitwise.DomainModel;
 using Splitwise.DomainModel.Model;
 using Splitwise.Repository.UnitOfWork;
@@ -27,11 +28,18 @@ namespace Spliwise.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+                    //.AddJsonOptions(opt => opt.SerializerSettings.ContractResolver
+                    // = new DefaultContractResolver()); 
+
             services.AddDbContext<SplitwiseContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("SplitwiseContext")));
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<SplitwiseContext>();
             services.AddScoped<IUnitofwork, Unitofwork>();
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "App/dist";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,10 +54,31 @@ namespace Spliwise.Web
             {
                 app.UseExceptionHandler("/Error");
             }
-
+            app.UseSpaStaticFiles();
             app.UseStaticFiles();
+            app.UseAuthentication();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute("default", "{controller=Account}/{action=Login}/{id?}");
+            //});
 
-            app.UseMvc();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(name: "default",
+            //    template: "{controller}/{action}",
+            //    defaults: new { controller = "Account", action = "Login" });
+
+            //});
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                     name: "default",
+                     template: "{controller=Account}/{action=Index}/{id?}");
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Account", action = "Index" });
+            });
         }
     }
 }

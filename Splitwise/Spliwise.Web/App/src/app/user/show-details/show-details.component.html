@@ -1,0 +1,75 @@
+<!-- <h1>show details</h1> -->
+<mat-toolbar color="primary" >
+        <div style="width: 50%">Splitwise Details</div>
+        <div style="width: 50%; text-align: right;">
+                        <button mat-button (click)="Activity()">Activity</button>
+                        <button mat-button [matMenuTriggerFor]="menu">Operation</button>
+                        <mat-menu #menu="matMenu">
+                          <button mat-menu-item (click)="AddFriendExpense()">Add Friend Expense</button>
+                          <button mat-menu-item (click)="AddGroupExpense()">Add Group Expense</button>
+                          <button mat-menu-item (click)="Settlement()">Settle Up</button>                          
+                        </mat-menu>
+        </div>        
+</mat-toolbar><br>
+
+<!-- <div class="panel panel-primary">
+    <div class="panel-heading">Split wise</div>
+    <div class="panel-body">
+        <h2>{{user?.name}}</h2>
+        <button class="btn btn-success" (click)="Activity()">Activity</button>         
+</div>
+</div> -->
+
+<!-- <div class="row"> -->
+        <div  >
+                <div class="panel panel-primary">
+                        <div class="panel-heading">Friends</div>
+                        <div class="panel-body">
+                                <button mat-flat-button color="primary" style='margin-right:16px' (click)="AddFriend()">Add Friend</button>
+                                <button mat-flat-button color="primary" style='margin-right:16px' (click)="FriendDashBoard()">Friend DashBoard</button><br><br>                
+                                <table class='table'>
+                                        <tr *ngFor="let f of FriendName">
+                                            <td><h3>{{f.name}}</h3></td>
+                                            <td><button mat-raised-button color="warn" (click)="UnFriend(f.id)">Unfriend</button> </td>
+                                        </tr>
+                                    </table>
+                        </div>         
+                    </div>
+                </div>
+                <!-- <div class=col-md-6 width=50%>
+                        <div class="panel panel-primary">
+                                <div class="panel-heading">Operation</div>
+                                <div class="panel-body">
+                                        <div class="form-group">
+                                                <button class="btn btn-success" (click)="AddFriendExpense()">Add Friend Expense</button>
+                                                </div>
+                                                <div class="form-group">
+                                                <button class="btn btn-success" (click)="AddGroupExpense()">Add Group Expense</button><br>
+                                                </div>
+                                                <div class="form-group">
+                                                <button class="btn btn-success" (click)="Settlement()">Settle Up</button>
+                                                </div> 
+                                </div>         
+                        </div>
+                </div> -->
+<!-- </div> -->
+
+
+<div class="panel panel-primary">
+        <div class="panel-heading">Group Name</div>
+        <div class="panel-body">
+                <button mat-flat-button color="primary" (click)="AddGroup()">Add Group</button>
+                <table class='table'>
+                        <tr *ngFor="let g of grpName" (click)="NavigateToGroupDashboard(g.id)">
+                            <td><h3>{{g.groupName}}</h3></td>
+                            <div class="form-group">
+                            <td><button mat-raised-button color="primary" style='margin-right:16px' (click)="AddMembers(g.id)" >Add</button></td>
+                            <td><button mat-raised-button color="primary" style='margin-right:16px' (click)="Members(g.id)">Members</button></td>
+
+                        </div>
+                        </tr>
+                    </table>                        
+        </div>         
+</div>
+  
+       

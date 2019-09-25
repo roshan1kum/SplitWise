@@ -1,0 +1,90 @@
+<form class="form-horizontal">
+    <div class="panel panel-primary">
+            <div class="panel-heading">Add Friend Expense</div>
+            <div class="panel-body">            
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="panel-body">
+        <div class="form-group">
+                <label>
+            Cost:
+            <input type="number" formControlName="Cost" class="form-control">
+            </label>
+        </div>
+        <div class="form-group">
+                <label>
+                Description:
+                <input type="text" formControlName="Description" class="form-control">
+                </label>
+        </div>
+        <div class="form-group">
+                <label>
+                Date:
+                <input type="date" formControlName="Date" class="form-control">
+                </label>
+        </div>
+        <div class="form-group">
+            <label >
+              Group Name:
+              <select (change)="onChange($event.target.value)" class = "form-control"  formControlName="GroupName">
+                    <option value="">Choose your Group</option>
+                    <option *ngFor = "let grp of grpName" [(ngValue)]="grp"  [value]="grp.id">{{grp.groupName}}</option>
+                 </select>
+            </label>
+        </div>
+        
+        <div class="well">
+            <div formArrayName="MembersExpense" *ngFor="let m of profileForm.get('MembersExpense').controls;let i=index">
+                <div [formGroupName]="i">
+                    <div class="row">
+                        <div class="col-sm-6">
+                    <label>
+                        Name
+                    </label>
+                    <!-- <input type ="text"  formControlName="Name" > -->
+                    <select class="form-control" formControlName="Name">
+                        <option value="">Choose User</option>
+                        <option *ngFor = "let user of allUser" [(ngValue)]="user"  [value]="user.memberName">{{user.memberName}}</option>
+                    </select>
+                    </div>
+                    <div class="col-sm-6">
+                    <label>
+                        Price
+                    </label>                                
+                        <input class="form-control" type="number"  formControlName="Price">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group"><br>
+            <button class="btn btn-primary" type="button" (click)="AddMembers()">Add Members</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="radio-inline">
+                Split:
+            </label>
+            
+            <label class="radio-inline">
+            <input type="radio" formControlName="Split" value="equally" (click)="Split($event.target.value)">Equally
+            </label>
+            <label class="radio-inline">
+            <input type="radio" formControlName="Split" value="Unequally" (click)="Split($event.target.value)">Unequally
+            </label>
+        </div> 
+             
+            <div class="form-group">
+                <label>
+                    Paid by:
+                </label>
+                <div *ngFor="let name of allUser">
+                    <input type="radio" formControlName="Paidby" [value]="name.userId">{{name.memberName}}
+                </div>
+            </div>    
+    <div class="form-group">
+        <button type="btn btn-success" [disabled]="!profileForm.valid">Submit</button>
+    </div>
+    </div>
+</form>
+</div>
+</div>
+</form>
